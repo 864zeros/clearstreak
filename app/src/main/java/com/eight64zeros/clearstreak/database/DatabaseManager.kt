@@ -282,7 +282,7 @@ class DatabaseManager(private val context: Context) {
                 CREATE TABLE journeys (
                     id TEXT PRIMARY KEY,
                     title TEXT NOT NULL,
-                    category TEXT NOT NULL CHECK(category IN ('substance','behavioral','custom')),
+                    category TEXT NOT NULL CHECK(category IN ('substance','smoking','gambling','behavioral','custom')),
                     start_timestamp INTEGER NOT NULL,
                     daily_cost_savings REAL DEFAULT 0.0,
                     is_archived INTEGER DEFAULT 0,
@@ -321,7 +321,7 @@ class DatabaseManager(private val context: Context) {
         }
 
         override fun onUpgrade(db: AndroidSQLiteDatabase, oldVersion: Int, newVersion: Int) {
-            // Future schema migrations
+            // Schema upgrade handler
         }
     }
 
@@ -333,7 +333,7 @@ class DatabaseManager(private val context: Context) {
                     id TEXT PRIMARY KEY,
                     journey_id TEXT NOT NULL,
                     timestamp INTEGER NOT NULL,
-                    moodScore INTEGER,
+                    mood_score INTEGER,
                     urge_level TEXT NOT NULL CHECK(urge_level IN ('CLEAR','PASSING','WHITE_KNUCKLING','CRITICAL')),
                     halt_trigger TEXT CHECK(halt_trigger IN ('HUNGRY','ANGRY','LONELY','TIRED','STRESSED','HOPELESS','GENERAL')),
                     note_encrypted BLOB,
@@ -346,13 +346,17 @@ class DatabaseManager(private val context: Context) {
         }
 
         override fun onUpgrade(db: SQLCipherDatabase, oldVersion: Int, newVersion: Int) {
-            // Future schema migrations
+            if (oldVersion < 2) {
+                // Drop and recreate or migrate check_ins table
+                db.execSQL("DROP TABLE IF EXISTS check_ins")
+                onCreate(db)
+            }
         }
     }
 
     companion object {
         private const val CORE_DB_NAME = "streak_core.db"
         private const val ENC_DB_NAME = "recovery_enc.db"
-        private const val DB_VERSION = 1
+        private const val DB_VERSION = 2
     }
 }
