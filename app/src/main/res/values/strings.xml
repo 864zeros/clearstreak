@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ClearStreak</string>
+    <string name="widget_title">ClearStreak Tracker</string>
+    <string name="widget_description">Shows active recovery streak and quick check-in.</string>
+    
+    <!-- Core Brand Strings -->
+    <string name="brand_tagline">Your recovery is yours alone.</string>
+    <string name="brand_promise">We cannot see it, sell it, subpoena it, or lose it.</string>
+    
+    <!-- Biometrics & Security -->
+    <string name="biometric_prompt_title">Unlock ClearStreak</string>
+    <string name="biometric_prompt_subtitle">Hardware-bound biometric authentication</string>
+    <string name="biometric_prompt_description">Touch the fingerprint sensor or use Face Unlock to decrypt your recovery database.</string>
+    <string name="biometric_prompt_cancel">Cancel</string>
+</resources>

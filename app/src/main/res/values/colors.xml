@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- OIA Design System Brand Colors -->
+    <color name="oia_sage">#8BA888</color>
+    <color name="oia_sage_dark">#7A9676</color>
+    <color name="oia_sage_light">#96B893</color>
+    <color name="oia_coral">#E8A598</color>
+    <color name="oia_coral_dark">#D99A8E</color>
+    
+    <!-- Backgrounds -->
+    <color name="oia_cream">#F5F2ED</color>
+    <color name="oia_warm_white">#FDFCFA</color>
+    <color name="oia_dark_bg">#1A1A1A</color>
+    <color name="oia_dark_card">#242424</color>
+    
+    <!-- Neutrals & Semantics -->
+    <color name="oia_taupe">#A69485</color>
+    <color name="oia_dusty_blue">#7A8FA3</color>
+    <color name="oia_mustard">#C9A86C</color>
+    <color name="oia_charcoal">#2D2D2D</color>
+    <color name="oia_stone">#5C5C5C</color>
+    <color name="oia_error">#D4847A</color>
+</resources>

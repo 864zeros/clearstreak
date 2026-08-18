@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Zero cloud backup for encrypted recovery data -->
+        <exclude domain="database" path="recovery_enc.db" />
+        <exclude domain="database" path="recovery_enc.db-wal" />
+        <exclude domain="database" path="recovery_enc.db-shm" />
+        <exclude domain="sharedpref" path="clearstreak_secure_prefs.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="database" path="streak_core.db" />
+    </device-transfer>
+</data-extraction-rules>
