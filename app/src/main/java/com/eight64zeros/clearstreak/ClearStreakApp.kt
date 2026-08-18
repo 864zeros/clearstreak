@@ -1,7 +1,7 @@
 package com.eight64zeros.clearstreak
 
 import android.app.Application
-import net.zetetic.database.sqlcipher.SQLiteDatabase
+import net.sqlcipher.database.SQLiteDatabase
 
 class ClearStreakApp : Application() {
     override fun onCreate() {

@@ -11,8 +11,8 @@ import com.eight64zeros.clearstreak.model.HaltTrigger
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.JourneyCategory
 import com.eight64zeros.clearstreak.model.UrgeLevel
-import net.zetetic.database.sqlcipher.SQLiteDatabase as SQLCipherDatabase
-import net.zetetic.database.sqlcipher.SQLiteOpenHelper as SQLCipherOpenHelper
+import net.sqlcipher.database.SQLiteDatabase as SQLCipherDatabase
+import net.sqlcipher.database.SQLiteOpenHelper as SQLCipherOpenHelper
 import java.io.File
 
 class DatabaseManager(private val context: Context) {
@@ -27,7 +27,8 @@ class DatabaseManager(private val context: Context) {
 
     @Synchronized
     fun unlockEncryptedDatabase(passphrase: ByteArray) {
-        if (encryptedDb != null && encryptedDb!!.isOpen) return
+        val current = encryptedDb
+        if (current != null && current.isOpen) return
         val helper = EncryptedDbHelper(context)
         this.encDbHelper = helper
         this.encryptedDb = helper.getWritableDatabase(passphrase)
@@ -42,7 +43,7 @@ class DatabaseManager(private val context: Context) {
     }
 
     val isEncryptedDbUnlocked: Boolean
-        get() = encryptedDb != null && encryptedDb!!.isOpen
+        get() = encryptedDb?.isOpen == true
 
     // ==========================================
     // Journeys (streak_core.db)

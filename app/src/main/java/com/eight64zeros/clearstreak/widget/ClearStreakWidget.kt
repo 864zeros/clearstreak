@@ -62,18 +62,13 @@ class ClearStreakWidget : GlanceAppWidget() {
         val charcoal = Color(0xFF2D2D2D)
         val stone = Color(0xFF5C5C5C)
 
-        val openAppIntent = Intent().apply {
-            setClassName("com.eight64zeros.clearstreak", "com.eight64zeros.clearstreak.MainActivity")
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
-
         Box(
             modifier = GlanceModifier
                 .fillMaxSize()
                 .background(ColorProvider(warmWhite))
                 .cornerRadius(16.dp)
                 .padding(14.dp)
-                .clickable(actionStartActivity(openAppIntent)),
+                .clickable(actionStartActivity<MainActivity>()),
             contentAlignment = Alignment.Center
         ) {
             Column(
