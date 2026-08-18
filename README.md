@@ -65,7 +65,7 @@ clearStreak/
 │   └── src/
 │       ├── main/
 │       │   ├── AndroidManifest.xml
-│       │   ├── java/com/_864zeros/clearstreak/
+│       │   ├── java/com/eight64zeros/clearstreak/
 │       │   │   ├── ClearStreakApp.kt
 │       │   │   ├── MainActivity.kt
 │       │   │   ├── security/

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com._864zeros.clearstreak"
+    namespace = "com.eight64zeros.clearstreak"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com._864zeros.clearstreak"
+        applicationId = "com.eight64zeros.clearstreak"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
