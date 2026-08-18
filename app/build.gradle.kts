@@ -9,7 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.864zeros.clearstreak"
+        applicationId = "com._864zeros.clearstreak"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
