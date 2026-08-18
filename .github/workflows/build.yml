@@ -35,3 +35,13 @@ jobs:
         name: clearstreak-core-debug-apk
         path: app/build/outputs/apk/core/debug/*.apk
         retention-days: 14
+
+    - name: Build Store Release APK (R8 minify + resource shrink)
+      run: gradle assembleStoreRelease
+
+    - name: Upload Store Release APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: clearstreak-store-release-apk
+        path: app/build/outputs/apk/store/release/*.apk
+        retention-days: 14
