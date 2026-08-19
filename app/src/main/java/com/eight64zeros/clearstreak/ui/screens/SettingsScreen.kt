@@ -62,6 +62,9 @@ fun SettingsScreen(
     showFaithReflections: Boolean,
     onToggleFaithReflections: (Boolean) -> Unit,
     onOpenScience: () -> Unit,
+    isPremiumUnlocked: Boolean,
+    unlockPriceText: String,
+    onOpenUnlock: () -> Unit,
     onLockApp: () -> Unit,
     onBack: () -> Unit
 ) {
@@ -211,6 +214,51 @@ fun SettingsScreen(
                         checked = showFaithReflections,
                         onToggle = onToggleFaithReflections
                     )
+                }
+            }
+
+            // Unlock / support
+            item {
+                if (isPremiumUnlocked) {
+                    OIACard(
+                        backgroundColor = OIASage.copy(alpha = 0.12f),
+                        borderColor = OIASage.copy(alpha = 0.3f),
+                        cornerRadius = 16.dp,
+                        padding = 16.dp
+                    ) {
+                        Text(
+                            text = "✓ ClearStreak unlocked",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIASage
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "You have everything, forever. Thank you for supporting privacy-first recovery.",
+                            fontSize = 13.sp,
+                            color = OIAStone
+                        )
+                    }
+                } else {
+                    OIACard(
+                        modifier = Modifier.clickable { onOpenUnlock() },
+                        backgroundColor = OIAWarmWhite,
+                        cornerRadius = 16.dp,
+                        padding = 16.dp
+                    ) {
+                        Text(
+                            text = "✨ Unlock everything — $unlockPriceText",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIACharcoal
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "One-time, no subscription. Crisis tools are always free.",
+                            fontSize = 13.sp,
+                            color = OIAStone
+                        )
+                    }
                 }
             }
 

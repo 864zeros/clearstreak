@@ -8,12 +8,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.biometric.BiometricPrompt
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.eight64zeros.clearstreak.billing.PremiumManager
+import com.eight64zeros.clearstreak.billing.createPremiumManager
 import com.eight64zeros.clearstreak.data.AppSettingsStorage
 import com.eight64zeros.clearstreak.data.EmergencyContactStorage
 import com.eight64zeros.clearstreak.data.EmergencyContacts
@@ -42,6 +45,7 @@ import com.eight64zeros.clearstreak.ui.screens.JournalScreen
 import com.eight64zeros.clearstreak.ui.screens.ScienceScreen
 import com.eight64zeros.clearstreak.ui.screens.JourneyDetailScreen
 import com.eight64zeros.clearstreak.ui.screens.SettingsScreen
+import com.eight64zeros.clearstreak.ui.screens.UnlockScreen
 import com.eight64zeros.clearstreak.ui.theme.ClearStreakTheme
 import javax.crypto.Cipher
 
@@ -54,6 +58,7 @@ class MainActivity : FragmentActivity() {
     private lateinit var settingsStorage: AppSettingsStorage
     private lateinit var heritageStore: HeritageStore
     private lateinit var passageStore: PassageStore
+    private lateinit var premiumManager: PremiumManager
 
     private var isUnlockedState by mutableStateOf(false)
     private var currentRoute by mutableStateOf<String>(Screen.Dashboard.route)
@@ -87,6 +92,7 @@ class MainActivity : FragmentActivity() {
         settingsStorage = AppSettingsStorage(this)
         heritageStore = HeritageStore(this)
         passageStore = PassageStore(this)
+        premiumManager = createPremiumManager(this)
 
         contactsState = contactStorage.getContacts()
         showVerseOnHome = settingsStorage.showDailyVerseOnHome
@@ -187,6 +193,11 @@ class MainActivity : FragmentActivity() {
         currentRoute = Screen.Dashboard.route
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (this::premiumManager.isInitialized) premiumManager.dispose()
+    }
+
     @Composable
     private fun MainAppContent() {
         if (!isUnlockedState) {
@@ -196,6 +207,8 @@ class MainActivity : FragmentActivity() {
             )
             return
         }
+
+        val premiumState by premiumManager.state.collectAsState()
 
         when {
             currentRoute == Screen.CrisisIntercept.route -> {
@@ -251,8 +264,19 @@ class MainActivity : FragmentActivity() {
                         showFaithReflections = it
                     },
                     onOpenScience = { currentRoute = Screen.Science.route },
+                    isPremiumUnlocked = premiumState.isUnlocked,
+                    unlockPriceText = premiumState.priceText,
+                    onOpenUnlock = { currentRoute = Screen.Unlock.route },
                     onLockApp = { lockApp() },
                     onBack = { currentRoute = Screen.Dashboard.route }
+                )
+            }
+            currentRoute == Screen.Unlock.route -> {
+                UnlockScreen(
+                    state = premiumState,
+                    onUnlockClicked = { premiumManager.launchPurchase(this@MainActivity) },
+                    onRestoreClicked = { premiumManager.restorePurchases() },
+                    onBack = { currentRoute = Screen.Settings.route }
                 )
             }
             currentRoute == Screen.AddJourney.route -> {

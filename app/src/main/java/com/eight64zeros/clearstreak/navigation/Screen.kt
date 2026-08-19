@@ -8,6 +8,7 @@ sealed class Screen(val route: String) {
     data object Heritage : Screen("heritage")
     data object Science : Screen("science")
     data object Settings : Screen("settings")
+    data object Unlock : Screen("unlock")
     data object CrisisIntercept : Screen("crisis_intercept")
     data object AddJourney : Screen("add_journey")
     data class JourneyDetail(val journeyId: String) : Screen("journey_detail/$journeyId")

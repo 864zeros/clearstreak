@@ -104,6 +104,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
+    // Google Play Billing — store flavor only; core stays air-gapped (no INTERNET, no billing)
+    "storeImplementation"(libs.billing)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
