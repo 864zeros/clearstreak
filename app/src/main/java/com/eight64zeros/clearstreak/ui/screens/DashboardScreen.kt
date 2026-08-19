@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Book
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Spa
 import androidx.compose.material3.FloatingActionButton
@@ -77,6 +78,7 @@ fun DashboardScreen(
     onCrisisTriggered: () -> Unit,
     onNavigateJournal: () -> Unit,
     onNavigateReset: () -> Unit,
+    onNavigateHeritage: () -> Unit,
     onNavigateSettings: () -> Unit,
     onLockApp: () -> Unit
 ) {
@@ -130,6 +132,16 @@ fun DashboardScreen(
                     onClick = onNavigateReset,
                     icon = { Icon(Icons.Outlined.Spa, contentDescription = "Reset") },
                     label = { Text("Reset", fontSize = 12.sp) },
+                    colors = NavigationBarItemDefaults.colors(
+                        unselectedIconColor = OIATaupe,
+                        unselectedTextColor = OIAStone
+                    )
+                )
+                NavigationBarItem(
+                    selected = false,
+                    onClick = onNavigateHeritage,
+                    icon = { Icon(Icons.Outlined.MenuBook, contentDescription = "Faith") },
+                    label = { Text("Faith", fontSize = 12.sp) },
                     colors = NavigationBarItemDefaults.colors(
                         unselectedIconColor = OIATaupe,
                         unselectedTextColor = OIAStone

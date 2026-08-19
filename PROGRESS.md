@@ -65,7 +65,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 | **3 — Minimalist Calendar & Progress Visualizer** | ✅ Done | Per-journey month heatmap on the detail screen; derives 3 states from the 4-tier model. |
 | **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | ✅ Done | `HapticEngine`, Pocket Anchor timer, 4×4 box breather, "Reset" tab; screen kept awake during sessions. Background service **descoped** (phone-on assumption). |
 | **5 — Offline Visuospatial Mini-Games** | ✅ Done | Portable `game/` package: Tile Merge, Pattern Echo, Block Drop — all gated, host with picker + time-box banner. |
-| **6 — Offline Heritage Vault (Proverbs, 1939 Big Book, FTS5)** | ⬜ Not started | Big Book is **counsel-gated** (§5). Proverbs/Serenity Prayer are clean. |
+| **6 — Offline Heritage Vault (Proverbs, Serenity Prayer, FTS5)** | 🟡 Infra done | FTS5 `heritage.db` + "Faith" tab: Serenity Prayer, Proverb-a-Day (day→chapter), search. Proverbs bundled as a labeled **SAMPLE** — full WEB text pending. 1939 Big Book **excluded** (counsel-gated). |
 | **7 — Unified Crisis Intercept Hub** | 🟡 Largely exists | `CrisisInterceptScreen` built (tel:// dialers, geo, 2-sec safe-exit, breathing, grounding). |
 
 **Coping cards (old model):** ❌ removed. Replaced by Bricks 4–6 per the §2 pivot.
@@ -99,6 +99,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 - **Games are a self-contained, portable module.** The `com.eight64zeros.clearstreak.game` package has **zero imports** from the recovery domain (model/data/database/security) — the engine is pure Kotlin, the board is pure Compose — so the game cores could be lifted into a standalone game app. Dependency flows one way: ClearStreak `ui` → `game`, never the reverse. ClearStreak-specific concerns (time-box banner, gating, scoring-into-history) live in a thin `ui` wrapper (`MiniGamesCard`).
 - **Game gating in the global Reset tab.** There is no single "active journey" there, so games are shown only when **no** journey is flagged `suppress_game_tools` (protective: any gaming/screen-recovery journey hides the whole suite). Finer per-journey gating can live in the check-in flow later.
 - **Block Drop trade-dress.** Differentiated from Tetris per *Tetris Holding v. Xio* (2012): the name "Block Drop", a non-canonical **8×16** well (not 10×20), a **monochrome slate** palette (no 7-color piece mapping), and **no ghost piece / next-preview / hold**. The polyomino shapes themselves are uncopyrightable math.
+- **Heritage Vault storage.** A plaintext `heritage.db` with an **FTS5** virtual table over public-domain content (available in Android's system SQLite at minSdk 26). Non-sensitive, so no SQLCipher. Seeded on first run from the bundled `assets/proverbs_web.txt`. The 1939 AA Big Book is deliberately excluded — copyright contested / counsel-gated (§5).
 
 ---
 
@@ -107,6 +108,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 **Brick 4b (screen-off Pocket Anchor): DESCOPED (2026-08-18).** The design assumption is the phone/screen is on during a grounding session, so the foreground-service / screen-off path is **not** built. Instead the tools keep the screen awake (`View.keepScreenOn`) while running — no background service, no `POST_NOTIFICATIONS`, no foreground-service type, no Play-policy review.
 
 **Deferred (flagged, not forgotten):**
+- **Full Proverbs text.** The Heritage Vault ships only a small labeled **SAMPLE** of WEB Proverbs. Drop the complete public-domain 31-chapter WEB text into `app/src/main/assets/proverbs_web.txt` (format `chapter|verse|text`, `#` comments ignored) to complete Proverb-a-Day + search. Sourceable from ebible.org.
 - **Milestone celebration haptic pulse** — the `HapticEngine` now exists (Brick 4); still needs a "last-celebrated milestone" persistence hook to fire once per crossing.
 - **Slip framing immediacy** — currently shows on `JourneyDetailScreen` only. Showing it *right after* a slip is logged needs the check-in flow to pass `stats` to the modal (plumbing).
 - **Play Billing (IAP)** — the P0 one-time unlock. `store` flavor has the `BILLING` permission but no billing code.
