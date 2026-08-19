@@ -68,6 +68,7 @@ class DatabaseManager(private val context: Context) {
                         id = it.getString(it.getColumnIndexOrThrow("id")),
                         title = it.getString(it.getColumnIndexOrThrow("title")),
                         category = JourneyCategory.fromString(it.getString(it.getColumnIndexOrThrow("category"))),
+                        customLabel = it.getColumnIndexOrThrow("custom_label").let { i -> if (it.isNull(i)) null else it.getString(i) },
                         startTimestamp = it.getLong(it.getColumnIndexOrThrow("start_timestamp")),
                         dailyCostSavings = it.getDouble(it.getColumnIndexOrThrow("daily_cost_savings")),
                         isArchived = it.getInt(it.getColumnIndexOrThrow("is_archived")) == 1,
@@ -86,6 +87,7 @@ class DatabaseManager(private val context: Context) {
             put("id", journey.id)
             put("title", journey.title)
             put("category", journey.category.dbValue)
+            put("custom_label", journey.customLabel)
             put("start_timestamp", journey.startTimestamp)
             put("daily_cost_savings", journey.dailyCostSavings)
             put("is_archived", if (journey.isArchived) 1 else 0)
@@ -100,6 +102,7 @@ class DatabaseManager(private val context: Context) {
         val values = ContentValues().apply {
             put("title", journey.title)
             put("category", journey.category.dbValue)
+            put("custom_label", journey.customLabel)
             put("start_timestamp", journey.startTimestamp)
             put("daily_cost_savings", journey.dailyCostSavings)
             put("is_archived", if (journey.isArchived) 1 else 0)
@@ -218,7 +221,8 @@ class DatabaseManager(private val context: Context) {
                 CREATE TABLE journeys (
                     id TEXT PRIMARY KEY,
                     title TEXT NOT NULL,
-                    category TEXT NOT NULL CHECK(category IN ('substance','smoking','gambling','behavioral','custom')),
+                    category TEXT NOT NULL,
+                    custom_label TEXT,
                     start_timestamp INTEGER NOT NULL,
                     daily_cost_savings REAL DEFAULT 0.0,
                     is_archived INTEGER DEFAULT 0,
@@ -236,6 +240,35 @@ class DatabaseManager(private val context: Context) {
             if (oldVersion < 4) {
                 // Coping cards removed (blueprint §2): drop the obsolete table
                 db.execSQL("DROP TABLE IF EXISTS coping_cards")
+            }
+            if (oldVersion < 5) {
+                // New category taxonomy + custom_label; recreate to drop the old category CHECK.
+                db.execSQL(
+                    """
+                    CREATE TABLE journeys_new (
+                        id TEXT PRIMARY KEY,
+                        title TEXT NOT NULL,
+                        category TEXT NOT NULL,
+                        custom_label TEXT,
+                        start_timestamp INTEGER NOT NULL,
+                        daily_cost_savings REAL DEFAULT 0.0,
+                        is_archived INTEGER DEFAULT 0,
+                        suppress_game_tools INTEGER DEFAULT 0,
+                        created_at INTEGER DEFAULT (strftime('%s','now'))
+                    );
+                    """.trimIndent()
+                )
+                db.execSQL(
+                    """
+                    INSERT INTO journeys_new (id, title, category, custom_label, start_timestamp, daily_cost_savings, is_archived, suppress_game_tools, created_at)
+                    SELECT id, title,
+                        CASE category WHEN 'substance' THEN 'alcohol' WHEN 'smoking' THEN 'vape' ELSE category END,
+                        NULL, start_timestamp, daily_cost_savings, is_archived, suppress_game_tools, created_at
+                    FROM journeys;
+                    """.trimIndent()
+                )
+                db.execSQL("DROP TABLE journeys")
+                db.execSQL("ALTER TABLE journeys_new RENAME TO journeys")
             }
         }
     }
@@ -272,6 +305,6 @@ class DatabaseManager(private val context: Context) {
     companion object {
         private const val CORE_DB_NAME = "streak_core.db"
         private const val ENC_DB_NAME = "recovery_enc.db"
-        private const val DB_VERSION = 4
+        private const val DB_VERSION = 5
     }
 }

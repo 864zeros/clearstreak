@@ -316,7 +316,7 @@ private fun JourneyCard(
                     color = OIACharcoal
                 )
                 Text(
-                    text = journey.category.displayName,
+                    text = "${journey.category.emoji} ${journey.categoryLabel}",
                     fontSize = 13.sp,
                     color = OIAStone
                 )

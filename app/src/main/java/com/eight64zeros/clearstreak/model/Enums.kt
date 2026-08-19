@@ -31,11 +31,12 @@ enum class HaltTrigger(val displayName: String, val emoji: String) {
 }
 
 enum class JourneyCategory(val dbValue: String, val displayName: String, val emoji: String) {
-    SUBSTANCE("substance", "Substances & Alcohol", "🍷"),
-    SMOKING("smoking", "Smoking & Nicotine", "🚬"),
-    GAMBLING("gambling", "Gambling & Betting", "🎲"),
-    BEHAVIORAL("behavioral", "Behavioral & Habits", "📱"),
-    CUSTOM("custom", "Custom Target", "✨");
+    ALCOHOL("alcohol", "Alcohol", "🍷"),
+    DRUGS("drugs", "Drugs", "💊"),
+    VAPE("vape", "Vape", "💨"),
+    GAMBLING("gambling", "Gambling", "🎲"),
+    BEHAVIORAL("behavioral", "Behavioral", "📱"),
+    CUSTOM("custom", "Custom", "✨");
 
     companion object {
         fun fromString(value: String): JourneyCategory {

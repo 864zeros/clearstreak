@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,14 +49,15 @@ import com.eight64zeros.clearstreak.ui.theme.OIAStone
 import com.eight64zeros.clearstreak.ui.theme.OIATaupe
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun AddJourneyModal(
     onAddJourney: (Journey) -> Unit,
     onDismiss: () -> Unit
 ) {
     var title by remember { mutableStateOf("") }
-    var selectedCategory by remember { mutableStateOf(JourneyCategory.SUBSTANCE) }
+    var selectedCategory by remember { mutableStateOf(JourneyCategory.ALCOHOL) }
+    var customLabel by remember { mutableStateOf("") }
     var dailyCostSavingsStr by remember { mutableStateOf("") }
     var startMillis by remember { mutableStateOf(System.currentTimeMillis()) }
     var showDatePicker by remember { mutableStateOf(false) }
@@ -138,34 +141,40 @@ fun AddJourneyModal(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row(
+            FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 JourneyCategory.entries.forEach { cat ->
                     val isSelected = selectedCategory == cat
                     Surface(
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(48.dp)
-                            .clickable { selectedCategory = cat },
-                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.clickable { selectedCategory = cat },
+                        shape = RoundedCornerShape(20.dp),
                         color = if (isSelected) OIASage.copy(alpha = 0.2f) else OIAWarmWhite,
                         border = androidx.compose.foundation.BorderStroke(
                             if (isSelected) 2.dp else 1.dp,
                             if (isSelected) OIASage else OIATaupe.copy(alpha = 0.4f)
                         )
                     ) {
-                        Box(contentAlignment = Alignment.Center) {
-                            Text(
-                                text = cat.displayName,
-                                fontSize = 14.sp,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                color = OIACharcoal
-                            )
-                        }
+                        Text(
+                            text = "${cat.emoji} ${cat.displayName}",
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                            fontSize = 14.sp,
+                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                            color = OIACharcoal
+                        )
                     }
                 }
+            }
+
+            if (selectedCategory == JourneyCategory.BEHAVIORAL || selectedCategory == JourneyCategory.CUSTOM) {
+                Spacer(modifier = Modifier.height(12.dp))
+                OIATextField(
+                    value = customLabel,
+                    onValueChange = { customLabel = it },
+                    placeholder = "Label this (e.g., Social media, Shopping)"
+                )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -224,6 +233,7 @@ fun AddJourneyModal(
                     val journey = Journey(
                         title = title.trim(),
                         category = selectedCategory,
+                        customLabel = customLabel.trim().ifBlank { null },
                         startTimestamp = startMillis / 1000,
                         dailyCostSavings = savings
                     )
