@@ -14,12 +14,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.eight64zeros.clearstreak.data.AppSettingsStorage
 import com.eight64zeros.clearstreak.data.EmergencyContactStorage
 import com.eight64zeros.clearstreak.data.EmergencyContacts
+import com.eight64zeros.clearstreak.data.HeritageStore
 import com.eight64zeros.clearstreak.data.SharedStreakStorage
 import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.database.DatabaseManager
 import com.eight64zeros.clearstreak.model.CheckIn
+import com.eight64zeros.clearstreak.model.DailyVerse
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.JourneyCategory
 import com.eight64zeros.clearstreak.model.UrgeLevel
@@ -45,6 +48,8 @@ class MainActivity : FragmentActivity() {
     private lateinit var passphraseProvider: DatabasePassphraseProvider
     private lateinit var sharedStorage: SharedStreakStorage
     private lateinit var contactStorage: EmergencyContactStorage
+    private lateinit var settingsStorage: AppSettingsStorage
+    private lateinit var heritageStore: HeritageStore
 
     private var isUnlockedState by mutableStateOf(false)
     private var currentRoute by mutableStateOf<String>(Screen.Dashboard.route)
@@ -55,6 +60,8 @@ class MainActivity : FragmentActivity() {
     private var journeysState by mutableStateOf<List<Journey>>(emptyList())
     private var checkInsState by mutableStateOf<List<CheckIn>>(emptyList())
     private var contactsState by mutableStateOf(EmergencyContacts())
+    private var showVerseOnHome by mutableStateOf(true)
+    private var todaysVerse by mutableStateOf<DailyVerse?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +77,12 @@ class MainActivity : FragmentActivity() {
         passphraseProvider = DatabasePassphraseProvider(this)
         sharedStorage = SharedStreakStorage(this)
         contactStorage = EmergencyContactStorage(this)
+        settingsStorage = AppSettingsStorage(this)
+        heritageStore = HeritageStore(this)
 
         contactsState = contactStorage.getContacts()
+        showVerseOnHome = settingsStorage.showDailyVerseOnHome
+        todaysVerse = heritageStore.verseForDate(java.time.LocalDate.now())
 
         setContent {
             ClearStreakTheme {
@@ -143,19 +154,7 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun loadData() {
-        var journeys = databaseManager.getJourneys()
-        // If this is a brand new install, seed a default starter journey
-        if (journeys.isEmpty()) {
-            val defaultJourney = Journey(
-                title = "Alcohol Free",
-                category = JourneyCategory.SUBSTANCE,
-                startTimestamp = System.currentTimeMillis() / 1000,
-                dailyCostSavings = 12.50
-            )
-            databaseManager.insertJourney(defaultJourney)
-            journeys = listOf(defaultJourney)
-        }
-
+        val journeys = databaseManager.getJourneys()
         journeysState = journeys
         checkInsState = databaseManager.getAllCheckIns()
 
@@ -218,6 +217,11 @@ class MainActivity : FragmentActivity() {
                         contactStorage.saveContacts(updated)
                         contactsState = updated
                     },
+                    showVerseOnHome = showVerseOnHome,
+                    onToggleVerseOnHome = {
+                        settingsStorage.showDailyVerseOnHome = it
+                        showVerseOnHome = it
+                    },
                     onLockApp = { lockApp() },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
@@ -276,6 +280,7 @@ class MainActivity : FragmentActivity() {
                 DashboardScreen(
                     journeys = journeysState,
                     checkIns = checkInsState,
+                    dailyVerse = if (showVerseOnHome) todaysVerse else null,
                     onCheckInClicked = { j ->
                         activeJourneyId = j.id
                         currentRoute = "check_in/${j.id}"

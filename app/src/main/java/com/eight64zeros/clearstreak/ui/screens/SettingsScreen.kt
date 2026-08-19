@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -20,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -52,6 +54,8 @@ import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 fun SettingsScreen(
     contacts: EmergencyContacts,
     onSaveContacts: (EmergencyContacts) -> Unit,
+    showVerseOnHome: Boolean,
+    onToggleVerseOnHome: (Boolean) -> Unit,
     onLockApp: () -> Unit,
     onBack: () -> Unit
 ) {
@@ -166,27 +170,73 @@ fun SettingsScreen(
                 }
             }
 
-            // Security & Privacy Verification
+            // Home Screen preferences
             item {
                 Text(
-                    text = "Zero-Knowledge Architecture",
+                    text = "Home Screen",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = OIACharcoal
                 )
             }
-
             item {
                 OIACard(
                     backgroundColor = OIAWarmWhite,
                     cornerRadius = 16.dp,
                     padding = 16.dp
                 ) {
-                    SecurityItem(label = "Network Permission", status = "🚫 Excluded (Air-Gapped)")
-                    SecurityItem(label = "Database Encryption", status = "🔒 SQLCipher AES-256")
-                    SecurityItem(label = "Hardware Key Derivation", status = "🛡️ StrongBox / TEE")
-                    SecurityItem(label = "Cloud Backup", status = "🚫 Excluded (allowBackup=false)")
-                    SecurityItem(label = "Screenshot Capture", status = "🛡️ Blocked (FLAG_SECURE)")
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 2.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Show today's verse on Home",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = OIACharcoal
+                            )
+                            Text(
+                                text = "Display the daily scripture verse at the top of your home screen.",
+                                fontSize = 13.sp,
+                                color = OIAStone
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Switch(checked = showVerseOnHome, onCheckedChange = onToggleVerseOnHome)
+                    }
+                }
+            }
+
+            // Your Privacy (plain language)
+            item {
+                Text(
+                    text = "Your Privacy",
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = OIACharcoal
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "What's built in — and what it means for you.",
+                    fontSize = 13.sp,
+                    color = OIAStone
+                )
+            }
+            item {
+                OIACard(
+                    backgroundColor = OIAWarmWhite,
+                    cornerRadius = 16.dp,
+                    padding = 16.dp
+                ) {
+                    SecurityItem("✈️", "It works completely offline", "The app has no internet access at all, so nothing you write can ever be sent, shared, or leaked online.")
+                    SecurityItem("🔒", "Your journal is encrypted", "Everything you record is scrambled with strong encryption and stored only on this phone.")
+                    SecurityItem("👆", "Only you can unlock it", "The key is tied to your fingerprint or face and this phone's secure chip — there's no password anyone (including us) could recover or be forced to hand over.")
+                    SecurityItem("☁️", "Nothing goes to the cloud", "Your recovery data is never backed up to any cloud, account, or server. If it isn't on this phone, it doesn't exist.")
+                    SecurityItem("🙈", "Screenshots are blocked", "The app stops screenshots and hides your screen when you switch apps, so nothing shows up by accident.")
                 }
             }
 
@@ -229,15 +279,17 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun SecurityItem(label: String, status: String) {
+private fun SecurityItem(icon: String, title: String, description: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .padding(vertical = 8.dp)
     ) {
-        Text(text = label, fontSize = 13.sp, color = OIAStone)
-        Text(text = status, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = OIACharcoal)
+        Text(text = icon, fontSize = 22.sp)
+        Spacer(modifier = Modifier.width(12.dp))
+        Column {
+            Text(text = title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = OIACharcoal)
+            Text(text = description, fontSize = 13.sp, color = OIAStone, lineHeight = 18.sp)
+        }
     }
 }

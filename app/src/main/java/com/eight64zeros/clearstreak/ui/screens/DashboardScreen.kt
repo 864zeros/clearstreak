@@ -46,11 +46,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.model.CheckIn
+import com.eight64zeros.clearstreak.model.DailyVerse
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
@@ -72,6 +74,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 fun DashboardScreen(
     journeys: List<Journey>,
     checkIns: List<CheckIn>,
+    dailyVerse: DailyVerse?,
     onCheckInClicked: (Journey) -> Unit,
     onJourneySelected: (Journey) -> Unit,
     onAddJourneyClicked: () -> Unit,
@@ -225,6 +228,38 @@ fun DashboardScreen(
                                 tint = OIATaupe
                             )
                         }
+                    }
+                }
+            }
+
+            dailyVerse?.let { v ->
+                item {
+                    OIACard(
+                        backgroundColor = OIAWarmWhite,
+                        cornerRadius = 16.dp,
+                        padding = 16.dp
+                    ) {
+                        Text(
+                            text = "Verse of the Day",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = OIASage
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = "“${v.text}”",
+                            fontSize = 15.sp,
+                            fontStyle = FontStyle.Italic,
+                            color = OIACharcoal,
+                            lineHeight = 22.sp
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "— ${v.citation}",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIAStone
+                        )
                     }
                 }
             }

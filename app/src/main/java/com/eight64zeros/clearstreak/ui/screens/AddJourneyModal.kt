@@ -15,10 +15,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +47,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIAStone
 import com.eight64zeros.clearstreak.ui.theme.OIATaupe
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddJourneyModal(
     onAddJourney: (Journey) -> Unit,
@@ -49,6 +56,35 @@ fun AddJourneyModal(
     var title by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf(JourneyCategory.SUBSTANCE) }
     var dailyCostSavingsStr by remember { mutableStateOf("") }
+    var startMillis by remember { mutableStateOf(System.currentTimeMillis()) }
+    var showDatePicker by remember { mutableStateOf(false) }
+    val startDateLabel = remember(startMillis) {
+        java.text.SimpleDateFormat("MMM d, yyyy", java.util.Locale.getDefault()).format(java.util.Date(startMillis))
+    }
+
+    if (showDatePicker) {
+        val todayMs = System.currentTimeMillis()
+        val dpState = rememberDatePickerState(
+            initialSelectedDateMillis = startMillis,
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long): Boolean = utcTimeMillis <= todayMs
+            }
+        )
+        DatePickerDialog(
+            onDismissRequest = { showDatePicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    dpState.selectedDateMillis?.let { startMillis = it }
+                    showDatePicker = false
+                }) { Text("OK") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDatePicker = false }) { Text("Cancel") }
+            }
+        ) {
+            DatePicker(state = dpState)
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -135,6 +171,34 @@ fun AddJourneyModal(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
+                text = "Start date (when did you begin?)",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = OIACharcoal
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp)
+                    .clickable { showDatePicker = true },
+                shape = RoundedCornerShape(12.dp),
+                color = OIAWarmWhite,
+                border = androidx.compose.foundation.BorderStroke(1.dp, OIATaupe.copy(alpha = 0.4f))
+            ) {
+                Box(contentAlignment = Alignment.CenterStart) {
+                    Text(
+                        text = "📅  $startDateLabel",
+                        modifier = Modifier.padding(horizontal = 14.dp),
+                        fontSize = 15.sp,
+                        color = OIACharcoal
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
                 text = "Daily Cost Saved ($ / day, optional)",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -160,7 +224,7 @@ fun AddJourneyModal(
                     val journey = Journey(
                         title = title.trim(),
                         category = selectedCategory,
-                        startTimestamp = System.currentTimeMillis() / 1000,
+                        startTimestamp = startMillis / 1000,
                         dailyCostSavings = savings
                     )
                     onAddJourney(journey)

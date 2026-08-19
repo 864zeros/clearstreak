@@ -45,8 +45,6 @@ private enum class MiniGame { TILE_MERGE, PATTERN_ECHO, BLOCK_DROP }
 @Composable
 fun MiniGamesCard(modifier: Modifier = Modifier) {
     var game by remember { mutableStateOf(MiniGame.TILE_MERGE) }
-    var score by remember { mutableStateOf(0) }
-    var round by remember { mutableStateOf(1) }
     var showBanner by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -60,31 +58,16 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
         cornerRadius = 16.dp,
         padding = 20.dp
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = when (game) {
-                    MiniGame.TILE_MERGE -> "🧩 Tile Merge"
-                    MiniGame.PATTERN_ECHO -> "🔢 Pattern Echo"
-                    MiniGame.BLOCK_DROP -> "🟦 Block Drop"
-                },
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = OIACharcoal
-            )
-            Text(
-                text = when (game) {
-                    MiniGame.PATTERN_ECHO -> "Round $round"
-                    else -> "Score $score"
-                },
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = OIASage
-            )
-        }
+        Text(
+            text = when (game) {
+                MiniGame.TILE_MERGE -> "🧩 Tile Merge"
+                MiniGame.PATTERN_ECHO -> "🔢 Pattern Echo"
+                MiniGame.BLOCK_DROP -> "🟦 Block Drop"
+            },
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = OIACharcoal
+        )
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -96,26 +79,17 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
                 label = "Tiles",
                 selected = game == MiniGame.TILE_MERGE,
                 modifier = Modifier.weight(1f)
-            ) {
-                game = MiniGame.TILE_MERGE
-                score = 0
-            }
+            ) { game = MiniGame.TILE_MERGE }
             GameChip(
                 label = "Echo",
                 selected = game == MiniGame.PATTERN_ECHO,
                 modifier = Modifier.weight(1f)
-            ) {
-                game = MiniGame.PATTERN_ECHO
-                round = 1
-            }
+            ) { game = MiniGame.PATTERN_ECHO }
             GameChip(
                 label = "Blocks",
                 selected = game == MiniGame.BLOCK_DROP,
                 modifier = Modifier.weight(1f)
-            ) {
-                game = MiniGame.BLOCK_DROP
-                score = 0
-            }
+            ) { game = MiniGame.BLOCK_DROP }
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -131,9 +105,9 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
 
         when (game) {
-            MiniGame.TILE_MERGE -> Game2048Board(onScoreChanged = { score = it })
-            MiniGame.PATTERN_ECHO -> PatternEchoBoard(onRoundChanged = { round = it })
-            MiniGame.BLOCK_DROP -> BlockDropBoard(onScoreChanged = { score = it })
+            MiniGame.TILE_MERGE -> Game2048Board()
+            MiniGame.PATTERN_ECHO -> PatternEchoBoard()
+            MiniGame.BLOCK_DROP -> BlockDropBoard()
         }
 
         if (showBanner) {
