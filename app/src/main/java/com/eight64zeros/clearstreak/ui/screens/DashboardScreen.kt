@@ -51,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.data.StreakCalculator
+import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.DailyVerse
 import com.eight64zeros.clearstreak.model.Journey
@@ -75,6 +76,8 @@ fun DashboardScreen(
     journeys: List<Journey>,
     checkIns: List<CheckIn>,
     dailyVerse: DailyVerse?,
+    dailyPassage: BookPassage?,
+    showFaith: Boolean,
     onCheckInClicked: (Journey) -> Unit,
     onJourneySelected: (Journey) -> Unit,
     onAddJourneyClicked: () -> Unit,
@@ -256,6 +259,47 @@ fun DashboardScreen(
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "— ${v.citation}",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIAStone
+                        )
+                    }
+                }
+            }
+
+            dailyPassage?.let { p ->
+                item {
+                    OIACard(
+                        backgroundColor = OIAWarmWhite,
+                        cornerRadius = 16.dp,
+                        padding = 16.dp
+                    ) {
+                        Text(
+                            text = "Passage of the Day",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = OIASage
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = p.surfaceText,
+                            fontSize = 15.sp,
+                            color = OIACharcoal,
+                            lineHeight = 22.sp
+                        )
+                        if (showFaith && p.faithOptional != null) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = p.faithOptional,
+                                fontSize = 13.sp,
+                                fontStyle = FontStyle.Italic,
+                                color = OIACoral,
+                                lineHeight = 19.sp
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "— ${p.citation}",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = OIAStone

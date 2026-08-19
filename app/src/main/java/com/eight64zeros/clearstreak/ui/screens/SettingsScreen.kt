@@ -57,6 +57,10 @@ fun SettingsScreen(
     onSaveContacts: (EmergencyContacts) -> Unit,
     showVerseOnHome: Boolean,
     onToggleVerseOnHome: (Boolean) -> Unit,
+    showPassageOnHome: Boolean,
+    onTogglePassageOnHome: (Boolean) -> Unit,
+    showFaithReflections: Boolean,
+    onToggleFaithReflections: (Boolean) -> Unit,
     onOpenScience: () -> Unit,
     onLockApp: () -> Unit,
     onBack: () -> Unit
@@ -172,10 +176,10 @@ fun SettingsScreen(
                 }
             }
 
-            // Home Screen preferences
+            // Home & Content preferences
             item {
                 Text(
-                    text = "Home Screen",
+                    text = "Home & Content",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = OIACharcoal
@@ -187,29 +191,26 @@ fun SettingsScreen(
                     cornerRadius = 16.dp,
                     padding = 16.dp
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 2.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = "Show today's verse on Home",
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = OIACharcoal
-                            )
-                            Text(
-                                text = "Display the daily scripture verse at the top of your home screen.",
-                                fontSize = 13.sp,
-                                color = OIAStone
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Switch(checked = showVerseOnHome, onCheckedChange = onToggleVerseOnHome)
-                    }
+                    ToggleRow(
+                        title = "Show today's verse on Home",
+                        subtitle = "A daily scripture verse card on your home screen.",
+                        checked = showVerseOnHome,
+                        onToggle = onToggleVerseOnHome
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                    ToggleRow(
+                        title = "Show today's passage on Home",
+                        subtitle = "A daily recovery passage from the Big Book.",
+                        checked = showPassageOnHome,
+                        onToggle = onTogglePassageOnHome
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                    ToggleRow(
+                        title = "Include faith reflections",
+                        subtitle = "Show the optional faith line under recovery passages.",
+                        checked = showFaithReflections,
+                        onToggle = onToggleFaithReflections
+                    )
                 }
             }
 
@@ -300,6 +301,22 @@ fun SettingsScreen(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun ToggleRow(title: String, subtitle: String, checked: Boolean, onToggle: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(text = title, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = OIACharcoal)
+            Text(text = subtitle, fontSize = 13.sp, color = OIAStone)
+        }
+        Spacer(modifier = Modifier.width(12.dp))
+        Switch(checked = checked, onCheckedChange = onToggle)
     }
 }
 

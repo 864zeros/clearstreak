@@ -5,8 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +45,7 @@ import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.VerseCalendar
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
+import com.eight64zeros.clearstreak.ui.theme.OIACoral
 import com.eight64zeros.clearstreak.ui.theme.OIACream
 import com.eight64zeros.clearstreak.ui.theme.OIASage
 import com.eight64zeros.clearstreak.ui.theme.OIAStone
@@ -58,20 +56,12 @@ import java.time.format.DateTimeFormatter
 
 private enum class Segment { SCRIPTURE, RECOVERY }
 
-// Browse themes for the recovery passages -> moment key (null = all).
-private val PASSAGE_THEMES = listOf(
-    "All" to null,
-    "Craving" to "craving-now",
-    "Anger" to "resentment",
-    "Fear" to "fear",
-    "After a slip" to "after-a-slip",
-    "Staying strong" to "staying-the-course",
-    "Starting out" to "starting-out"
-)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeritageScreen(onBack: () -> Unit) {
+fun HeritageScreen(
+    showFaith: Boolean,
+    onBack: () -> Unit
+) {
     val context = LocalContext.current
     val heritageStore = remember { HeritageStore(context) }
     val passageStore = remember { PassageStore(context) }
@@ -81,28 +71,20 @@ fun HeritageScreen(onBack: () -> Unit) {
     var segment by remember { mutableStateOf(Segment.SCRIPTURE) }
 
     // Scripture state
-    var selectedDate by remember { mutableStateOf(today) }
-    val dateVerse = remember(selectedDate, heritageStore) { heritageStore.verseForDate(selectedDate) }
+    var verseDate by remember { mutableStateOf(today) }
+    val dateVerse = remember(verseDate, heritageStore) { heritageStore.verseForDate(verseDate) }
     var randomVerse by remember { mutableStateOf<DailyVerse?>(null) }
 
-    // Recovery state
-    var theme by remember { mutableStateOf("All") }
-    var passage by remember { mutableStateOf<BookPassage?>(null) }
-    fun poolFor(t: String): List<BookPassage> {
-        val moment = PASSAGE_THEMES.firstOrNull { it.first == t }?.second
-        return if (moment == null) passageStore.passages else passageStore.forMoment(moment)
-    }
-    LaunchedEffect(segment, theme) {
-        if (segment == Segment.RECOVERY) passage = poolFor(theme).randomOrNull()
-    }
+    // Recovery state (mirrors Scripture)
+    var passageDate by remember { mutableStateOf(today) }
+    val datePassage = remember(passageDate, passageStore) { passageStore.passageForDate(passageDate) }
+    var randomPassage by remember { mutableStateOf<BookPassage?>(null) }
 
     Scaffold(
         containerColor = OIACream,
         topBar = {
             TopAppBar(
-                title = {
-                    Text("Reflect", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OIACharcoal)
-                },
+                title = { Text("Reflect", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OIACharcoal) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = OIACharcoal)
@@ -119,7 +101,6 @@ fun HeritageScreen(onBack: () -> Unit) {
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp, vertical = 8.dp)
         ) {
-            // Segment toggle
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -137,18 +118,22 @@ fun HeritageScreen(onBack: () -> Unit) {
             when (segment) {
                 Segment.SCRIPTURE -> ScriptureSection(
                     today = today,
-                    selectedDate = selectedDate,
+                    selectedDate = verseDate,
                     dateFmt = dateFmt,
                     dateVerse = dateVerse,
-                    onSelectDate = { selectedDate = it },
+                    onSelectDate = { verseDate = it },
                     randomVerse = randomVerse,
                     onRandomVerse = { randomVerse = heritageStore.randomVerse() }
                 )
                 Segment.RECOVERY -> RecoverySection(
-                    theme = theme,
-                    onSelectTheme = { theme = it },
-                    passage = passage,
-                    onAnother = { passage = poolFor(theme).randomOrNull() }
+                    showFaith = showFaith,
+                    today = today,
+                    selectedDate = passageDate,
+                    dateFmt = dateFmt,
+                    datePassage = datePassage,
+                    onSelectDate = { passageDate = it },
+                    randomPassage = randomPassage,
+                    onRandomPassage = { randomPassage = passageStore.random() }
                 )
             }
 
@@ -170,97 +155,103 @@ private fun ScriptureSection(
     OIACard(backgroundColor = OIAWarmWhite, cornerRadius = 16.dp, padding = 20.dp) {
         Text("The Serenity Prayer", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OIACharcoal)
         Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = HeritageStore.SERENITY_PRAYER,
-            fontSize = 16.sp,
-            fontStyle = FontStyle.Italic,
-            color = OIACharcoal,
-            lineHeight = 24.sp
-        )
+        Text(HeritageStore.SERENITY_PRAYER, fontSize = 16.sp, fontStyle = FontStyle.Italic, color = OIACharcoal, lineHeight = 24.sp)
     }
 
     Spacer(modifier = Modifier.height(16.dp))
-    VerseCard(
-        title = if (selectedDate == today) "Verse of the Day" else "Verse for ${selectedDate.format(dateFmt)}",
-        verse = dateVerse
-    )
+    ContentCard(
+        title = if (selectedDate == today) "Verse of the Day" else "Verse for ${selectedDate.format(dateFmt)}"
+    ) {
+        if (dateVerse == null) EmptyLine("Verse content is unavailable.")
+        else QuoteBody(dateVerse.text, dateVerse.citation)
+    }
 
     Spacer(modifier = Modifier.height(16.dp))
-    OIACard(backgroundColor = OIAWarmWhite, cornerRadius = 16.dp, padding = 16.dp) {
-        Text("Browse by Date", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OIACharcoal)
-        Text("Tap any day to read its verse above.", fontSize = 12.sp, color = OIAStone)
-        Spacer(modifier = Modifier.height(12.dp))
+    ContentCard(title = "Browse by Date", subtitle = "Tap any day to read its verse above.") {
         VerseCalendar(selectedDate = selectedDate, onSelectDate = onSelectDate)
     }
 
     Spacer(modifier = Modifier.height(16.dp))
-    OIACard(backgroundColor = OIAWarmWhite, cornerRadius = 16.dp, padding = 20.dp) {
-        Text("Random Verse", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OIACharcoal)
-        Spacer(modifier = Modifier.height(12.dp))
+    ContentCard(title = "Random Verse") {
         OIAPrimaryButton(text = "🎲 Give me a verse", onClick = onRandomVerse)
-        randomVerse?.let { v ->
+        randomVerse?.let {
             Spacer(modifier = Modifier.height(16.dp))
-            Text("“${v.text}”", fontSize = 17.sp, fontStyle = FontStyle.Italic, color = OIACharcoal, lineHeight = 25.sp)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("— ${v.citation}", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
+            QuoteBody(it.text, it.citation)
         }
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun RecoverySection(
-    theme: String,
-    onSelectTheme: (String) -> Unit,
-    passage: BookPassage?,
-    onAnother: () -> Unit
+    showFaith: Boolean,
+    today: LocalDate,
+    selectedDate: LocalDate,
+    dateFmt: DateTimeFormatter,
+    datePassage: BookPassage?,
+    onSelectDate: (LocalDate) -> Unit,
+    randomPassage: BookPassage?,
+    onRandomPassage: () -> Unit
 ) {
     Text(
-        text = "Modern, plain-language passages re-authored from the 1939 recovery classic. Faith is optional and never assumed.",
+        text = "Plain-language passages re-authored from the 1939 recovery classic. One for each day; faith is optional and never assumed.",
         fontSize = 13.sp,
         color = OIAStone
     )
 
-    Spacer(modifier = Modifier.height(12.dp))
-
-    // Theme chips (wrap)
-    FlowRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+    Spacer(modifier = Modifier.height(16.dp))
+    ContentCard(
+        title = if (selectedDate == today) "Passage of the Day" else "Passage for ${selectedDate.format(dateFmt)}"
     ) {
-        PASSAGE_THEMES.forEach { (label, _) ->
-            SegmentChip(label, theme == label, Modifier) { onSelectTheme(label) }
-        }
+        if (datePassage == null) EmptyLine("No passage available.")
+        else PassageBody(datePassage, showFaith)
     }
 
     Spacer(modifier = Modifier.height(16.dp))
-    OIACard(backgroundColor = OIAWarmWhite, cornerRadius = 16.dp, padding = 20.dp) {
-        if (passage == null) {
-            Text("No passage available.", fontSize = 13.sp, color = OIAStone)
-        } else {
-            Text(passage.surfaceText, fontSize = 16.sp, color = OIACharcoal, lineHeight = 24.sp)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("— ${passage.citation}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
+    ContentCard(title = "Browse by Date", subtitle = "Tap any day to read its passage above.") {
+        VerseCalendar(selectedDate = selectedDate, onSelectDate = onSelectDate)
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+    ContentCard(title = "Random Passage") {
+        OIAPrimaryButton(text = "🎲 Give me a passage", onClick = onRandomPassage)
+        randomPassage?.let {
+            Spacer(modifier = Modifier.height(16.dp))
+            PassageBody(it, showFaith)
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        OIAPrimaryButton(text = "🎲 Another passage", onClick = onAnother)
     }
 }
 
 @Composable
-private fun VerseCard(title: String, verse: DailyVerse?) {
+private fun ContentCard(title: String, subtitle: String? = null, content: @Composable () -> Unit) {
     OIACard(backgroundColor = OIAWarmWhite, cornerRadius = 16.dp, padding = 20.dp) {
         Text(title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OIACharcoal)
+        if (subtitle != null) Text(subtitle, fontSize = 12.sp, color = OIAStone)
         Spacer(modifier = Modifier.height(12.dp))
-        if (verse == null) {
-            Text("Verse content is unavailable.", fontSize = 13.sp, color = OIAStone)
-        } else {
-            Text("“${verse.text}”", fontSize = 17.sp, fontStyle = FontStyle.Italic, color = OIACharcoal, lineHeight = 25.sp)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("— ${verse.citation}", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
-        }
+        content()
     }
+}
+
+@Composable
+private fun QuoteBody(text: String, citation: String) {
+    Text("“$text”", fontSize = 17.sp, fontStyle = FontStyle.Italic, color = OIACharcoal, lineHeight = 25.sp)
+    Spacer(modifier = Modifier.height(8.dp))
+    Text("— $citation", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
+}
+
+@Composable
+private fun PassageBody(passage: BookPassage, showFaith: Boolean) {
+    Text(passage.surfaceText, fontSize = 16.sp, color = OIACharcoal, lineHeight = 24.sp)
+    if (showFaith && passage.faithOptional != null) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(passage.faithOptional, fontSize = 14.sp, fontStyle = FontStyle.Italic, color = OIACoral, lineHeight = 20.sp)
+    }
+    Spacer(modifier = Modifier.height(8.dp))
+    Text("— ${passage.citation}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
+}
+
+@Composable
+private fun EmptyLine(text: String) {
+    Text(text, fontSize = 13.sp, color = OIAStone)
 }
 
 @Composable

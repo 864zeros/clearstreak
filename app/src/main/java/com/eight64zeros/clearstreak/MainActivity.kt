@@ -18,9 +18,11 @@ import com.eight64zeros.clearstreak.data.AppSettingsStorage
 import com.eight64zeros.clearstreak.data.EmergencyContactStorage
 import com.eight64zeros.clearstreak.data.EmergencyContacts
 import com.eight64zeros.clearstreak.data.HeritageStore
+import com.eight64zeros.clearstreak.data.PassageStore
 import com.eight64zeros.clearstreak.data.SharedStreakStorage
 import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.database.DatabaseManager
+import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.DailyVerse
 import com.eight64zeros.clearstreak.model.Journey
@@ -51,6 +53,7 @@ class MainActivity : FragmentActivity() {
     private lateinit var contactStorage: EmergencyContactStorage
     private lateinit var settingsStorage: AppSettingsStorage
     private lateinit var heritageStore: HeritageStore
+    private lateinit var passageStore: PassageStore
 
     private var isUnlockedState by mutableStateOf(false)
     private var currentRoute by mutableStateOf<String>(Screen.Dashboard.route)
@@ -62,7 +65,10 @@ class MainActivity : FragmentActivity() {
     private var checkInsState by mutableStateOf<List<CheckIn>>(emptyList())
     private var contactsState by mutableStateOf(EmergencyContacts())
     private var showVerseOnHome by mutableStateOf(true)
+    private var showPassageOnHome by mutableStateOf(false)
+    private var showFaithReflections by mutableStateOf(false)
     private var todaysVerse by mutableStateOf<DailyVerse?>(null)
+    private var todaysPassage by mutableStateOf<BookPassage?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +86,14 @@ class MainActivity : FragmentActivity() {
         contactStorage = EmergencyContactStorage(this)
         settingsStorage = AppSettingsStorage(this)
         heritageStore = HeritageStore(this)
+        passageStore = PassageStore(this)
 
         contactsState = contactStorage.getContacts()
         showVerseOnHome = settingsStorage.showDailyVerseOnHome
+        showPassageOnHome = settingsStorage.showDailyPassageOnHome
+        showFaithReflections = settingsStorage.showFaithReflections
         todaysVerse = heritageStore.verseForDate(java.time.LocalDate.now())
+        todaysPassage = passageStore.passageForDate(java.time.LocalDate.now())
 
         setContent {
             ClearStreakTheme {
@@ -203,11 +213,13 @@ class MainActivity : FragmentActivity() {
             }
             currentRoute == Screen.Reset.route -> {
                 GroundingToolsScreen(
+                    showFaith = showFaithReflections,
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
             currentRoute == Screen.Heritage.route -> {
                 HeritageScreen(
+                    showFaith = showFaithReflections,
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
@@ -227,6 +239,16 @@ class MainActivity : FragmentActivity() {
                     onToggleVerseOnHome = {
                         settingsStorage.showDailyVerseOnHome = it
                         showVerseOnHome = it
+                    },
+                    showPassageOnHome = showPassageOnHome,
+                    onTogglePassageOnHome = {
+                        settingsStorage.showDailyPassageOnHome = it
+                        showPassageOnHome = it
+                    },
+                    showFaithReflections = showFaithReflections,
+                    onToggleFaithReflections = {
+                        settingsStorage.showFaithReflections = it
+                        showFaithReflections = it
                     },
                     onOpenScience = { currentRoute = Screen.Science.route },
                     onLockApp = { lockApp() },
@@ -288,6 +310,8 @@ class MainActivity : FragmentActivity() {
                     journeys = journeysState,
                     checkIns = checkInsState,
                     dailyVerse = if (showVerseOnHome) todaysVerse else null,
+                    dailyPassage = if (showPassageOnHome) todaysPassage else null,
+                    showFaith = showFaithReflections,
                     onCheckInClicked = { j ->
                         activeJourneyId = j.id
                         currentRoute = "check_in/${j.id}"

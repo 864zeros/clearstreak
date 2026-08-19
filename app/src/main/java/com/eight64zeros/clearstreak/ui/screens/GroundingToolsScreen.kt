@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +37,7 @@ import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.PocketAnchor
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
+import com.eight64zeros.clearstreak.ui.theme.OIACoral
 import com.eight64zeros.clearstreak.ui.theme.OIACream
 import com.eight64zeros.clearstreak.ui.theme.OIASage
 import com.eight64zeros.clearstreak.ui.theme.OIAStone
@@ -43,7 +45,10 @@ import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GroundingToolsScreen(onBack: () -> Unit) {
+fun GroundingToolsScreen(
+    showFaith: Boolean,
+    onBack: () -> Unit
+) {
     val context = LocalContext.current
     val passageStore = remember { PassageStore(context) }
     var passage by remember { mutableStateOf(passageStore.oneForState("WHITE_KNUCKLING", "GENERAL")) }
@@ -170,6 +175,10 @@ fun GroundingToolsScreen(onBack: () -> Unit) {
                 passage?.let { p ->
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(text = p.surfaceText, fontSize = 15.sp, color = OIACharcoal, lineHeight = 23.sp)
+                    if (showFaith && p.faithOptional != null) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = p.faithOptional, fontSize = 13.sp, fontStyle = FontStyle.Italic, color = OIACoral, lineHeight = 19.sp)
+                    }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "— ${p.citation}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
                 }

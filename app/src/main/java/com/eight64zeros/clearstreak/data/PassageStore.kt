@@ -4,6 +4,7 @@ import android.content.Context
 import com.eight64zeros.clearstreak.model.BookPassage
 import org.json.JSONArray
 import org.json.JSONObject
+import java.time.LocalDate
 import kotlin.random.Random
 
 /**
@@ -50,6 +51,15 @@ class PassageStore(context: Context) {
 
     fun random(): BookPassage? =
         if (passages.isEmpty()) null else passages[Random.nextInt(passages.size)]
+
+    /** Passage-of-the-day by 1-based day-of-year, cycling (there are ~130 passages, not 365). */
+    fun passageForDayOfYear(dayOfYear: Int): BookPassage? {
+        if (passages.isEmpty()) return null
+        val idx = ((dayOfYear - 1) % passages.size + passages.size) % passages.size
+        return passages[idx]
+    }
+
+    fun passageForDate(date: LocalDate): BookPassage? = passageForDayOfYear(date.dayOfYear)
 
     fun forMoment(moment: String): List<BookPassage> =
         passages.filter { moment in it.moments }
