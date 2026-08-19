@@ -1,7 +1,9 @@
 package com.eight64zeros.clearstreak.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,20 +25,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.game.Game2048Board
+import com.eight64zeros.clearstreak.game.PatternEchoBoard
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
 import com.eight64zeros.clearstreak.ui.theme.OIASage
 import com.eight64zeros.clearstreak.ui.theme.OIAStone
+import com.eight64zeros.clearstreak.ui.theme.OIATaupe
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 import kotlinx.coroutines.delay
 
+private enum class MiniGame { TILE_MERGE, PATTERN_ECHO }
+
 /**
- * ClearStreak wrapper around the portable [Game2048Board]. Owns the recovery-
- * specific concerns — score readout and the ~3-minute time-box awareness banner
- * (a question/offer, never a command). The game core knows nothing about this.
+ * ClearStreak wrapper around the portable game boards. Owns the recovery-specific
+ * concerns — a game picker, the metric readout, and the ~3-minute time-box
+ * awareness banner (a question/offer, never a command). The game cores know
+ * nothing about ClearStreak.
  */
 @Composable
 fun MiniGamesCard(modifier: Modifier = Modifier) {
+    var game by remember { mutableStateOf(MiniGame.TILE_MERGE) }
     var score by remember { mutableStateOf(0) }
+    var round by remember { mutableStateOf(1) }
     var showBanner by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -55,18 +64,59 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "🧩 Tile Merge", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OIACharcoal)
-            Text(text = "Score $score", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
+            Text(
+                text = if (game == MiniGame.TILE_MERGE) "🧩 Tile Merge" else "🔢 Pattern Echo",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = OIACharcoal
+            )
+            Text(
+                text = if (game == MiniGame.TILE_MERGE) "Score $score" else "Round $round",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = OIASage
+            )
         }
-        Spacer(modifier = Modifier.height(8.dp))
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            GameChip(
+                label = "Tile Merge",
+                selected = game == MiniGame.TILE_MERGE,
+                modifier = Modifier.weight(1f)
+            ) {
+                game = MiniGame.TILE_MERGE
+                score = 0
+            }
+            GameChip(
+                label = "Pattern Echo",
+                selected = game == MiniGame.PATTERN_ECHO,
+                modifier = Modifier.weight(1f)
+            ) {
+                game = MiniGame.PATTERN_ECHO
+                round = 1
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "Slide to merge matching tiles. A few focused minutes to let the craving wave crest and pass.",
+            text = if (game == MiniGame.TILE_MERGE)
+                "Slide to merge matching tiles."
+            else
+                "Watch the pattern, then tap it back. It grows each round.",
             fontSize = 13.sp,
             color = OIAStone
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        Game2048Board(onScoreChanged = { score = it })
+        when (game) {
+            MiniGame.TILE_MERGE -> Game2048Board(onScoreChanged = { score = it })
+            MiniGame.PATTERN_ECHO -> PatternEchoBoard(onRoundChanged = { round = it })
+        }
 
         if (showBanner) {
             Spacer(modifier = Modifier.height(12.dp))
@@ -96,6 +146,35 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun GameChip(
+    label: String,
+    selected: Boolean,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = modifier
+            .height(40.dp)
+            .clickable { onClick() },
+        shape = RoundedCornerShape(12.dp),
+        color = if (selected) OIASage.copy(alpha = 0.2f) else OIAWarmWhite,
+        border = BorderStroke(
+            if (selected) 2.dp else 1.dp,
+            if (selected) OIASage else OIATaupe.copy(alpha = 0.4f)
+        )
+    ) {
+        Box(contentAlignment = Alignment.Center) {
+            Text(
+                text = label,
+                fontSize = 13.sp,
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+                color = OIACharcoal
+            )
         }
     }
 }

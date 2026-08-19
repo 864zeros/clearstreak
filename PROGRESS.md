@@ -64,7 +64,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 | **2 — Rewards, Milestones & Non-Shaming Slip Framing** | ✅ Done (visual/data) | Tactile milestone pulse deferred to Brick 4. |
 | **3 — Minimalist Calendar & Progress Visualizer** | ✅ Done | Per-journey month heatmap on the detail screen; derives 3 states from the 4-tier model. |
 | **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | ✅ Done | `HapticEngine`, Pocket Anchor timer, 4×4 box breather, "Reset" tab; screen kept awake during sessions. Background service **descoped** (phone-on assumption). |
-| **5 — Offline Visuospatial Mini-Games** | 🟡 In progress | Portable `game/` package + Tile Merge (2048) done, gated host with time-box banner. Block Drop + Pattern Echo pending (same pattern). |
+| **5 — Offline Visuospatial Mini-Games** | 🟡 In progress | Portable `game/` package: Tile Merge (2048) + Pattern Echo done, gated host with picker + time-box banner. Block Drop pending (IP-attention item). |
 | **6 — Offline Heritage Vault (Proverbs, 1939 Big Book, FTS5)** | ⬜ Not started | Big Book is **counsel-gated** (§5). Proverbs/Serenity Prayer are clean. |
 | **7 — Unified Crisis Intercept Hub** | 🟡 Largely exists | `CrisisInterceptScreen` built (tel:// dialers, geo, 2-sec safe-exit, breathing, grounding). |
 
