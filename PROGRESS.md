@@ -64,7 +64,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 | **2 — Rewards, Milestones & Non-Shaming Slip Framing** | ✅ Done (visual/data) | Tactile milestone pulse deferred to Brick 4. |
 | **3 — Minimalist Calendar & Progress Visualizer** | ✅ Done | Per-journey month heatmap on the detail screen; derives 3 states from the 4-tier model. |
 | **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | ✅ Done | `HapticEngine`, Pocket Anchor timer, 4×4 box breather, "Reset" tab; screen kept awake during sessions. Background service **descoped** (phone-on assumption). |
-| **5 — Offline Visuospatial Mini-Games** | ⬜ Not started | Fully spec'd; gated off gaming journeys; Block Drop = IP-attention item. |
+| **5 — Offline Visuospatial Mini-Games** | 🟡 In progress | Portable `game/` package + Tile Merge (2048) done, gated host with time-box banner. Block Drop + Pattern Echo pending (same pattern). |
 | **6 — Offline Heritage Vault (Proverbs, 1939 Big Book, FTS5)** | ⬜ Not started | Big Book is **counsel-gated** (§5). Proverbs/Serenity Prayer are clean. |
 | **7 — Unified Crisis Intercept Hub** | 🟡 Largely exists | `CrisisInterceptScreen` built (tel:// dialers, geo, 2-sec safe-exit, breathing, grounding). |
 
@@ -96,6 +96,8 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 - **Encrypted DB is never migrated destructively.** When coping cards were removed, only the plaintext `coping_cards` table was dropped (DB_VERSION 3→4). The encrypted `check_ins` table keeps its now-vestigial `coping_card_id` column (unused, never read/written) to avoid touching user-encrypted data.
 - **CI** verifies both `coreDebug` (non-minified, air-gapped) and `storeRelease` (minified). The `release` build type signs with the debug config, so CI needs no signing secrets.
 - **Pocket Anchor stays foreground.** The design assumes the phone/screen is on during a session, so there is no background foreground-service. Active grounding tools keep the screen awake via `View.keepScreenOn` — no `POST_NOTIFICATIONS`, no foreground-service type, no Play-policy review. (This descopes the former "Brick 4b".)
+- **Games are a self-contained, portable module.** The `com.eight64zeros.clearstreak.game` package has **zero imports** from the recovery domain (model/data/database/security) — the engine is pure Kotlin, the board is pure Compose — so the game cores could be lifted into a standalone game app. Dependency flows one way: ClearStreak `ui` → `game`, never the reverse. ClearStreak-specific concerns (time-box banner, gating, scoring-into-history) live in a thin `ui` wrapper (`MiniGamesCard`).
+- **Game gating in the global Reset tab.** There is no single "active journey" there, so games are shown only when **no** journey is flagged `suppress_game_tools` (protective: any gaming/screen-recovery journey hides the whole suite). Finer per-journey gating can live in the check-in flow later.
 
 ---
 

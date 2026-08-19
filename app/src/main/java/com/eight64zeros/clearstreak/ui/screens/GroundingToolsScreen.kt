@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.ui.components.BoxBreather
+import com.eight64zeros.clearstreak.ui.components.MiniGamesCard
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.PocketAnchor
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
@@ -33,7 +34,10 @@ import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GroundingToolsScreen(onBack: () -> Unit) {
+fun GroundingToolsScreen(
+    gamesAllowed: Boolean,
+    onBack: () -> Unit
+) {
     Scaffold(
         containerColor = OIACream,
         topBar = {
@@ -101,6 +105,11 @@ fun GroundingToolsScreen(onBack: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 BoxBreather()
+            }
+
+            // Mini-games are hidden for gaming/screen-recovery journeys (blueprint §7)
+            if (gamesAllowed) {
+                MiniGamesCard()
             }
 
             Spacer(modifier = Modifier.height(8.dp))
