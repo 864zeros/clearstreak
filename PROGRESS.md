@@ -2,7 +2,30 @@
 
 **Purpose:** durable record of what has been built, every decision made, and what remains — so no context is lost between sessions. Read alongside `ClearStreak_Spec_v2.md` (original spec) and `ClearStreak_Blueprint_v1.md` (the newer authority for direction). Where they conflict, order of authority is: **this log + blueprint > spec**.
 
-*Last updated: 2026-08-18 · Branch: `main` · DB schema version: 4 · CI: green (coreDebug + storeRelease)*
+*Last updated: 2026-08-19 · Branch: `main` (HEAD `9ff3038`) · DB schema version: 4 · CI: green (coreDebug + storeRelease)*
+
+---
+
+## ▶ Session handoff — start here (2026-08-19 morning)
+
+**First thing: install the freshest APK and verify the three latest fixes.**
+Get it from **GitHub → Actions → latest green run → Artifacts → `clearstreak-core-debug-apk`** (unzip → install; phone needs an enrolled fingerprint/face or you're stuck at the lock screen; screenshots are blocked by `FLAG_SECURE` — both by design).
+
+Verify:
+1. **Faith tab opens without crashing** — Serenity Prayer + today's Proverb + search (try "heart"). *(Was crashing on FTS5; now plain table + LIKE.)*
+2. **Breathing tools have Start / Pause / Reset** — Reset-tab box breather (starts idle) and Crisis-screen 4-7-8 (auto-starts).
+3. **Games are visible** — Reset tab, scroll below Pocket Anchor + Box Breather → "Tiles / Echo / Blocks" card. *(The silent gate that hid them was removed.)*
+
+**Decisions waiting on you:**
+- **Faith direction:** lens system (Scripture/Stoic/Secular) vs. add **Psalms** vs. favorites/bookmarks vs. a home-page daily reflection. *(Rec: lens system is most strategic; Psalms is the fast win.)*
+- **Categories:** you want **Alcohol / Drugs / Vape / Behavioral (user-set)** — needs a `JourneyCategory` enum + `journeys.category` CHECK migration. Decide: keep **Gambling** as its own category or fold into Behavioral.
+
+**Next build tasks (my suggested order):**
+1. **Games discoverability** — even on-by-default they're bottom-of-Reset-tab; add section headers / reorder, and later a "play a game" entry at the White-Knuckling check-in moment (also the right home for opt-in gaming-protection).
+2. **Journey-aware check-in FAB** — currently logs to `journeys.first()` only; make it a picker when >1 journey.
+3. Refine categories (above) once decided.
+
+**Deferred backlog (unchanged, see §6):** Play Billing (P0 IAP), milestone-hit haptic pulse, crisis-intercept usage logging, CI `setup-java` v4→v5 bump, real release keystore, unit tests, midnight `WorkManager` widget refresh.
 
 ---
 
