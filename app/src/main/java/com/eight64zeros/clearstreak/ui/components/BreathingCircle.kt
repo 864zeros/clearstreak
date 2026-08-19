@@ -37,6 +37,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
 import com.eight64zeros.clearstreak.ui.theme.OIACoralLight
 import com.eight64zeros.clearstreak.ui.theme.OIASage
 import com.eight64zeros.clearstreak.ui.theme.OIASageLight
@@ -56,9 +57,11 @@ enum class BreathPhase(val instruction: String, val durationSec: Int) {
  */
 @Composable
 fun BreathingCircle(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLight: Boolean = false
 ) {
     val context = LocalContext.current
+    val textColor = if (onLight) OIACharcoal else OIAWarmWhite
     var running by remember { mutableStateOf(true) }
     var phaseIndex by remember { mutableIntStateOf(0) }
     var currentPhase by remember { mutableStateOf(BreathPhase.INHALE) }
@@ -147,7 +150,7 @@ fun BreathingCircle(
                 text = "$secondsRemaining",
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
-                color = OIAWarmWhite
+                color = textColor
             )
         }
 
@@ -157,7 +160,7 @@ fun BreathingCircle(
             text = if (running) currentPhase.instruction else "Paused",
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
-            color = OIAWarmWhite
+            color = textColor
         )
 
         Spacer(modifier = Modifier.height(14.dp))

@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.ui.components.BoxBreather
+import com.eight64zeros.clearstreak.ui.components.BreathingCircle
 import com.eight64zeros.clearstreak.ui.components.MiniGamesCard
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.PocketAnchor
@@ -74,6 +75,7 @@ fun GroundingToolsScreen(onBack: () -> Unit) {
                 color = OIAStone
             )
 
+            // 1) Pocket Anchor (top)
             OIACard(
                 backgroundColor = OIAWarmWhite,
                 cornerRadius = 16.dp,
@@ -85,10 +87,20 @@ fun GroundingToolsScreen(onBack: () -> Unit) {
                     fontWeight = FontWeight.Bold,
                     color = OIACharcoal
                 )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "A steady pulse every minute gives your attention something simple to hold onto while a craving crests and fades.",
+                    fontSize = 13.sp,
+                    color = OIAStone
+                )
                 Spacer(modifier = Modifier.height(12.dp))
                 PocketAnchor()
             }
 
+            // 2) Games
+            MiniGamesCard()
+
+            // 3) Breathing exercises
             OIACard(
                 backgroundColor = OIAWarmWhite,
                 cornerRadius = 16.dp,
@@ -100,13 +112,36 @@ fun GroundingToolsScreen(onBack: () -> Unit) {
                     fontWeight = FontWeight.Bold,
                     color = OIACharcoal
                 )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Slow, even breathing calms your nervous system and eases the tension that feeds an urge.",
+                    fontSize = 13.sp,
+                    color = OIAStone
+                )
                 Spacer(modifier = Modifier.height(16.dp))
                 BoxBreather()
             }
 
-            // Mini-games — always available (games-on-by-default; the old global
-            // gate was removed for being a silent, confusing opt-out).
-            MiniGamesCard()
+            OIACard(
+                backgroundColor = OIAWarmWhite,
+                cornerRadius = 16.dp,
+                padding = 20.dp
+            ) {
+                Text(
+                    text = "🌬️ 4-7-8 Breathing",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = OIACharcoal
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Breathing out for longer than you breathe in nudges your body out of fight-or-flight and toward calm.",
+                    fontSize = 13.sp,
+                    color = OIAStone
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                BreathingCircle(onLight = true)
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
         }

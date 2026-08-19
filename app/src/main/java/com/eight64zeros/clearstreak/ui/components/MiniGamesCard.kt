@@ -68,6 +68,12 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Bold,
             color = OIACharcoal
         )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = "A few minutes on a visual puzzle competes for the same mental space a craving uses to picture what you want — so the urge loses its grip.",
+            fontSize = 13.sp,
+            color = OIAStone
+        )
 
         Spacer(modifier = Modifier.height(12.dp))
 
