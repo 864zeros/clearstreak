@@ -127,7 +127,7 @@ fun PatternEchoBoard(
                                             delay(180)
                                             tappedFlash = null
                                         }
-                                        state = state.tap()
+                                        state = state.tap(i)
                                     }
                             )
                         }
