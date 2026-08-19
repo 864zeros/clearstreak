@@ -62,7 +62,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 |---|---|---|
 | **1 — Encrypted Core DB & Recovery Ledger** | ✅ Done | Foundation pre-existed; added `suppress_game_tools` end-to-end. |
 | **2 — Rewards, Milestones & Non-Shaming Slip Framing** | ✅ Done (visual/data) | Tactile milestone pulse deferred to Brick 4. |
-| **3 — Minimalist Calendar & Progress Visualizer** | ⬜ Not started | Needs HALT/urge-model reconciliation first (§6). |
+| **3 — Minimalist Calendar & Progress Visualizer** | ✅ Done | Per-journey month heatmap on the detail screen; derives 3 states from the 4-tier model. |
 | **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | ⬜ Not started | Owns the haptic engine + the deferred milestone pulse. |
 | **5 — Offline Visuospatial Mini-Games** | ⬜ Not started | Fully spec'd; gated off gaming journeys; Block Drop = IP-attention item. |
 | **6 — Offline Heritage Vault (Proverbs, 1939 Big Book, FTS5)** | ⬜ Not started | Big Book is **counsel-gated** (§5). Proverbs/Serenity Prayer are clean. |
@@ -79,6 +79,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 - **No ingestion, ever.** No card/tool suggests eating, drinking, chewing, or consuming anything. Rationale: medical liability (unknown meds/allergies/ED history), substitution-addiction risk, and irrelevance to gambling/behavioral journeys.
 - **Awareness statements, not commands.** Any user-facing intervention text states a truth for the user to hold ("The urge always ends the same way", "You are always free to leave") — never an imperative instruction the app owns.
 - **Data Over Shame.** Slips reset the active streak but never erase history. `achievedMilestones` are permanent; `slipFraming()` never uses "failure/lost/broken".
+- **Calendar reconciliation (decided).** The check-in flow keeps the 4-tier urge model + HALT. The progress calendar (Brick 3) does **not** change the data model — it derives a 3-state heatmap per day by priority: **Slip** (any slip that day) > **Urge overcome** (a non-CLEAR urge, no slip) > **Clear** (only CLEAR check-ins); no check-in = empty. HALT survives, shown in the per-check-in history, not the calendar.
 - **Games gated OFF gaming/screen journeys.** ALL mini-games (not just Block Drop) are suppressed when the active journey is gaming/screen-compulsion recovery — otherwise the tool feeds the habit. Mechanism: per-journey `suppress_game_tools` flag (defaults **on** for `BEHAVIORAL`, user-settable at creation). Fallback for those journeys = haptic + heritage tools.
 - **Zero gambling mechanics** in any mini-game (no reels/loot-crates/casino SFX) — critical for gambling-recovery users.
 - **Clinical framing is design rationale, not marketing.** The Elaborated-Intrusion / craving-reduction science justifies the games internally but must **not** appear as store-listing claims (App Store/Play medical-claims rejection risk, spec §12).
@@ -99,8 +100,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 
 ## 6. Open items / backlog
 
-**Before Brick 3:**
-- **Reconcile the urge model with the calendar.** Check-ins use a 4-tier urge scale (Clear/Passing/White-Knuckling/Critical) + HALT triggers; the blueprint §4 calendar uses 3 states (Clear / Urge Overcome / Slip). Decide: keep, simplify, or map between them. Also decide whether HALT survives the §2 pivot.
+**Next up (Brick 4 — Somatosensory Reset):** no hard blockers. Brick 4 owns the haptic engine (Pocket Anchor + 4×4 tactile breather) and the deferred milestone-celebration pulse. Note Android background-execution limits (a persistent pulse needs a foreground service) and that haptics are amplitude/primitive-based, not literal-frequency.
 
 **Deferred (flagged, not forgotten):**
 - **Milestone celebration haptic pulse** — belongs with Brick 4's haptic engine; also needs a "last-celebrated milestone" persistence hook to fire once per crossing.

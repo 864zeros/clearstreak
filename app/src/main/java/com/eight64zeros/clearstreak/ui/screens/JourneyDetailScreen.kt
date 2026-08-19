@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.Journey
+import com.eight64zeros.clearstreak.ui.components.CalendarHeatmap
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.OIASecondaryButton
@@ -231,6 +232,24 @@ fun JourneyDetailScreen(
                             }
                         }
                     }
+                }
+            }
+
+            // Progress Calendar / Heatmap (Brick 3)
+            item {
+                OIACard(
+                    backgroundColor = OIAWarmWhite,
+                    cornerRadius = 16.dp,
+                    padding = 16.dp
+                ) {
+                    Text(
+                        text = "Progress Calendar",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = OIACharcoal
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    CalendarHeatmap(checkIns = journeyCheckIns)
                 }
             }
 
