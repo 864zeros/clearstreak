@@ -8,45 +8,42 @@ import com.eight64zeros.clearstreak.model.Verse
 
 /**
  * Offline Heritage Vault store (blueprint §3). A plaintext, non-sensitive SQLite
- * database with an FTS5 full-text index over public-domain content. Seeded from
- * the bundled asset `proverbs_web.txt` (World English Bible, public domain) on
- * first run.
+ * database of public-domain content, seeded on first run from the bundled asset
+ * `proverbs_web.txt` (World English Bible, public domain).
  *
- * FTS5 is available in Android's system SQLite from API 26 (this app's minSdk).
- * The 1939 AA Big Book is deliberately NOT included — copyright is contested and
- * counsel-gated (see PROGRESS.md §5).
+ * Uses a PLAIN TABLE + LIKE search rather than FTS5: Android's system SQLite does
+ * not reliably include the FTS5 module across devices (creating the virtual table
+ * crashed on-device). For a single book (~915 verses) LIKE is instant and cannot
+ * fail on a missing module. Every DB access is wrapped so a storage problem
+ * degrades to empty results instead of crashing the screen.
+ *
+ * The 1939 AA Big Book is deliberately excluded — copyright contested / counsel-
+ * gated (see PROGRESS.md §5).
  */
 class HeritageStore(context: Context) {
 
     private val helper = HeritageDbHelper(context.applicationContext)
 
-    fun availableChapters(): Set<Int> {
-        val db = helper.readableDatabase
-        val cursor = db.rawQuery("SELECT DISTINCT chapter FROM proverbs", null)
-        val set = mutableSetOf<Int>()
-        cursor.use { while (it.moveToNext()) it.getString(0).toIntOrNull()?.let(set::add) }
-        return set
-    }
-
-    fun proverbsForChapter(chapter: Int): List<Verse> {
-        val db = helper.readableDatabase
-        return db.rawQuery(
-            "SELECT chapter, verse, text FROM proverbs WHERE chapter = ? ORDER BY CAST(verse AS INTEGER)",
+    fun proverbsForChapter(chapter: Int): List<Verse> = try {
+        helper.readableDatabase.rawQuery(
+            "SELECT chapter, verse, text FROM proverbs WHERE chapter = ? ORDER BY verse",
             arrayOf(chapter.toString())
         ).toVerses()
+    } catch (e: Exception) {
+        emptyList()
     }
 
     fun search(raw: String): List<Verse> {
-        val q = raw.trim()
-        if (q.isEmpty()) return emptyList()
-        // Build a safe FTS5 prefix query from the user's words.
-        val match = q.split(Regex("\\s+"))
-            .filter { it.isNotBlank() }
-            .joinToString(" ") { "\"" + it.replace("\"", "") + "\"*" }
+        val words = raw.trim().split(Regex("\\s+")).filter { it.isNotBlank() }
+        if (words.isEmpty()) return emptyList()
+        val where = words.joinToString(" AND ") { "text LIKE ? ESCAPE '\\'" }
+        val args = words.map { w ->
+            "%" + w.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
+        }.toTypedArray()
         return try {
             helper.readableDatabase.rawQuery(
-                "SELECT chapter, verse, text FROM proverbs WHERE proverbs MATCH ? ORDER BY rank LIMIT 50",
-                arrayOf(match)
+                "SELECT chapter, verse, text FROM proverbs WHERE $where ORDER BY chapter, verse LIMIT 50",
+                args
             ).toVerses()
         } catch (e: Exception) {
             emptyList()
@@ -57,13 +54,7 @@ class HeritageStore(context: Context) {
         val list = mutableListOf<Verse>()
         use {
             while (it.moveToNext()) {
-                list.add(
-                    Verse(
-                        chapter = it.getString(0).toIntOrNull() ?: 0,
-                        verse = it.getString(1).toIntOrNull() ?: 0,
-                        text = it.getString(2)
-                    )
-                )
+                list.add(Verse(chapter = it.getInt(0), verse = it.getInt(1), text = it.getString(2)))
             }
         }
         return list
@@ -79,11 +70,13 @@ class HeritageStore(context: Context) {
         SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
         override fun onCreate(db: SQLiteDatabase) {
-            db.execSQL("CREATE VIRTUAL TABLE proverbs USING fts5(chapter UNINDEXED, verse UNINDEXED, text)")
+            db.execSQL("CREATE TABLE proverbs (chapter INTEGER, verse INTEGER, text TEXT)")
+            db.execSQL("CREATE INDEX idx_proverbs_chapter ON proverbs(chapter)")
             seedFromAsset(db)
         }
 
         override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+            // v1 used an FTS5 virtual table (unreliable on some devices); recreate as a plain table.
             db.execSQL("DROP TABLE IF EXISTS proverbs")
             onCreate(db)
         }
@@ -100,9 +93,11 @@ class HeritageStore(context: Context) {
                             if (line.isBlank() || line.startsWith("#")) continue
                             val parts = line.split("|", limit = 3)
                             if (parts.size < 3) continue
+                            val ch = parts[0].trim().toIntOrNull() ?: continue
+                            val vs = parts[1].trim().toIntOrNull() ?: continue
                             stmt.clearBindings()
-                            stmt.bindString(1, parts[0].trim())
-                            stmt.bindString(2, parts[1].trim())
+                            stmt.bindLong(1, ch.toLong())
+                            stmt.bindLong(2, vs.toLong())
                             stmt.bindString(3, parts[2].trim())
                             stmt.executeInsert()
                         }
@@ -118,7 +113,7 @@ class HeritageStore(context: Context) {
 
         companion object {
             private const val DB_NAME = "heritage.db"
-            private const val DB_VERSION = 1
+            private const val DB_VERSION = 2
             private const val ASSET_NAME = "proverbs_web.txt"
         }
     }
