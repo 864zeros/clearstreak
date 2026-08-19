@@ -31,6 +31,7 @@ import com.eight64zeros.clearstreak.ui.screens.BiometricLockScreen
 import com.eight64zeros.clearstreak.ui.screens.CheckInModal
 import com.eight64zeros.clearstreak.ui.screens.CrisisInterceptScreen
 import com.eight64zeros.clearstreak.ui.screens.DashboardScreen
+import com.eight64zeros.clearstreak.ui.screens.GroundingToolsScreen
 import com.eight64zeros.clearstreak.ui.screens.JournalScreen
 import com.eight64zeros.clearstreak.ui.screens.JourneyDetailScreen
 import com.eight64zeros.clearstreak.ui.screens.SettingsScreen
@@ -199,6 +200,11 @@ class MainActivity : FragmentActivity() {
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
+            currentRoute == Screen.Reset.route -> {
+                GroundingToolsScreen(
+                    onBack = { currentRoute = Screen.Dashboard.route }
+                )
+            }
             currentRoute == Screen.Settings.route -> {
                 SettingsScreen(
                     contacts = contactsState,
@@ -279,6 +285,7 @@ class MainActivity : FragmentActivity() {
                         currentRoute = Screen.CrisisIntercept.route
                     },
                     onNavigateJournal = { currentRoute = Screen.Journal.route },
+                    onNavigateReset = { currentRoute = Screen.Reset.route },
                     onNavigateSettings = { currentRoute = Screen.Settings.route },
                     onLockApp = { lockApp() }
                 )

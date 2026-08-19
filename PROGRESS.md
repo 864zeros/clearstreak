@@ -63,7 +63,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 | **1 — Encrypted Core DB & Recovery Ledger** | ✅ Done | Foundation pre-existed; added `suppress_game_tools` end-to-end. |
 | **2 — Rewards, Milestones & Non-Shaming Slip Framing** | ✅ Done (visual/data) | Tactile milestone pulse deferred to Brick 4. |
 | **3 — Minimalist Calendar & Progress Visualizer** | ✅ Done | Per-journey month heatmap on the detail screen; derives 3 states from the 4-tier model. |
-| **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | ⬜ Not started | Owns the haptic engine + the deferred milestone pulse. |
+| **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | 🟡 In-app tools done | `HapticEngine`, in-app Pocket Anchor timer, 4×4 box breather, new "Reset" tab. Screen-off background service = Brick 4b (§6). |
 | **5 — Offline Visuospatial Mini-Games** | ⬜ Not started | Fully spec'd; gated off gaming journeys; Block Drop = IP-attention item. |
 | **6 — Offline Heritage Vault (Proverbs, 1939 Big Book, FTS5)** | ⬜ Not started | Big Book is **counsel-gated** (§5). Proverbs/Serenity Prayer are clean. |
 | **7 — Unified Crisis Intercept Hub** | 🟡 Largely exists | `CrisisInterceptScreen` built (tel:// dialers, geo, 2-sec safe-exit, breathing, grounding). |
@@ -100,10 +100,10 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 
 ## 6. Open items / backlog
 
-**Next up (Brick 4 — Somatosensory Reset):** no hard blockers. Brick 4 owns the haptic engine (Pocket Anchor + 4×4 tactile breather) and the deferred milestone-celebration pulse. Note Android background-execution limits (a persistent pulse needs a foreground service) and that haptics are amplitude/primitive-based, not literal-frequency.
+**Brick 4b (screen-off Pocket Anchor):** run the Pocket Anchor as a **foreground service** so it pulses with the screen off / in pocket (the in-app timer from Brick 4 covers screen-on use). Requires: `FOREGROUND_SERVICE` (+ a foreground-service *type* and Play-policy justification on API 34+), `POST_NOTIFICATIONS` (API 33+) + a notification channel, and service lifecycle wiring. Kept out of Brick 4 because it adds runtime permissions + a persistent notification that CI can't verify.
 
 **Deferred (flagged, not forgotten):**
-- **Milestone celebration haptic pulse** — belongs with Brick 4's haptic engine; also needs a "last-celebrated milestone" persistence hook to fire once per crossing.
+- **Milestone celebration haptic pulse** — the `HapticEngine` now exists (Brick 4); still needs a "last-celebrated milestone" persistence hook to fire once per crossing.
 - **Slip framing immediacy** — currently shows on `JourneyDetailScreen` only. Showing it *right after* a slip is logged needs the check-in flow to pass `stats` to the modal (plumbing).
 - **Play Billing (IAP)** — the P0 one-time unlock. `store` flavor has the `BILLING` permission but no billing code.
 - **Midnight rollover** — a `WorkManager`/`AlarmManager` job to refresh streak + widget without opening the app (widget is currently only fresh after an app open writes to `SharedStreakStorage`).
