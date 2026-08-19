@@ -72,6 +72,7 @@ class DatabaseManager(private val context: Context) {
                         startTimestamp = it.getLong(it.getColumnIndexOrThrow("start_timestamp")),
                         dailyCostSavings = it.getDouble(it.getColumnIndexOrThrow("daily_cost_savings")),
                         isArchived = it.getInt(it.getColumnIndexOrThrow("is_archived")) == 1,
+                        suppressGameTools = it.getInt(it.getColumnIndexOrThrow("suppress_game_tools")) == 1,
                         createdAt = it.getLong(it.getColumnIndexOrThrow("created_at"))
                     )
                 )
@@ -89,6 +90,7 @@ class DatabaseManager(private val context: Context) {
             put("start_timestamp", journey.startTimestamp)
             put("daily_cost_savings", journey.dailyCostSavings)
             put("is_archived", if (journey.isArchived) 1 else 0)
+            put("suppress_game_tools", if (journey.suppressGameTools) 1 else 0)
             put("created_at", journey.createdAt)
         }
         db.insertWithOnConflict("journeys", null, values, AndroidSQLiteDatabase.CONFLICT_REPLACE)
@@ -102,6 +104,7 @@ class DatabaseManager(private val context: Context) {
             put("start_timestamp", journey.startTimestamp)
             put("daily_cost_savings", journey.dailyCostSavings)
             put("is_archived", if (journey.isArchived) 1 else 0)
+            put("suppress_game_tools", if (journey.suppressGameTools) 1 else 0)
         }
         db.update("journeys", values, "id = ?", arrayOf(journey.id))
     }
@@ -286,6 +289,7 @@ class DatabaseManager(private val context: Context) {
                     start_timestamp INTEGER NOT NULL,
                     daily_cost_savings REAL DEFAULT 0.0,
                     is_archived INTEGER DEFAULT 0,
+                    suppress_game_tools INTEGER DEFAULT 0,
                     created_at INTEGER DEFAULT (strftime('%s','now'))
                 );
                 """.trimIndent()
@@ -321,7 +325,9 @@ class DatabaseManager(private val context: Context) {
         }
 
         override fun onUpgrade(db: AndroidSQLiteDatabase, oldVersion: Int, newVersion: Int) {
-            // Schema upgrade handler
+            if (oldVersion < 3) {
+                db.execSQL("ALTER TABLE journeys ADD COLUMN suppress_game_tools INTEGER DEFAULT 0")
+            }
         }
     }
 
@@ -357,6 +363,6 @@ class DatabaseManager(private val context: Context) {
     companion object {
         private const val CORE_DB_NAME = "streak_core.db"
         private const val ENC_DB_NAME = "recovery_enc.db"
-        private const val DB_VERSION = 2
+        private const val DB_VERSION = 3
     }
 }
