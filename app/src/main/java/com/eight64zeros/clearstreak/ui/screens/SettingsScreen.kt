@@ -1,6 +1,7 @@
 package com.eight64zeros.clearstreak.ui.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -56,6 +57,7 @@ fun SettingsScreen(
     onSaveContacts: (EmergencyContacts) -> Unit,
     showVerseOnHome: Boolean,
     onToggleVerseOnHome: (Boolean) -> Unit,
+    onOpenScience: () -> Unit,
     onLockApp: () -> Unit,
     onBack: () -> Unit
 ) {
@@ -237,6 +239,29 @@ fun SettingsScreen(
                     SecurityItem("👆", "Only you can unlock it", "The key is tied to your fingerprint or face and this phone's secure chip — there's no password anyone (including us) could recover or be forced to hand over.")
                     SecurityItem("☁️", "Nothing goes to the cloud", "Your recovery data is never backed up to any cloud, account, or server. If it isn't on this phone, it doesn't exist.")
                     SecurityItem("🙈", "Screenshots are blocked", "The app stops screenshots and hides your screen when you switch apps, so nothing shows up by accident.")
+                }
+            }
+
+            // The Science entry
+            item {
+                OIACard(
+                    modifier = Modifier.clickable { onOpenScience() },
+                    backgroundColor = OIAWarmWhite,
+                    cornerRadius = 16.dp,
+                    padding = 16.dp
+                ) {
+                    Text(
+                        text = "🔬 The Science",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = OIACharcoal
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "How the games, breathing, and Pocket Anchor work — plain language, with the research behind them.",
+                        fontSize = 13.sp,
+                        color = OIAStone
+                    )
                 }
             }
 

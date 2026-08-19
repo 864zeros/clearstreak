@@ -37,6 +37,7 @@ import com.eight64zeros.clearstreak.ui.screens.DashboardScreen
 import com.eight64zeros.clearstreak.ui.screens.GroundingToolsScreen
 import com.eight64zeros.clearstreak.ui.screens.HeritageScreen
 import com.eight64zeros.clearstreak.ui.screens.JournalScreen
+import com.eight64zeros.clearstreak.ui.screens.ScienceScreen
 import com.eight64zeros.clearstreak.ui.screens.JourneyDetailScreen
 import com.eight64zeros.clearstreak.ui.screens.SettingsScreen
 import com.eight64zeros.clearstreak.ui.theme.ClearStreakTheme
@@ -210,6 +211,11 @@ class MainActivity : FragmentActivity() {
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
+            currentRoute == Screen.Science.route -> {
+                ScienceScreen(
+                    onBack = { currentRoute = Screen.Settings.route }
+                )
+            }
             currentRoute == Screen.Settings.route -> {
                 SettingsScreen(
                     contacts = contactsState,
@@ -222,6 +228,7 @@ class MainActivity : FragmentActivity() {
                         settingsStorage.showDailyVerseOnHome = it
                         showVerseOnHome = it
                     },
+                    onOpenScience = { currentRoute = Screen.Science.route },
                     onLockApp = { lockApp() },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
