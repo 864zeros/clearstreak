@@ -25,9 +25,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.SelfImprovement
+import androidx.compose.material.icons.filled.Sms
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -47,6 +49,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -109,6 +112,24 @@ fun CrisisInterceptScreen(
             context.startActivity(intent)
         } catch (_: Exception) {
             Toast.makeText(context, "Unable to launch maps.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun sendSms(number: String, body: String) {
+        try {
+            val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:${number.trim()}"))
+            intent.putExtra("sms_body", body)
+            context.startActivity(intent)
+        } catch (_: Exception) {
+            Toast.makeText(context, "Unable to open messaging app.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun openWeb(url: String) {
+        try {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        } catch (_: Exception) {
+            Toast.makeText(context, "Unable to open link.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -197,12 +218,63 @@ fun CrisisInterceptScreen(
                     onClick = { dialNumber("988") }
                 )
 
+                RescueDialerButton(
+                    label = "💬 CRISIS TEXT LINE",
+                    sublabel = "Text HOME to 741741",
+                    color = OIACoral,
+                    icon = Icons.Default.Sms,
+                    onClick = { sendSms("741741", "HOME") }
+                )
+
                 // Meeting Finder
                 RescueDialerButton(
                     label = "📍 FIND A MEETING NOW",
                     sublabel = "Opens native map without saving location",
                     color = OIADustyBlue,
                     onClick = { openMeetingFinder() }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "More support",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                color = OIAWarmGray,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                RescueDialerButton(
+                    label = "🚭 QUIT SMOKING HELPLINE",
+                    sublabel = "1-800-QUIT-NOW (1-800-784-8669)",
+                    color = OIASage,
+                    onClick = { dialNumber("18007848669") }
+                )
+                RescueDialerButton(
+                    label = "🚭 SMOKEFREE.GOV",
+                    sublabel = "Chat or speak to a quit expert",
+                    color = OIADustyBlue,
+                    icon = Icons.Default.Language,
+                    onClick = { openWeb("https://smokefree.gov/tools-tips/get-extra-help/speak-to-an-expert") }
+                )
+                RescueDialerButton(
+                    label = "🎲 PROBLEM GAMBLING HELPLINE",
+                    sublabel = "1-800-MY-RESET (1-800-697-3738)",
+                    color = OIASage,
+                    onClick = { dialNumber("18006973738") }
+                )
+                RescueDialerButton(
+                    label = "🎲 NCPGAMBLING.ORG",
+                    sublabel = "Chat with a counselor",
+                    color = OIADustyBlue,
+                    icon = Icons.Default.Language,
+                    onClick = { openWeb("https://www.ncpgambling.org") }
                 )
             }
 
@@ -344,6 +416,7 @@ private fun RescueDialerButton(
     label: String,
     sublabel: String,
     color: Color,
+    icon: ImageVector = Icons.Default.Phone,
     onClick: () -> Unit
 ) {
     Button(
@@ -376,8 +449,8 @@ private fun RescueDialerButton(
                 )
             }
             Icon(
-                imageVector = Icons.Default.Phone,
-                contentDescription = "Call",
+                imageVector = icon,
+                contentDescription = null,
                 tint = color
             )
         }
