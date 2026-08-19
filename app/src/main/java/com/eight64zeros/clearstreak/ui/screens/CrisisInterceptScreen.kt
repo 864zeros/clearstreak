@@ -185,23 +185,21 @@ fun CrisisInterceptScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                if (contacts.sponsorPhone.isNotBlank()) {
-                    RescueDialerButton(
-                        label = "📞 CALL ${contacts.sponsorName.uppercase()}",
-                        sublabel = contacts.sponsorPhone,
-                        color = OIASage,
-                        onClick = { dialNumber(contacts.sponsorPhone) }
-                    )
-                }
+                // Sponsor + support person are always shown (adding them is key);
+                // when unset, they prompt the user to configure a number in Settings.
+                RescueDialerButton(
+                    label = "📞 CALL ${if (contacts.sponsorPhone.isNotBlank()) contacts.sponsorName.uppercase() else "SPONSOR"}",
+                    sublabel = if (contacts.sponsorPhone.isNotBlank()) contacts.sponsorPhone else "Not set — add in Settings",
+                    color = OIASage,
+                    onClick = { dialNumber(contacts.sponsorPhone) }
+                )
 
-                if (contacts.supportPersonPhone.isNotBlank()) {
-                    RescueDialerButton(
-                        label = "👥 CALL ${contacts.supportPersonName.uppercase()}",
-                        sublabel = contacts.supportPersonPhone,
-                        color = OIADustyBlue,
-                        onClick = { dialNumber(contacts.supportPersonPhone) }
-                    )
-                }
+                RescueDialerButton(
+                    label = "👥 CALL ${if (contacts.supportPersonPhone.isNotBlank()) contacts.supportPersonName.uppercase() else "SUPPORT PERSON"}",
+                    sublabel = if (contacts.supportPersonPhone.isNotBlank()) contacts.supportPersonPhone else "Not set — add in Settings",
+                    color = OIADustyBlue,
+                    onClick = { dialNumber(contacts.supportPersonPhone) }
+                )
 
                 // National Helplines
                 RescueDialerButton(

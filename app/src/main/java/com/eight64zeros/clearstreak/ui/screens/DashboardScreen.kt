@@ -235,6 +235,30 @@ fun DashboardScreen(
                 }
             }
 
+            if (journeys.isEmpty()) {
+                item {
+                    EmptyJourneysCard(onAddJourneyClicked = onAddJourneyClicked)
+                }
+            } else {
+                items(journeys) { journey ->
+                    val stats = StreakCalculator.calculateStats(journey, checkIns)
+                    JourneyCard(
+                        journey = journey,
+                        stats = stats,
+                        onCardClicked = { onJourneySelected(journey) },
+                        onCheckInClicked = { onCheckInClicked(journey) }
+                    )
+                }
+
+                item {
+                    OIASecondaryButton(
+                        text = "+ Add Another Journey",
+                        onClick = onAddJourneyClicked
+                    )
+                }
+            }
+
+            // Supplemental content below the journeys (verse + passage of the day)
             dailyVerse?.let { v ->
                 item {
                     OIACard(
@@ -305,29 +329,6 @@ fun DashboardScreen(
                             color = OIAStone
                         )
                     }
-                }
-            }
-
-            if (journeys.isEmpty()) {
-                item {
-                    EmptyJourneysCard(onAddJourneyClicked = onAddJourneyClicked)
-                }
-            } else {
-                items(journeys) { journey ->
-                    val stats = StreakCalculator.calculateStats(journey, checkIns)
-                    JourneyCard(
-                        journey = journey,
-                        stats = stats,
-                        onCardClicked = { onJourneySelected(journey) },
-                        onCheckInClicked = { onCheckInClicked(journey) }
-                    )
-                }
-
-                item {
-                    OIASecondaryButton(
-                        text = "+ Add Another Journey",
-                        onClick = onAddJourneyClicked
-                    )
                 }
             }
         }

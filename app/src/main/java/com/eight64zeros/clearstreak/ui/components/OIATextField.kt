@@ -38,14 +38,21 @@ fun OIATextField(
         singleLine = singleLine,
         maxLines = maxLines,
         minLines = minLines,
-        textStyle = TextStyle(fontSize = 16.sp),
+        textStyle = TextStyle(fontSize = 16.sp, color = OIACharcoal),
         shape = RoundedCornerShape(12.dp),
         keyboardOptions = keyboardOptions,
+        // App is light-only for now; force dark text so it stays readable even when
+        // the phone is in dark mode (otherwise text defaults to white on the light field).
         colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = OIACharcoal,
+            unfocusedTextColor = OIACharcoal,
+            cursorColor = OIASage,
             focusedBorderColor = OIASage,
             unfocusedBorderColor = OIATaupe.copy(alpha = 0.6f),
             focusedContainerColor = OIAWarmWhite,
-            unfocusedContainerColor = OIAWarmWhite
+            unfocusedContainerColor = OIAWarmWhite,
+            focusedLabelColor = OIASage,
+            unfocusedLabelColor = OIATaupe
         )
     )
 }
