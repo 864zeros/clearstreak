@@ -2,32 +2,35 @@
 
 **Purpose:** durable record of what has been built, every decision made, and what remains — so no context is lost between sessions. Read alongside `ClearStreak_Spec_v2.md` (original spec) and `ClearStreak_Blueprint_v1.md` (the newer authority for direction). Where they conflict, order of authority is: **this log + blueprint > spec**.
 
-*Last updated: 2026-08-19 · Branch: `main` · DB schema version: 5 · CI: green (coreDebug + storeRelease)*
+*Last updated: 2026-08-19 (evening) · Branch: `main` @ `9daf48d` · DB schema version: 5 · CI: green (coreDebug + storeRelease)*
 
 **Recent (post-brick refinements):** category taxonomy → Alcohol/Drugs/Vape/Gambling/Behavioral/Custom (+ per-journey `customLabel`, wrapping pill selector, DB v5); Add-Journey start-date picker + no auto-seeded default journey; verse-of-the-day on Home (Settings toggle); plain-language "Your Privacy" + a "The Science" screen (real citations); Reset tab reordered (Pocket Anchor → Games → Breathing) with the 4-7-8 breather added and per-tool blurbs; game score removed. Rescue screen gained Crisis Text Line + smoking/gambling helplines. **Big Book passages** (130 re-authored, original content — no clinical gate, no verbatim reader) shipped as `assets/passages.json` + `BookPassage`/`PassageStore`; the Faith tab became **"Reflect"** (Scripture + Recovery segments, theme browse, random passage) and the Reset tab gained a "Words for this moment" passage card. **`content/` and `app/src/main/assets/big_book.json` are gitignored (counsel-gated / source-only) — use explicit `git add`, never `git add -A`.**
 
+**Latest batch (2026-08-19 evening):** Home reordered so **journeys sit at the top** (the journey is primary; verse + passage-of-day are supplemental, moved below); **Rescue always shows the sponsor + support person** (prompts "Not set — add in Settings" when unconfigured, never hides the resource); **`OIATextField` forces dark input text/cursor** so entries stay readable on a dark-mode phone (band-aid — the app is still light-only; real dark support is deferred to the build-kit). **Git history rewritten (force-push `ee85334→9daf48d`):** the counsel-gated `content/aa-bigbook-1939-full-PD.epub` **and** `app/src/main/assets/big_book.json` were purged from all 46 commits via `filter-branch` (0 refs, 0 blobs remain; local gitignored copies preserved). GitHub may retain unreachable objects server-side until its own GC — a Support GC request would be needed for a guaranteed remote purge.
+
 ---
 
-## ▶ Session handoff — start here (2026-08-19 morning)
+## ▶ Session handoff — start here (2026-08-19 evening)
 
-**First thing: install the freshest APK and verify the three latest fixes.**
+**First thing: install the freshest APK and verify the latest fixes.**
 Get it from **GitHub → Actions → latest green run → Artifacts → `clearstreak-core-debug-apk`** (unzip → install; phone needs an enrolled fingerprint/face or you're stuck at the lock screen; screenshots are blocked by `FLAG_SECURE` — both by design).
 
 Verify:
-1. **Faith tab opens without crashing** — Serenity Prayer + today's Proverb + search (try "heart"). *(Was crashing on FTS5; now plain table + LIKE.)*
-2. **Breathing tools have Start / Pause / Reset** — Reset-tab box breather (starts idle) and Crisis-screen 4-7-8 (auto-starts).
-3. **Games are visible** — Reset tab, scroll below Pocket Anchor + Box Breather → "Tiles / Echo / Blocks" card. *(The silent gate that hid them was removed.)*
+1. **Home is journeys-first** — after adding a journey, its card(s) + "Add Another Journey" sit at the top; verse + passage-of-day are below.
+2. **Journal/journey text is readable** — type into any field (works regardless of your phone's dark/light setting; the app itself is light-only).
+3. **Rescue shows the sponsor + support person** even before you've set them (they read "Not set — add in Settings").
 
-**Decisions waiting on you:**
-- **Faith direction:** lens system (Scripture/Stoic/Secular) vs. add **Psalms** vs. favorites/bookmarks vs. a home-page daily reflection. *(Rec: lens system is most strategic; Psalms is the fast win.)*
-- **Categories:** you want **Alcohol / Drugs / Vape / Behavioral (user-set)** — needs a `JourneyCategory` enum + `journeys.category` CHECK migration. Decide: keep **Gambling** as its own category or fold into Behavioral.
+**Product decisions locked this session:**
+- **No dark theme in the app.** Deferred wholesale to the forthcoming **864zeros-mobile-build-kit** (the app stays light-only; `OIATextField` is the only theme-hardening in place).
+- **Faith → "Reflect"** (Scripture + Recovery segments) is the shipped direction; passages are contextual in Reset + optional on Home.
+- **Big Book content is history-scrubbed** (see top matter) — this backlog item is now **closed**.
 
-**Next build tasks (my suggested order):**
-1. **Games discoverability** — even on-by-default they're bottom-of-Reset-tab; add section headers / reorder, and later a "play a game" entry at the White-Knuckling check-in moment (also the right home for opt-in gaming-protection).
-2. **Journey-aware check-in FAB** — currently logs to `journeys.first()` only; make it a picker when >1 journey.
-3. Refine categories (above) once decided.
+**Path-to-launch — the remaining blockers (see §6):**
+1. **Play Billing (P0 IAP)** — the $4.99 one-time unlock; `store` flavor has the permission but no code.
+2. **Real release keystore** — `storeRelease` is debug-signed; cannot go to Play.
+3. **Store-readiness** — privacy policy, listing copy, health-category medical-claims framing, content rating.
 
-**Deferred backlog (unchanged, see §6):** Play Billing (P0 IAP), milestone-hit haptic pulse, crisis-intercept usage logging, CI `setup-java` v4→v5 bump, real release keystore, unit tests, midnight `WorkManager` widget refresh.
+**Polish (trails the launch):** milestone-hit haptic pulse, crisis-intercept usage logging, slip-framing immediacy, midnight `WorkManager` widget refresh, verse emotion-tag review, ch01/ch02 passage over-mining trim, CI `setup-java` v4→v5 bump, first `StreakCalculator` unit test.
 
 ---
 
@@ -136,8 +139,9 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 **Deferred (flagged, not forgotten):**
 - **Crisis-intercept usage isn't logged.** The Crisis screen has no DB access by design, so a 🔴 intercept doesn't write a `check_in` with `is_crisis_intercept=1` (the spec's success metric). Also `BreathingCircle` / `GroundingTimer` predate `HapticEngine` and could be unified onto it.
 - **Milestone celebration haptic pulse** — the `HapticEngine` now exists (Brick 4); still needs a "last-celebrated milestone" persistence hook to fire once per crossing.
-- **Light/dark theme (deferred 2026-08-19).** Screens hardcode the light OIA palette, so a real dark mode needs a mechanical refactor of every screen to `MaterialTheme.colorScheme` (`Theme.kt` already defines the dark scheme). Settings persistence (`AppSettingsStorage`) already exists to hold the mode.
-- **Scrub the 1939 Big Book epub from git history (pending decision).** `content/aa-bigbook-1939-full-PD.epub` was accidentally committed (`08d69f7`), then untracked with all of `content/` gitignored (`2c625ed`) — but it remains in history. If it must be fully removed (counsel-gated), that needs a history rewrite + force-push to `main`.
+- **Light/dark theme — DEFERRED TO THE 864zeros-mobile-build-kit (decided 2026-08-19).** The app stays **light-only**; we will *not* build dark mode here. Screens hardcode the light OIA palette; `OIATextField` forces dark input text so entries stay readable on a dark-mode phone (the one hardening we keep). A real dark theme (mechanical `colorScheme` refactor of every screen) is out of scope for ClearStreak and folds into the reusable build-kit instead.
+- **~~Scrub the 1939 Big Book content from git history~~ — DONE (2026-08-19).** `content/aa-bigbook-1939-full-PD.epub` and `app/src/main/assets/big_book.json` were purged from all 46 commits via `git filter-branch` and force-pushed (`ee85334→9daf48d`); 0 refs / 0 blobs remain locally, gitignored source copies preserved. Residual: GitHub may keep unreachable objects until its own GC — a Support GC request would guarantee remote removal if ever needed.
+- **Store-readiness (launch gate).** Beyond code: a hosted **privacy policy** URL, Play listing copy + graphics, **health-category medical-claims framing** (avoid treatment claims), content rating questionnaire, and data-safety form. None started.
 - **Repeatable Android app-creation process / 864zeros-build-kit.** Codify this project's reusable scaffold into (or alongside) the **864zeros-build-kit** so future Android apps start from a template: the air-gapped `core`/`store` flavor split, SQLCipher + biometric `CryptoObject` gate (StrongBox/TEE key), the OIA design-system theme, the Glance widget, the Gradle + `libs.versions.toml` setup, and the GitHub Actions build (`coreDebug` + `storeRelease` + artifact upload). ClearStreak is the reference implementation.
 - **Slip framing immediacy** — currently shows on `JourneyDetailScreen` only. Showing it *right after* a slip is logged needs the check-in flow to pass `stats` to the modal (plumbing).
 - **Play Billing (IAP)** — the P0 one-time unlock. `store` flavor has the `BILLING` permission but no billing code.
