@@ -16,7 +16,7 @@ local.properties
 *.apk
 *.aab
 
-# Local source / reference material — not shipped app assets (kept out of the repo)
-/content/*.pdf
-/content/clearStreak-daily-verse.json.json
-/_kjv_raw.txt
+# Local source / reference material — never commit (shipped assets live in app/src/main/assets/)
+/content/
+/_*.txt
+/_*.cjs
