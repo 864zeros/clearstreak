@@ -2,7 +2,9 @@
 
 **Purpose:** durable record of what has been built, every decision made, and what remains — so no context is lost between sessions. Read alongside `ClearStreak_Spec_v2.md` (original spec) and `ClearStreak_Blueprint_v1.md` (the newer authority for direction). Where they conflict, order of authority is: **this log + blueprint > spec**.
 
-*Last updated: 2026-08-19 · Branch: `main` (HEAD `9ff3038`) · DB schema version: 4 · CI: green (coreDebug + storeRelease)*
+*Last updated: 2026-08-19 · Branch: `main` · DB schema version: 5 · CI: green (coreDebug + storeRelease)*
+
+**Recent (post-brick refinements):** category taxonomy → Alcohol/Drugs/Vape/Gambling/Behavioral/Custom (+ per-journey `customLabel`, wrapping pill selector, DB v5); Add-Journey start-date picker + no auto-seeded default journey; verse-of-the-day on Home (Settings toggle); plain-language "Your Privacy" + a "The Science" screen (real citations); Reset tab reordered (Pocket Anchor → Games → Breathing) with the 4-7-8 breather added and per-tool blurbs; game score removed. **`content/` and `app/src/main/assets/big_book.json` are gitignored (counsel-gated / source-only) — use explicit `git add`, never `git add -A`.**
 
 ---
 
