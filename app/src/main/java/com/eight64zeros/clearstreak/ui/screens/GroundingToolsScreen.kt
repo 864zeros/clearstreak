@@ -34,10 +34,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GroundingToolsScreen(
-    gamesAllowed: Boolean,
-    onBack: () -> Unit
-) {
+fun GroundingToolsScreen(onBack: () -> Unit) {
     Scaffold(
         containerColor = OIACream,
         topBar = {
@@ -107,10 +104,9 @@ fun GroundingToolsScreen(
                 BoxBreather()
             }
 
-            // Mini-games are hidden for gaming/screen-recovery journeys (blueprint §7)
-            if (gamesAllowed) {
-                MiniGamesCard()
-            }
+            // Mini-games — always available (games-on-by-default; the old global
+            // gate was removed for being a silent, confusing opt-out).
+            MiniGamesCard()
 
             Spacer(modifier = Modifier.height(8.dp))
         }

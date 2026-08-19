@@ -203,10 +203,6 @@ class MainActivity : FragmentActivity() {
             }
             currentRoute == Screen.Reset.route -> {
                 GroundingToolsScreen(
-                    // Protective gate (blueprint §7): in the global Reset tab there's no
-                    // single active journey, so hide games if ANY journey is a gaming/
-                    // screen recovery.
-                    gamesAllowed = journeysState.none { it.suppressGameTools },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }

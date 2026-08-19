@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -19,7 +18,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,7 +49,6 @@ fun AddJourneyModal(
     var title by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf(JourneyCategory.SUBSTANCE) }
     var dailyCostSavingsStr by remember { mutableStateOf("") }
-    var suppressGameTools by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -115,11 +112,7 @@ fun AddJourneyModal(
                         modifier = Modifier
                             .weight(1f)
                             .height(48.dp)
-                            .clickable {
-                                selectedCategory = cat
-                                // Blueprint §7: default game-suppression ON for behavioral/screen journeys
-                                suppressGameTools = cat == JourneyCategory.BEHAVIORAL
-                            },
+                            .clickable { selectedCategory = cat },
                         shape = RoundedCornerShape(12.dp),
                         color = if (isSelected) OIASage.copy(alpha = 0.2f) else OIAWarmWhite,
                         border = androidx.compose.foundation.BorderStroke(
@@ -137,33 +130,6 @@ fun AddJourneyModal(
                         }
                     }
                 }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "Screen / gaming recovery",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = OIACharcoal
-                    )
-                    Text(
-                        text = "Hides in-app mini-games so the tool doesn't feed the habit.",
-                        fontSize = 13.sp,
-                        color = OIAStone
-                    )
-                }
-                Spacer(modifier = Modifier.width(12.dp))
-                Switch(
-                    checked = suppressGameTools,
-                    onCheckedChange = { suppressGameTools = it }
-                )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -195,8 +161,7 @@ fun AddJourneyModal(
                         title = title.trim(),
                         category = selectedCategory,
                         startTimestamp = System.currentTimeMillis() / 1000,
-                        dailyCostSavings = savings,
-                        suppressGameTools = suppressGameTools
+                        dailyCostSavings = savings
                     )
                     onAddJourney(journey)
                 }

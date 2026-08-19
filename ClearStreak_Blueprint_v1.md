@@ -77,7 +77,9 @@ Per **Elaborated Intrusion (EI) Theory**, cravings depend on visual/spatial work
 
 ## 7. Journey ↔ Tool Compatibility (Game Gating)
 
-**Decision (2026-08-18): ALL mini-games (2048, Block Drop, Pattern Echo) are gated OFF gaming/screen-compulsion journeys.**
+> **⚠️ Superseded 2026-08-19.** The global gate below was **removed** — games are now **on by default**. The silent opt-out hid all games and read as "the games are missing." Gaming-protection will return later as a *visible, opt-in, per-journey* control at the check-in moment. The rest of this section is retained for historical context only.
+
+**Decision (2026-08-18, superseded): ALL mini-games (2048, Block Drop, Pattern Echo) are gated OFF gaming/screen-compulsion journeys.**
 
 **Rationale:** Offering an engaging mini-game as the intervention to a user recovering from compulsive gaming or screen use is a contraindication — the same class of problem that removed "eat something" for eating-disorder safety. Any game feeds the exact behavior the journey is trying to interrupt, so the entire mini-game suite is suppressed for these journeys — not just Block Drop.
 
