@@ -63,7 +63,7 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 | **1 — Encrypted Core DB & Recovery Ledger** | ✅ Done | Foundation pre-existed; added `suppress_game_tools` end-to-end. |
 | **2 — Rewards, Milestones & Non-Shaming Slip Framing** | ✅ Done (visual/data) | Tactile milestone pulse deferred to Brick 4. |
 | **3 — Minimalist Calendar & Progress Visualizer** | ✅ Done | Per-journey month heatmap on the detail screen; derives 3 states from the 4-tier model. |
-| **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | 🟡 In-app tools done | `HapticEngine`, in-app Pocket Anchor timer, 4×4 box breather, new "Reset" tab. Screen-off background service = Brick 4b (§6). |
+| **4 — Somatosensory Reset (Pocket Anchor & 4×4 Breather)** | ✅ Done | `HapticEngine`, Pocket Anchor timer, 4×4 box breather, "Reset" tab; screen kept awake during sessions. Background service **descoped** (phone-on assumption). |
 | **5 — Offline Visuospatial Mini-Games** | ⬜ Not started | Fully spec'd; gated off gaming journeys; Block Drop = IP-attention item. |
 | **6 — Offline Heritage Vault (Proverbs, 1939 Big Book, FTS5)** | ⬜ Not started | Big Book is **counsel-gated** (§5). Proverbs/Serenity Prayer are clean. |
 | **7 — Unified Crisis Intercept Hub** | 🟡 Largely exists | `CrisisInterceptScreen` built (tel:// dialers, geo, 2-sec safe-exit, breathing, grounding). |
@@ -95,12 +95,13 @@ Pre-session scaffold commits: `cd2278e`, `c561d52`, `4721f23`, `a959341`, `8ef9a
 - **ProGuard** keeps `net.sqlcipher.**` (the artifact `net.zetetic:android-database-sqlcipher` ships that package). Verified by the CI `storeRelease` (R8) build.
 - **Encrypted DB is never migrated destructively.** When coping cards were removed, only the plaintext `coping_cards` table was dropped (DB_VERSION 3→4). The encrypted `check_ins` table keeps its now-vestigial `coping_card_id` column (unused, never read/written) to avoid touching user-encrypted data.
 - **CI** verifies both `coreDebug` (non-minified, air-gapped) and `storeRelease` (minified). The `release` build type signs with the debug config, so CI needs no signing secrets.
+- **Pocket Anchor stays foreground.** The design assumes the phone/screen is on during a session, so there is no background foreground-service. Active grounding tools keep the screen awake via `View.keepScreenOn` — no `POST_NOTIFICATIONS`, no foreground-service type, no Play-policy review. (This descopes the former "Brick 4b".)
 
 ---
 
 ## 6. Open items / backlog
 
-**Brick 4b (screen-off Pocket Anchor):** run the Pocket Anchor as a **foreground service** so it pulses with the screen off / in pocket (the in-app timer from Brick 4 covers screen-on use). Requires: `FOREGROUND_SERVICE` (+ a foreground-service *type* and Play-policy justification on API 34+), `POST_NOTIFICATIONS` (API 33+) + a notification channel, and service lifecycle wiring. Kept out of Brick 4 because it adds runtime permissions + a persistent notification that CI can't verify.
+**Brick 4b (screen-off Pocket Anchor): DESCOPED (2026-08-18).** The design assumption is the phone/screen is on during a grounding session, so the foreground-service / screen-off path is **not** built. Instead the tools keep the screen awake (`View.keepScreenOn`) while running — no background service, no `POST_NOTIFICATIONS`, no foreground-service type, no Play-policy review.
 
 **Deferred (flagged, not forgotten):**
 - **Milestone celebration haptic pulse** — the `HapticEngine` now exists (Brick 4); still needs a "last-celebrated milestone" persistence hook to fire once per crossing.

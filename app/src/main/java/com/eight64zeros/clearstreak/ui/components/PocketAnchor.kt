@@ -14,6 +14,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,6 +67,14 @@ fun PocketAnchor(modifier: Modifier = Modifier) {
             HapticEngine.resolvingWave(context)
             running = false
         }
+    }
+
+    // Keep the screen awake for the session (design assumes the phone is on;
+    // no background service). No permission required.
+    val view = LocalView.current
+    DisposableEffect(running) {
+        view.keepScreenOn = running
+        onDispose { view.keepScreenOn = false }
     }
 
     Column(modifier = modifier.fillMaxWidth()) {
@@ -142,7 +152,7 @@ fun PocketAnchor(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "A steady pulse every minute — rest the phone in your pocket and let the rhythm carry you. Screen-off background mode is coming soon.",
+            text = "A steady pulse every minute — keep the phone with you and let the rhythm carry you. The screen stays awake for the session.",
             fontSize = 12.sp,
             color = OIAStone
         )

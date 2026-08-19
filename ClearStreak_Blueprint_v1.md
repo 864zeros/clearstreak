@@ -20,7 +20,7 @@
 
 Instead of passive text advice or ingestion-based coping cards, ClearStreak uses **eyes-free somatosensory feedback** and **visuospatial working-memory disruption**. Any user-facing text is an **awareness statement, never an instruction/command.**
 
-- **Tactile Pocket Anchor (1–60 min):** Background (foreground-service) tool. Dual-pulse vibration every 60 s (micro-time-chunking), a midpoint accent, and a resolving wave on completion. Works screen-off / in-pocket.
+- **Tactile Pocket Anchor (1–60 min):** Foreground in-app tool — the design assumption is the phone/screen is on during a session, and the screen is kept awake while it runs (no background service). Dual-pulse vibration every 60 s (micro-time-chunking), a midpoint accent, and a resolving wave on completion.
 - **4×4×4×4 Tactile Box Breather:** Inhale = smoothly ramping intensity; Hold = subtle 1 s micro-ticks; Exhale = decaying wave; Hold-empty = soft resting pulse. *(Haptic ramps are expressed via `VibrationEffect` amplitude + composition primitives; exact frequency is hardware-dependent, not literal Hz.)*
 - **Visuospatial Working-Memory Mini-Games:** Lightweight offline Canvas engines (see Brick 5).
 
