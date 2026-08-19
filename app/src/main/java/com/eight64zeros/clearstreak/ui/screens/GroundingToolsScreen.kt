@@ -19,23 +19,35 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eight64zeros.clearstreak.data.PassageStore
 import com.eight64zeros.clearstreak.ui.components.BoxBreather
 import com.eight64zeros.clearstreak.ui.components.BreathingCircle
 import com.eight64zeros.clearstreak.ui.components.MiniGamesCard
 import com.eight64zeros.clearstreak.ui.components.OIACard
+import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.PocketAnchor
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
 import com.eight64zeros.clearstreak.ui.theme.OIACream
+import com.eight64zeros.clearstreak.ui.theme.OIASage
 import com.eight64zeros.clearstreak.ui.theme.OIAStone
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GroundingToolsScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
+    val passageStore = remember { PassageStore(context) }
+    var passage by remember { mutableStateOf(passageStore.oneForState("WHITE_KNUCKLING", "GENERAL")) }
+
     Scaffold(
         containerColor = OIACream,
         topBar = {
@@ -141,6 +153,31 @@ fun GroundingToolsScreen(onBack: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 BreathingCircle(onLight = true)
+            }
+
+            // Words for this moment (a re-authored recovery passage)
+            OIACard(
+                backgroundColor = OIAWarmWhite,
+                cornerRadius = 16.dp,
+                padding = 20.dp
+            ) {
+                Text(
+                    text = "🕊️ Words for this moment",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = OIACharcoal
+                )
+                passage?.let { p ->
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(text = p.surfaceText, fontSize = 15.sp, color = OIACharcoal, lineHeight = 23.sp)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "— ${p.citation}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
+                }
+                Spacer(modifier = Modifier.height(14.dp))
+                OIAPrimaryButton(
+                    text = "🎲 Another",
+                    onClick = { passage = passageStore.oneForState("WHITE_KNUCKLING", "GENERAL") }
+                )
             }
 
             Spacer(modifier = Modifier.height(8.dp))

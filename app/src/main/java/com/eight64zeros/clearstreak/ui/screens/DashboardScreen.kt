@@ -143,8 +143,8 @@ fun DashboardScreen(
                 NavigationBarItem(
                     selected = false,
                     onClick = onNavigateHeritage,
-                    icon = { Icon(Icons.Outlined.MenuBook, contentDescription = "Faith") },
-                    label = { Text("Faith", fontSize = 12.sp) },
+                    icon = { Icon(Icons.Outlined.MenuBook, contentDescription = "Reflect") },
+                    label = { Text("Reflect", fontSize = 12.sp) },
                     colors = NavigationBarItemDefaults.colors(
                         unselectedIconColor = OIATaupe,
                         unselectedTextColor = OIAStone
