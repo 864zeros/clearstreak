@@ -4,7 +4,7 @@
 
 *Last updated: 2026-08-19 · Branch: `main` · DB schema version: 5 · CI: green (coreDebug + storeRelease)*
 
-**Recent (post-brick refinements):** category taxonomy → Alcohol/Drugs/Vape/Gambling/Behavioral/Custom (+ per-journey `customLabel`, wrapping pill selector, DB v5); Add-Journey start-date picker + no auto-seeded default journey; verse-of-the-day on Home (Settings toggle); plain-language "Your Privacy" + a "The Science" screen (real citations); Reset tab reordered (Pocket Anchor → Games → Breathing) with the 4-7-8 breather added and per-tool blurbs; game score removed. **`content/` and `app/src/main/assets/big_book.json` are gitignored (counsel-gated / source-only) — use explicit `git add`, never `git add -A`.**
+**Recent (post-brick refinements):** category taxonomy → Alcohol/Drugs/Vape/Gambling/Behavioral/Custom (+ per-journey `customLabel`, wrapping pill selector, DB v5); Add-Journey start-date picker + no auto-seeded default journey; verse-of-the-day on Home (Settings toggle); plain-language "Your Privacy" + a "The Science" screen (real citations); Reset tab reordered (Pocket Anchor → Games → Breathing) with the 4-7-8 breather added and per-tool blurbs; game score removed. Rescue screen gained Crisis Text Line + smoking/gambling helplines. **Big Book passages** (130 re-authored, original content — no clinical gate, no verbatim reader) shipped as `assets/passages.json` + `BookPassage`/`PassageStore`; the Faith tab became **"Reflect"** (Scripture + Recovery segments, theme browse, random passage) and the Reset tab gained a "Words for this moment" passage card. **`content/` and `app/src/main/assets/big_book.json` are gitignored (counsel-gated / source-only) — use explicit `git add`, never `git add -A`.**
 
 ---
 
