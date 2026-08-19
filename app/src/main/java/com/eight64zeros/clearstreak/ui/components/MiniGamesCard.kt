@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eight64zeros.clearstreak.game.BlockDropBoard
 import com.eight64zeros.clearstreak.game.Game2048Board
 import com.eight64zeros.clearstreak.game.PatternEchoBoard
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
@@ -33,7 +34,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIATaupe
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 import kotlinx.coroutines.delay
 
-private enum class MiniGame { TILE_MERGE, PATTERN_ECHO }
+private enum class MiniGame { TILE_MERGE, PATTERN_ECHO, BLOCK_DROP }
 
 /**
  * ClearStreak wrapper around the portable game boards. Owns the recovery-specific
@@ -65,13 +66,20 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = if (game == MiniGame.TILE_MERGE) "🧩 Tile Merge" else "🔢 Pattern Echo",
+                text = when (game) {
+                    MiniGame.TILE_MERGE -> "🧩 Tile Merge"
+                    MiniGame.PATTERN_ECHO -> "🔢 Pattern Echo"
+                    MiniGame.BLOCK_DROP -> "🟦 Block Drop"
+                },
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = OIACharcoal
             )
             Text(
-                text = if (game == MiniGame.TILE_MERGE) "Score $score" else "Round $round",
+                text = when (game) {
+                    MiniGame.PATTERN_ECHO -> "Round $round"
+                    else -> "Score $score"
+                },
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = OIASage
@@ -85,7 +93,7 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             GameChip(
-                label = "Tile Merge",
+                label = "Tiles",
                 selected = game == MiniGame.TILE_MERGE,
                 modifier = Modifier.weight(1f)
             ) {
@@ -93,21 +101,30 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
                 score = 0
             }
             GameChip(
-                label = "Pattern Echo",
+                label = "Echo",
                 selected = game == MiniGame.PATTERN_ECHO,
                 modifier = Modifier.weight(1f)
             ) {
                 game = MiniGame.PATTERN_ECHO
                 round = 1
             }
+            GameChip(
+                label = "Blocks",
+                selected = game == MiniGame.BLOCK_DROP,
+                modifier = Modifier.weight(1f)
+            ) {
+                game = MiniGame.BLOCK_DROP
+                score = 0
+            }
         }
 
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = if (game == MiniGame.TILE_MERGE)
-                "Slide to merge matching tiles."
-            else
-                "Watch the pattern, then tap it back. It grows each round.",
+            text = when (game) {
+                MiniGame.TILE_MERGE -> "Slide to merge matching tiles."
+                MiniGame.PATTERN_ECHO -> "Watch the pattern, then tap it back. It grows each round."
+                MiniGame.BLOCK_DROP -> "Rotate and drop the blocks to clear full rows."
+            },
             fontSize = 13.sp,
             color = OIAStone
         )
@@ -116,6 +133,7 @@ fun MiniGamesCard(modifier: Modifier = Modifier) {
         when (game) {
             MiniGame.TILE_MERGE -> Game2048Board(onScoreChanged = { score = it })
             MiniGame.PATTERN_ECHO -> PatternEchoBoard(onRoundChanged = { round = it })
+            MiniGame.BLOCK_DROP -> BlockDropBoard(onScoreChanged = { score = it })
         }
 
         if (showBanner) {
