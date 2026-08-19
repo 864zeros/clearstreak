@@ -15,3 +15,6 @@
 local.properties
 *.apk
 *.aab
+
+# Third-party reference material — copyrighted, do not commit/publish
+/content/30-Tools-to-Stay-Sober120921.pdf
