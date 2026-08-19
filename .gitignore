@@ -16,5 +16,7 @@ local.properties
 *.apk
 *.aab
 
-# Third-party reference material — copyrighted, do not commit/publish
-/content/30-Tools-to-Stay-Sober120921.pdf
+# Local source / reference material — not shipped app assets (kept out of the repo)
+/content/*.pdf
+/content/clearStreak-daily-verse.json.json
+/_kjv_raw.txt
