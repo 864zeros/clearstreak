@@ -39,11 +39,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.model.CheckIn
-import com.eight64zeros.clearstreak.model.CopingCard
 import com.eight64zeros.clearstreak.model.HaltTrigger
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.UrgeLevel
-import com.eight64zeros.clearstreak.ui.components.CopingCardView
 import com.eight64zeros.clearstreak.ui.components.GroundingTimer
 import com.eight64zeros.clearstreak.ui.components.HaltTriggerRow
 import com.eight64zeros.clearstreak.ui.components.OIACard
@@ -66,8 +64,7 @@ fun CheckInModal(
     journey: Journey,
     onSaveCheckIn: (CheckIn) -> Unit,
     onTriggerCrisis: () -> Unit,
-    onDismiss: () -> Unit,
-    onRequestCopingCard: (HaltTrigger?, UrgeLevel) -> CopingCard?
+    onDismiss: () -> Unit
 ) {
     var selectedUrge by remember { mutableStateOf<UrgeLevel?>(null) }
     var selectedHalt by remember { mutableStateOf<HaltTrigger?>(null) }
@@ -75,7 +72,6 @@ fun CheckInModal(
     var noteText by remember { mutableStateOf("") }
     var isSlip by remember { mutableStateOf(false) }
     var showGroundingTimer by remember { mutableStateOf(false) }
-    var activeCopingCard by remember { mutableStateOf<CopingCard?>(null) }
 
     Box(
         modifier = Modifier
@@ -135,8 +131,6 @@ fun CheckInModal(
                     selectedUrge = urge
                     if (urge == UrgeLevel.CRITICAL) {
                         onTriggerCrisis()
-                    } else if (urge == UrgeLevel.WHITE_KNUCKLING) {
-                        activeCopingCard = onRequestCopingCard(selectedHalt, urge)
                     }
                 }
             )
@@ -157,22 +151,14 @@ fun CheckInModal(
                         selectedTrigger = selectedHalt,
                         onSelectTrigger = { trigger ->
                             selectedHalt = trigger
-                            if (selectedUrge == UrgeLevel.WHITE_KNUCKLING) {
-                                activeCopingCard = onRequestCopingCard(trigger, UrgeLevel.WHITE_KNUCKLING)
-                            }
                         }
                     )
                 }
             }
 
-            // Step 3: Coping Strategy & Grounding (for White-Knuckling)
+            // Step 3: Grounding (for White-Knuckling)
             AnimatedVisibility(visible = selectedUrge == UrgeLevel.WHITE_KNUCKLING) {
                 Column(modifier = Modifier.padding(top = 20.dp)) {
-                    activeCopingCard?.let { card ->
-                        CopingCardView(card = card)
-                        Spacer(modifier = Modifier.height(12.dp))
-                    }
-
                     if (!showGroundingTimer) {
                         OIASecondaryButton(
                             text = "🫁 Launch 60-Sec Grounding Timer",
@@ -293,8 +279,7 @@ fun CheckInModal(
                                 haltTrigger = selectedHalt,
                                 noteEncrypted = noteText.ifBlank { null },
                                 isSlip = isSlip,
-                                isCrisisIntercept = false,
-                                copingCardId = activeCopingCard?.id
+                                isCrisisIntercept = false
                             )
                             onSaveCheckIn(checkIn)
                         }

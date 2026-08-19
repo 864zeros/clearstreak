@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Book
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -76,7 +75,6 @@ fun DashboardScreen(
     onAddJourneyClicked: () -> Unit,
     onCrisisTriggered: () -> Unit,
     onNavigateJournal: () -> Unit,
-    onNavigateCoping: () -> Unit,
     onNavigateSettings: () -> Unit,
     onLockApp: () -> Unit
 ) {
@@ -120,16 +118,6 @@ fun DashboardScreen(
                     onClick = onNavigateJournal,
                     icon = { Icon(Icons.Outlined.Book, contentDescription = "Journal") },
                     label = { Text("Journal", fontSize = 12.sp) },
-                    colors = NavigationBarItemDefaults.colors(
-                        unselectedIconColor = OIATaupe,
-                        unselectedTextColor = OIAStone
-                    )
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = onNavigateCoping,
-                    icon = { Icon(Icons.Outlined.Lightbulb, contentDescription = "Coping") },
-                    label = { Text("Coping", fontSize = 12.sp) },
                     colors = NavigationBarItemDefaults.colors(
                         unselectedIconColor = OIATaupe,
                         unselectedTextColor = OIAStone

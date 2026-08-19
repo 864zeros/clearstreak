@@ -20,7 +20,6 @@ import com.eight64zeros.clearstreak.data.SharedStreakStorage
 import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.database.DatabaseManager
 import com.eight64zeros.clearstreak.model.CheckIn
-import com.eight64zeros.clearstreak.model.CopingCard
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.JourneyCategory
 import com.eight64zeros.clearstreak.model.UrgeLevel
@@ -30,7 +29,6 @@ import com.eight64zeros.clearstreak.security.KeyStoreManager
 import com.eight64zeros.clearstreak.ui.screens.AddJourneyModal
 import com.eight64zeros.clearstreak.ui.screens.BiometricLockScreen
 import com.eight64zeros.clearstreak.ui.screens.CheckInModal
-import com.eight64zeros.clearstreak.ui.screens.CopingLibraryScreen
 import com.eight64zeros.clearstreak.ui.screens.CrisisInterceptScreen
 import com.eight64zeros.clearstreak.ui.screens.DashboardScreen
 import com.eight64zeros.clearstreak.ui.screens.JournalScreen
@@ -54,7 +52,6 @@ class MainActivity : FragmentActivity() {
     // Cached state in memory
     private var journeysState by mutableStateOf<List<Journey>>(emptyList())
     private var checkInsState by mutableStateOf<List<CheckIn>>(emptyList())
-    private var copingCardsState by mutableStateOf<List<CopingCard>>(emptyList())
     private var contactsState by mutableStateOf(EmergencyContacts())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -159,7 +156,6 @@ class MainActivity : FragmentActivity() {
 
         journeysState = journeys
         checkInsState = databaseManager.getAllCheckIns()
-        copingCardsState = databaseManager.getAllCopingCards()
 
         // Sync primary journey to widget storage
         journeys.firstOrNull()?.let { primary ->
@@ -203,16 +199,6 @@ class MainActivity : FragmentActivity() {
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
-            currentRoute == Screen.CopingLibrary.route -> {
-                CopingLibraryScreen(
-                    cards = copingCardsState,
-                    onToggleFavorite = { cardId, isFav ->
-                        databaseManager.toggleFavoriteCard(cardId, isFav)
-                        copingCardsState = databaseManager.getAllCopingCards()
-                    },
-                    onBack = { currentRoute = Screen.Dashboard.route }
-                )
-            }
             currentRoute == Screen.Settings.route -> {
                 SettingsScreen(
                     contacts = contactsState,
@@ -247,10 +233,7 @@ class MainActivity : FragmentActivity() {
                         onTriggerCrisis = {
                             currentRoute = Screen.CrisisIntercept.route
                         },
-                        onDismiss = { currentRoute = Screen.Dashboard.route },
-                        onRequestCopingCard = { halt, urge ->
-                            databaseManager.getMatchingCopingCard(halt, urge)
-                        }
+                        onDismiss = { currentRoute = Screen.Dashboard.route }
                     )
                 } else {
                     currentRoute = Screen.Dashboard.route
@@ -296,7 +279,6 @@ class MainActivity : FragmentActivity() {
                         currentRoute = Screen.CrisisIntercept.route
                     },
                     onNavigateJournal = { currentRoute = Screen.Journal.route },
-                    onNavigateCoping = { currentRoute = Screen.CopingLibrary.route },
                     onNavigateSettings = { currentRoute = Screen.Settings.route },
                     onLockApp = { lockApp() }
                 )

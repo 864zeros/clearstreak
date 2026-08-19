@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase as AndroidSQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper as AndroidSQLiteOpenHelper
 import com.eight64zeros.clearstreak.model.CheckIn
-import com.eight64zeros.clearstreak.model.CopingCard
 import com.eight64zeros.clearstreak.model.HaltTrigger
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.JourneyCategory
@@ -133,7 +132,6 @@ class DatabaseManager(private val context: Context) {
             put("note_encrypted", checkIn.noteEncrypted?.toByteArray(Charsets.UTF_8))
             put("is_slip", if (checkIn.isSlip) 1 else 0)
             put("is_crisis_intercept", if (checkIn.isCrisisIntercept) 1 else 0)
-            put("coping_card_id", checkIn.copingCardId)
         }
         db.insertWithOnConflict("check_ins", null, values, SQLCipherDatabase.CONFLICT_REPLACE)
     }
@@ -197,8 +195,7 @@ class DatabaseManager(private val context: Context) {
                         haltTrigger = if (it.isNull(it.getColumnIndexOrThrow("halt_trigger"))) null else HaltTrigger.fromString(it.getString(it.getColumnIndexOrThrow("halt_trigger"))),
                         noteEncrypted = noteText,
                         isSlip = it.getInt(it.getColumnIndexOrThrow("is_slip")) == 1,
-                        isCrisisIntercept = it.getInt(it.getColumnIndexOrThrow("is_crisis_intercept")) == 1,
-                        copingCardId = it.getString(it.getColumnIndexOrThrow("coping_card_id"))
+                        isCrisisIntercept = it.getInt(it.getColumnIndexOrThrow("is_crisis_intercept")) == 1
                     )
                 )
             }
@@ -208,70 +205,6 @@ class DatabaseManager(private val context: Context) {
 
     private fun checkEncryptedDb(): SQLCipherDatabase {
         return encryptedDb ?: throw IllegalStateException("Recovery database is locked. Biometric authentication required.")
-    }
-
-    // ==========================================
-    // Coping Cards (streak_core.db / coping_cards table)
-    // ==========================================
-
-    fun getMatchingCopingCard(haltTrigger: HaltTrigger?, urgeLevel: UrgeLevel): CopingCard? {
-        val db = coreDbHelper.readableDatabase
-        val categoryParam = haltTrigger?.name ?: "GENERAL"
-
-        val query = """
-            SELECT * FROM coping_cards 
-            WHERE (trigger_category = ? OR trigger_category = 'GENERAL')
-            ORDER BY is_favorite DESC, RANDOM() 
-            LIMIT 1
-        """.trimIndent()
-
-        val cursor = db.rawQuery(query, arrayOf(categoryParam))
-        cursor.use {
-            if (it.moveToNext()) {
-                return parseCopingCard(it)
-            }
-        }
-        return CopingCardsSeed.SEED_CARDS.firstOrNull()
-    }
-
-    fun getAllCopingCards(): List<CopingCard> {
-        val db = coreDbHelper.readableDatabase
-        val cursor = db.query(
-            "coping_cards",
-            null,
-            null,
-            null,
-            null,
-            null,
-            "is_favorite DESC, trigger_category ASC"
-        )
-        val cards = mutableListOf<CopingCard>()
-        cursor.use {
-            while (it.moveToNext()) {
-                cards.add(parseCopingCard(it))
-            }
-        }
-        return cards
-    }
-
-    fun toggleFavoriteCard(cardId: String, isFavorite: Boolean) {
-        val db = coreDbHelper.writableDatabase
-        val values = ContentValues().apply {
-            put("is_favorite", if (isFavorite) 1 else 0)
-        }
-        db.update("coping_cards", values, "id = ?", arrayOf(cardId))
-    }
-
-    private fun parseCopingCard(cursor: Cursor): CopingCard {
-        return CopingCard(
-            id = cursor.getString(cursor.getColumnIndexOrThrow("id")),
-            triggerCategory = cursor.getString(cursor.getColumnIndexOrThrow("trigger_category")),
-            minUrgeLevel = UrgeLevel.fromString(cursor.getString(cursor.getColumnIndexOrThrow("min_urge_level"))),
-            actionText = cursor.getString(cursor.getColumnIndexOrThrow("action_text")),
-            rationale = cursor.getString(cursor.getColumnIndexOrThrow("rationale")),
-            isFavorite = cursor.getInt(cursor.getColumnIndexOrThrow("is_favorite")) == 1,
-            isUserCreated = cursor.getInt(cursor.getColumnIndexOrThrow("is_user_created")) == 1
-        )
     }
 
     // ==========================================
@@ -294,39 +227,15 @@ class DatabaseManager(private val context: Context) {
                 );
                 """.trimIndent()
             )
-
-            db.execSQL(
-                """
-                CREATE TABLE coping_cards (
-                    id TEXT PRIMARY KEY,
-                    trigger_category TEXT NOT NULL,
-                    min_urge_level TEXT NOT NULL,
-                    action_text TEXT NOT NULL,
-                    rationale TEXT,
-                    is_favorite INTEGER DEFAULT 0,
-                    is_user_created INTEGER DEFAULT 0
-                );
-                """.trimIndent()
-            )
-
-            // Seed initial coping cards
-            for (card in CopingCardsSeed.SEED_CARDS) {
-                val cv = ContentValues().apply {
-                    put("id", card.id)
-                    put("trigger_category", card.triggerCategory)
-                    put("min_urge_level", card.minUrgeLevel.name)
-                    put("action_text", card.actionText)
-                    put("rationale", card.rationale)
-                    put("is_favorite", if (card.isFavorite) 1 else 0)
-                    put("is_user_created", if (card.isUserCreated) 1 else 0)
-                }
-                db.insert("coping_cards", null, cv)
-            }
         }
 
         override fun onUpgrade(db: AndroidSQLiteDatabase, oldVersion: Int, newVersion: Int) {
             if (oldVersion < 3) {
                 db.execSQL("ALTER TABLE journeys ADD COLUMN suppress_game_tools INTEGER DEFAULT 0")
+            }
+            if (oldVersion < 4) {
+                // Coping cards removed (blueprint §2): drop the obsolete table
+                db.execSQL("DROP TABLE IF EXISTS coping_cards")
             }
         }
     }
@@ -363,6 +272,6 @@ class DatabaseManager(private val context: Context) {
     companion object {
         private const val CORE_DB_NAME = "streak_core.db"
         private const val ENC_DB_NAME = "recovery_enc.db"
-        private const val DB_VERSION = 3
+        private const val DB_VERSION = 4
     }
 }

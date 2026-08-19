@@ -11,6 +11,5 @@ data class CheckIn(
     val haltTrigger: HaltTrigger? = null,
     val noteEncrypted: String? = null, // Decrypted in memory when unlocked
     val isSlip: Boolean = false,
-    val isCrisisIntercept: Boolean = false,
-    val copingCardId: String? = null
+    val isCrisisIntercept: Boolean = false
 )
