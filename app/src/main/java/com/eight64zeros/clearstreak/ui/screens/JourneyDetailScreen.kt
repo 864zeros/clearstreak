@@ -2,6 +2,8 @@ package com.eight64zeros.clearstreak.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -46,7 +48,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun JourneyDetailScreen(
     journey: Journey,
@@ -157,6 +159,78 @@ fun JourneyDetailScreen(
                         text = "Check In Now",
                         onClick = onCheckInClicked
                     )
+                }
+            }
+
+            // Non-Shaming Record & Slip Framing (Brick 2)
+            item {
+                OIACard(
+                    backgroundColor = OIASage.copy(alpha = 0.12f),
+                    borderColor = OIASage.copy(alpha = 0.4f),
+                    cornerRadius = 16.dp,
+                    padding = 16.dp
+                ) {
+                    Text(
+                        text = "Your progress is permanent",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = OIASage
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        text = StreakCalculator.slipFraming(stats),
+                        fontSize = 14.sp,
+                        color = OIACharcoal,
+                        lineHeight = 20.sp
+                    )
+                }
+            }
+
+            // Achievements / Milestone Badges (Brick 2)
+            item {
+                OIACard(
+                    backgroundColor = OIAWarmWhite,
+                    cornerRadius = 16.dp,
+                    padding = 16.dp
+                ) {
+                    Text(
+                        text = "Achievements",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = OIACharcoal
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = if (stats.achievedMilestones.isEmpty())
+                            "Your first badge unlocks at Day 1. Every milestone you earn is yours to keep."
+                        else
+                            "${stats.achievedMilestones.size} earned • next: ${stats.nextMilestoneName}",
+                        fontSize = 13.sp,
+                        color = OIAStone
+                    )
+                    if (stats.achievedMilestones.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                        FlowRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            stats.achievedMilestones.forEach { m ->
+                                Surface(
+                                    shape = OIARadiusPill,
+                                    color = OIASage.copy(alpha = 0.15f)
+                                ) {
+                                    Text(
+                                        text = "${m.badge} ${m.name}",
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = OIACharcoal,
+                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

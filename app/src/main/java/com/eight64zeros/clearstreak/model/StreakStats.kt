@@ -8,5 +8,6 @@ data class StreakStats(
     val totalMoneySaved: Double,
     val nextMilestoneDays: Long,
     val milestoneProgress: Float, // 0.0f to 1.0f
-    val nextMilestoneName: String
+    val nextMilestoneName: String,
+    val achievedMilestones: List<Milestone> = emptyList()
 )
