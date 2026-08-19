@@ -104,7 +104,8 @@ fun CrisisInterceptScreen(
 
     fun openMeetingFinder() {
         try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=AA+meeting+near+me"))
+            // Inclusive of all recovery types (alcohol, gambling, substances, behavioral)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=recovery+support+meeting+near+me"))
             context.startActivity(intent)
         } catch (_: Exception) {
             Toast.makeText(context, "Unable to launch maps.", Toast.LENGTH_SHORT).show()
