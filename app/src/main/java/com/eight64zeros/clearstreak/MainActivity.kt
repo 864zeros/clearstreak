@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentActivity
 import com.eight64zeros.clearstreak.billing.PremiumManager
 import com.eight64zeros.clearstreak.billing.computeTrialStatus
 import com.eight64zeros.clearstreak.billing.createPremiumManager
+import com.eight64zeros.clearstreak.data.AffirmationStore
 import com.eight64zeros.clearstreak.data.AppSettingsStorage
 import com.eight64zeros.clearstreak.data.EmergencyContactStorage
 import com.eight64zeros.clearstreak.data.EmergencyContacts
@@ -59,6 +60,7 @@ class MainActivity : FragmentActivity() {
     private lateinit var settingsStorage: AppSettingsStorage
     private lateinit var heritageStore: HeritageStore
     private lateinit var passageStore: PassageStore
+    private lateinit var affirmationStore: AffirmationStore
     private lateinit var premiumManager: PremiumManager
 
     private var isUnlockedState by mutableStateOf(false)
@@ -75,6 +77,7 @@ class MainActivity : FragmentActivity() {
     private var showFaithReflections by mutableStateOf(false)
     private var todaysVerse by mutableStateOf<DailyVerse?>(null)
     private var todaysPassage by mutableStateOf<BookPassage?>(null)
+    private var currentAffirmation by mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +96,7 @@ class MainActivity : FragmentActivity() {
         settingsStorage = AppSettingsStorage(this)
         heritageStore = HeritageStore(this)
         passageStore = PassageStore(this)
+        affirmationStore = AffirmationStore(this)
         premiumManager = createPremiumManager(this)
 
         contactsState = contactStorage.getContacts()
@@ -101,6 +105,7 @@ class MainActivity : FragmentActivity() {
         showFaithReflections = settingsStorage.showFaithReflections
         todaysVerse = heritageStore.verseForDate(java.time.LocalDate.now())
         todaysPassage = passageStore.passageForDate(java.time.LocalDate.now())
+        currentAffirmation = affirmationStore.random(showFaithReflections)?.text
 
         setContent {
             ClearStreakTheme {
@@ -363,7 +368,11 @@ class MainActivity : FragmentActivity() {
                     checkIns = checkInsState,
                     dailyVerse = if (showVerseOnHome) todaysVerse else null,
                     dailyPassage = if (showPassageOnHome) todaysPassage else null,
+                    affirmation = currentAffirmation,
                     showFaith = showFaithReflections,
+                    onRerollAffirmation = {
+                        currentAffirmation = affirmationStore.random(showFaithReflections)?.text
+                    },
                     onCheckInClicked = { j ->
                         activeJourneyId = j.id
                         currentRoute = "check_in/${j.id}"

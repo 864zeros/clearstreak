@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Book
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.MenuBook
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Spa
 import androidx.compose.material3.FloatingActionButton
@@ -77,7 +78,9 @@ fun DashboardScreen(
     checkIns: List<CheckIn>,
     dailyVerse: DailyVerse?,
     dailyPassage: BookPassage?,
+    affirmation: String?,
     showFaith: Boolean,
+    onRerollAffirmation: () -> Unit,
     onCheckInClicked: (Journey) -> Unit,
     onJourneySelected: (Journey) -> Unit,
     onAddJourneyClicked: () -> Unit,
@@ -235,6 +238,13 @@ fun DashboardScreen(
                 }
             }
 
+            // Gentle in-app affirmation (bell). Tap to see another.
+            affirmation?.let { text ->
+                item {
+                    AffirmationBanner(text = text, onReroll = onRerollAffirmation)
+                }
+            }
+
             if (journeys.isEmpty()) {
                 item {
                     EmptyJourneysCard(onAddJourneyClicked = onAddJourneyClicked)
@@ -331,6 +341,34 @@ fun DashboardScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun AffirmationBanner(text: String, onReroll: () -> Unit) {
+    OIACard(
+        modifier = Modifier.clickable { onReroll() },
+        backgroundColor = OIASage.copy(alpha = 0.10f),
+        borderColor = OIASage.copy(alpha = 0.25f),
+        cornerRadius = 14.dp,
+        padding = 14.dp
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = Icons.Outlined.Notifications,
+                contentDescription = "Affirmation",
+                tint = OIASage,
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = text,
+                fontSize = 14.sp,
+                fontStyle = FontStyle.Italic,
+                color = OIACharcoal,
+                lineHeight = 19.sp
+            )
         }
     }
 }

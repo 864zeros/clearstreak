@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "count": 7,
+  "_note": "PLACEHOLDER starter set (864zeros original lines) so the feature builds. Replace/expand with the referenced affirmations pipeline (Big Book + Bible, with provenance). Keep this schema: id, text, faith, source{label,reference}.",
+  "affirmations": [
+    {
+      "id": "aff-001",
+      "text": "You are awesome no matter what happens today.",
+      "faith": false,
+      "source": { "label": "864zeros original", "reference": "" }
+    },
+    {
+      "id": "aff-002",
+      "text": "One steady moment is all today asks of you.",
+      "faith": false,
+      "source": { "label": "864zeros original", "reference": "" }
+    },
+    {
+      "id": "aff-003",
+      "text": "You showed up. That already counts.",
+      "faith": false,
+      "source": { "label": "864zeros original", "reference": "" }
+    },
+    {
+      "id": "aff-004",
+      "text": "Whatever today holds, you don't carry it alone.",
+      "faith": false,
+      "source": { "label": "864zeros original", "reference": "" }
+    },
+    {
+      "id": "aff-005",
+      "text": "Be gentle with yourself — progress isn't a straight line.",
+      "faith": false,
+      "source": { "label": "864zeros original", "reference": "" }
+    },
+    {
+      "id": "aff-006",
+      "text": "You are held; you can rest in that.",
+      "faith": true,
+      "source": { "label": "864zeros original", "reference": "" }
+    },
+    {
+      "id": "aff-007",
+      "text": "Grace meets you exactly where you are.",
+      "faith": true,
+      "source": { "label": "864zeros original", "reference": "" }
+    }
+  ]
+}
