@@ -25,6 +25,8 @@ Verify:
 - **Faith → "Reflect"** (Scripture + Recovery segments) is the shipped direction; passages are contextual in Reset + optional on Home.
 - **Big Book content is history-scrubbed** (see top matter) — this backlog item is now **closed**.
 
+**Go-live features (built 2026-08-20):** (1) **In-app affirmations** — gentle bell banner on Home (in-app only, NO notification permission); `AffirmationStore` + `assets/affirmations.json` (documented schema, placeholder set pending the referenced Big Book + Bible pipeline); faith lines gated by the faith toggle. (2) **Reusable Support Card** (`ui/components/SupportCard`) — variable quote + 5-star + expandable radical-transparency; flavor-split review launcher (`review/`): store = Play In-App Review, core = deep-link; wired into Settings. (3) **Milestone Coins** (`ui/components/MilestoneCoin`) — ceremonial tier-tinted coins (generic to ANY journey, not AA-specific) replacing the flat achievement pills on Journey Detail; not a score. Coffee/tip element deliberately **dropped** (BuyMeACoffee stays in the Chrome extensions; in-app tips would hit store policy). Discreet **lock-screen** notifications deferred post-launch (permission surface).
+
 **Charging model (locked 2026-08-20, post market-research):** **7-day free trial → $14.99 one-time unlock** via Play Billing (no subscription). Try-before-you-buy, so there is no permanent free feature tier. Built: `billing/` (PremiumManager + StoreBillingManager + CorePremiumManager + TrialStatus) and the `UnlockScreen` paywall; trial gate in `MainActivity`. **The crisis Rescue hub always stays reachable even when locked** (ethical line). Trial anchored to `PackageManager.firstInstallTime`.
 
 **Path-to-launch — the remaining blockers (see §6):**

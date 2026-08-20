@@ -34,6 +34,7 @@ import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.ui.components.CalendarHeatmap
+import com.eight64zeros.clearstreak.ui.components.MilestoneCoin
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.OIASecondaryButton
@@ -195,7 +196,7 @@ fun JourneyDetailScreen(
                     padding = 16.dp
                 ) {
                     Text(
-                        text = "Achievements",
+                        text = "Milestone Coins",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = OIACharcoal
@@ -203,32 +204,21 @@ fun JourneyDetailScreen(
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = if (stats.achievedMilestones.isEmpty())
-                            "Your first badge unlocks at Day 1. Every milestone you earn is yours to keep."
+                            "Your first coin lands at Day 1. Every coin you earn is permanent — yours to keep."
                         else
                             "${stats.achievedMilestones.size} earned • next: ${stats.nextMilestoneName}",
                         fontSize = 13.sp,
                         color = OIAStone
                     )
                     if (stats.achievedMilestones.isNotEmpty()) {
-                        Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(14.dp))
                         FlowRow(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(14.dp)
                         ) {
                             stats.achievedMilestones.forEach { m ->
-                                Surface(
-                                    shape = OIARadiusPill,
-                                    color = OIASage.copy(alpha = 0.15f)
-                                ) {
-                                    Text(
-                                        text = "${m.badge} ${m.name}",
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = OIACharcoal,
-                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
-                                    )
-                                }
+                                MilestoneCoin(milestone = m)
                             }
                         }
                     }
