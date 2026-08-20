@@ -34,6 +34,7 @@ import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.JourneyCategory
 import com.eight64zeros.clearstreak.model.UrgeLevel
 import com.eight64zeros.clearstreak.navigation.Screen
+import com.eight64zeros.clearstreak.review.launchReview
 import com.eight64zeros.clearstreak.security.DatabasePassphraseProvider
 import com.eight64zeros.clearstreak.security.KeyStoreManager
 import com.eight64zeros.clearstreak.ui.screens.AddJourneyModal
@@ -297,6 +298,7 @@ class MainActivity : FragmentActivity() {
                     unlockPriceText = premiumState.priceText,
                     trialDaysRemaining = trialDaysLeft,
                     onOpenUnlock = { currentRoute = Screen.Unlock.route },
+                    onRateClicked = { launchReview(this@MainActivity) },
                     onLockApp = { lockApp() },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )

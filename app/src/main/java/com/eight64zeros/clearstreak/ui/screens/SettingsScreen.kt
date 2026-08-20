@@ -44,6 +44,7 @@ import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.OIASecondaryButton
 import com.eight64zeros.clearstreak.ui.components.OIATextField
+import com.eight64zeros.clearstreak.ui.components.SupportCard
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
 import com.eight64zeros.clearstreak.ui.theme.OIACream
 import com.eight64zeros.clearstreak.ui.theme.OIASage
@@ -67,6 +68,7 @@ fun SettingsScreen(
     unlockPriceText: String,
     trialDaysRemaining: Int,
     onOpenUnlock: () -> Unit,
+    onRateClicked: () -> Unit,
     onLockApp: () -> Unit,
     onBack: () -> Unit
 ) {
@@ -265,6 +267,17 @@ fun SettingsScreen(
                         )
                     }
                 }
+            }
+
+            // Support / rate us
+            item {
+                SupportCard(
+                    quote = "If this app has helped you, kindly help us help more people.",
+                    onRateClicked = onRateClicked,
+                    transparencyBody = "You pay once — no subscription, no ads, no tracking, and we never see " +
+                        "or sell your recovery. Honest ratings and word of mouth are the only way ClearStreak " +
+                        "grows. A moment of your time helps someone else find it."
+                )
             }
 
             // Your Privacy (plain language)

@@ -107,6 +107,9 @@ dependencies {
     // Google Play Billing — store flavor only; core stays air-gapped (no INTERNET, no billing)
     "storeImplementation"(libs.billing)
 
+    // Google Play In-App Review — store flavor only
+    "storeImplementation"(libs.play.review)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
