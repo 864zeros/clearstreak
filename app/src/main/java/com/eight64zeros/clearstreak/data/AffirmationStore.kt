@@ -3,60 +3,43 @@ package com.eight64zeros.clearstreak.data
 import android.content.Context
 import com.eight64zeros.clearstreak.model.Affirmation
 import kotlin.random.Random
+import org.json.JSONArray
 import org.json.JSONObject
 
 /**
- * In-memory store for in-app affirmations (short encouragements shown in the Home bell banner).
- * Loads the bundled `affirmations.json` once — small records, so no database is needed.
- * Mirrors [PassageStore]. Faith-tagged affirmations are only served when the user has faith
- * reflections enabled.
+ * In-memory store for in-app affirmations (Home bell banner). Loads the two bundled pillar files
+ * once — small records, so no database is needed.
  *
- * Expected `affirmations.json` shape (mirrors the passages pipeline; provenance in `source`):
- * ```
- * {
- *   "version": 1,
- *   "count": 42,
- *   "affirmations": [
- *     {
- *       "id": "aff-001",
- *       "text": "You are awesome no matter what happens today.",
- *       "faith": false,
- *       "source": { "label": "864zeros original", "reference": "" }
- *     },
- *     {
- *       "id": "aff-014",
- *       "text": "Just for today, you can do the next right thing.",
- *       "faith": false,
- *       "source": { "label": "Adapted from Alcoholics Anonymous (1939)", "reference": "p.86" }
- *     },
- *     {
- *       "id": "aff-030",
- *       "text": "You are held; you can rest in that.",
- *       "faith": true,
- *       "source": { "label": "Inspired by Psalms", "reference": "46:1" }
- *     }
- *   ]
- * }
- * ```
+ *  - `affirmations_recovery.json`  — source: `{ book, chapter_title, page, ... }` (Big Book, PD)
+ *  - `affirmations_spiritual.json` — source: `{ citation, verse_text }` (KJV, PD)
+ *
+ * Spiritual (faith) lines are only served when the caller passes `includeFaith = true`
+ * (i.e. the user enabled faith reflections).
  */
 class AffirmationStore(context: Context) {
 
-    val affirmations: List<Affirmation> = load(context.applicationContext)
+    val affirmations: List<Affirmation> =
+        parseRecovery(context.applicationContext) + parseSpiritual(context.applicationContext)
 
-    private fun load(context: Context): List<Affirmation> = try {
-        val text = context.assets.open(ASSET).bufferedReader().use { it.readText() }
-        val arr = JSONObject(text).getJSONArray("affirmations")
+    private fun parseRecovery(context: Context): List<Affirmation> = try {
+        val arr = readArray(context, RECOVERY_ASSET)
         buildList {
             for (i in 0 until arr.length()) {
                 val o = arr.getJSONObject(i)
                 val src = o.optJSONObject("source")
+                val chapter = src?.optString("chapter_title", "").orEmpty()
+                val page = src?.optInt("page", 0) ?: 0
+                val citation = buildString {
+                    append("Alcoholics Anonymous (1939)")
+                    if (chapter.isNotBlank()) append(" · ").append(chapter)
+                    if (page > 0) append(", p.").append(page)
+                }
                 add(
                     Affirmation(
                         id = o.getString("id"),
                         text = o.getString("text"),
-                        faith = o.optBoolean("faith", false),
-                        sourceLabel = src?.optString("label", "") ?: "",
-                        reference = src?.optString("reference", "") ?: ""
+                        pillar = Affirmation.PILLAR_RECOVERY,
+                        citation = citation
                     )
                 )
             }
@@ -65,8 +48,34 @@ class AffirmationStore(context: Context) {
         emptyList()
     }
 
+    private fun parseSpiritual(context: Context): List<Affirmation> = try {
+        val arr = readArray(context, SPIRITUAL_ASSET)
+        buildList {
+            for (i in 0 until arr.length()) {
+                val o = arr.getJSONObject(i)
+                val src = o.optJSONObject("source")
+                val cite = src?.optString("citation", "").orEmpty()
+                add(
+                    Affirmation(
+                        id = o.getString("id"),
+                        text = o.getString("text"),
+                        pillar = Affirmation.PILLAR_SPIRITUAL,
+                        citation = if (cite.isNotBlank()) "$cite (KJV)" else "KJV",
+                        scriptureText = src?.optString("verse_text", "")?.ifBlank { null }
+                    )
+                )
+            }
+        }
+    } catch (e: Exception) {
+        emptyList()
+    }
+
+    private fun readArray(context: Context, asset: String): JSONArray =
+        JSONObject(context.assets.open(asset).bufferedReader().use { it.readText() })
+            .getJSONArray("affirmations")
+
     private fun pool(includeFaith: Boolean): List<Affirmation> =
-        if (includeFaith) affirmations else affirmations.filter { !it.faith }
+        if (includeFaith) affirmations else affirmations.filter { !it.isFaith }
 
     /** A random affirmation, honoring the faith setting. Null if none are available. */
     fun random(includeFaith: Boolean): Affirmation? {
@@ -75,6 +84,7 @@ class AffirmationStore(context: Context) {
     }
 
     companion object {
-        private const val ASSET = "affirmations.json"
+        private const val RECOVERY_ASSET = "affirmations_recovery.json"
+        private const val SPIRITUAL_ASSET = "affirmations_spiritual.json"
     }
 }
