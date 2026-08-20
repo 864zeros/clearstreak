@@ -63,6 +63,8 @@ fun SettingsScreen(
     onTogglePassageOnHome: (Boolean) -> Unit,
     showFaithReflections: Boolean,
     onToggleFaithReflections: (Boolean) -> Unit,
+    showAffirmations: Boolean,
+    onToggleAffirmations: (Boolean) -> Unit,
     onOpenScience: () -> Unit,
     isPremiumUnlocked: Boolean,
     unlockPriceText: String,
@@ -217,6 +219,13 @@ fun SettingsScreen(
                         subtitle = "Show the optional faith line under recovery passages.",
                         checked = showFaithReflections,
                         onToggle = onToggleFaithReflections
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                    ToggleRow(
+                        title = "Show affirmations",
+                        subtitle = "Adds an Affirmation card (with a Random button) at the bottom of the Reflect tabs.",
+                        checked = showAffirmations,
+                        onToggle = onToggleAffirmations
                     )
                 }
             }

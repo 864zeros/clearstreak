@@ -74,12 +74,14 @@ class AffirmationStore(context: Context) {
         JSONObject(context.assets.open(asset).bufferedReader().use { it.readText() })
             .getJSONArray("affirmations")
 
-    private fun pool(includeFaith: Boolean): List<Affirmation> =
-        if (includeFaith) affirmations else affirmations.filter { !it.isFaith }
+    /** A random recovery affirmation (shown in the Reflect → Recovery segment). */
+    fun randomRecovery(): Affirmation? = randomOf(Affirmation.PILLAR_RECOVERY)
 
-    /** A random affirmation, honoring the faith setting. Null if none are available. */
-    fun random(includeFaith: Boolean): Affirmation? {
-        val p = pool(includeFaith)
+    /** A random spiritual affirmation (shown in the Reflect → Scripture segment). */
+    fun randomSpiritual(): Affirmation? = randomOf(Affirmation.PILLAR_SPIRITUAL)
+
+    private fun randomOf(pillar: String): Affirmation? {
+        val p = affirmations.filter { it.pillar == pillar }
         return if (p.isEmpty()) null else p[Random.nextInt(p.size)]
     }
 

@@ -37,8 +37,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eight64zeros.clearstreak.data.AffirmationStore
 import com.eight64zeros.clearstreak.data.HeritageStore
 import com.eight64zeros.clearstreak.data.PassageStore
+import com.eight64zeros.clearstreak.model.Affirmation
 import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.DailyVerse
 import com.eight64zeros.clearstreak.ui.components.OIACard
@@ -60,11 +62,13 @@ private enum class Segment { SCRIPTURE, RECOVERY }
 @Composable
 fun HeritageScreen(
     showFaith: Boolean,
+    showAffirmations: Boolean,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
     val heritageStore = remember { HeritageStore(context) }
     val passageStore = remember { PassageStore(context) }
+    val affirmationStore = remember { AffirmationStore(context) }
     val today = remember { LocalDate.now() }
     val dateFmt = remember { DateTimeFormatter.ofPattern("MMMM d") }
 
@@ -74,11 +78,13 @@ fun HeritageScreen(
     var verseDate by remember { mutableStateOf(today) }
     val dateVerse = remember(verseDate, heritageStore) { heritageStore.verseForDate(verseDate) }
     var randomVerse by remember { mutableStateOf<DailyVerse?>(null) }
+    var spiritualAff by remember { mutableStateOf(affirmationStore.randomSpiritual()) }
 
     // Recovery state (mirrors Scripture)
     var passageDate by remember { mutableStateOf(today) }
     val datePassage = remember(passageDate, passageStore) { passageStore.passageForDate(passageDate) }
     var randomPassage by remember { mutableStateOf<BookPassage?>(null) }
+    var recoveryAff by remember { mutableStateOf(affirmationStore.randomRecovery()) }
 
     Scaffold(
         containerColor = OIACream,
@@ -123,7 +129,10 @@ fun HeritageScreen(
                     dateVerse = dateVerse,
                     onSelectDate = { verseDate = it },
                     randomVerse = randomVerse,
-                    onRandomVerse = { randomVerse = heritageStore.randomVerse() }
+                    onRandomVerse = { randomVerse = heritageStore.randomVerse() },
+                    showAffirmations = showAffirmations,
+                    affirmation = spiritualAff,
+                    onRandomAffirmation = { spiritualAff = affirmationStore.randomSpiritual() }
                 )
                 Segment.RECOVERY -> RecoverySection(
                     showFaith = showFaith,
@@ -133,7 +142,10 @@ fun HeritageScreen(
                     datePassage = datePassage,
                     onSelectDate = { passageDate = it },
                     randomPassage = randomPassage,
-                    onRandomPassage = { randomPassage = passageStore.random() }
+                    onRandomPassage = { randomPassage = passageStore.random() },
+                    showAffirmations = showAffirmations,
+                    affirmation = recoveryAff,
+                    onRandomAffirmation = { recoveryAff = affirmationStore.randomRecovery() }
                 )
             }
 
@@ -150,7 +162,10 @@ private fun ScriptureSection(
     dateVerse: DailyVerse?,
     onSelectDate: (LocalDate) -> Unit,
     randomVerse: DailyVerse?,
-    onRandomVerse: () -> Unit
+    onRandomVerse: () -> Unit,
+    showAffirmations: Boolean,
+    affirmation: Affirmation?,
+    onRandomAffirmation: () -> Unit
 ) {
     OIACard(backgroundColor = OIAWarmWhite, cornerRadius = 16.dp, padding = 20.dp) {
         Text("The Serenity Prayer", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OIACharcoal)
@@ -179,6 +194,17 @@ private fun ScriptureSection(
             QuoteBody(it.text, it.citation)
         }
     }
+
+    if (showAffirmations) {
+        Spacer(modifier = Modifier.height(16.dp))
+        ContentCard(title = "Affirmation", subtitle = "A word for you — original, scripture-rooted.") {
+            affirmation?.let {
+                AffirmationBody(it)
+                Spacer(modifier = Modifier.height(16.dp))
+            } ?: EmptyLine("No affirmation available.")
+            OIAPrimaryButton(text = "🎲 Another affirmation", onClick = onRandomAffirmation)
+        }
+    }
 }
 
 @Composable
@@ -190,7 +216,10 @@ private fun RecoverySection(
     datePassage: BookPassage?,
     onSelectDate: (LocalDate) -> Unit,
     randomPassage: BookPassage?,
-    onRandomPassage: () -> Unit
+    onRandomPassage: () -> Unit,
+    showAffirmations: Boolean,
+    affirmation: Affirmation?,
+    onRandomAffirmation: () -> Unit
 ) {
     Text(
         text = "Plain-language passages re-authored from the 1939 recovery classic. One for each day; faith is optional and never assumed.",
@@ -217,6 +246,17 @@ private fun RecoverySection(
         randomPassage?.let {
             Spacer(modifier = Modifier.height(16.dp))
             PassageBody(it, showFaith)
+        }
+    }
+
+    if (showAffirmations) {
+        Spacer(modifier = Modifier.height(16.dp))
+        ContentCard(title = "Affirmation", subtitle = "A word for you — original, recovery-rooted.") {
+            affirmation?.let {
+                AffirmationBody(it)
+                Spacer(modifier = Modifier.height(16.dp))
+            } ?: EmptyLine("No affirmation available.")
+            OIAPrimaryButton(text = "🎲 Another affirmation", onClick = onRandomAffirmation)
         }
     }
 }
@@ -247,6 +287,23 @@ private fun PassageBody(passage: BookPassage, showFaith: Boolean) {
     }
     Spacer(modifier = Modifier.height(8.dp))
     Text("— ${passage.citation}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
+}
+
+@Composable
+private fun AffirmationBody(affirmation: Affirmation) {
+    Text(affirmation.text, fontSize = 17.sp, color = OIACharcoal, lineHeight = 25.sp)
+    if (affirmation.scriptureText != null) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            "“${affirmation.scriptureText}”",
+            fontSize = 13.sp,
+            fontStyle = FontStyle.Italic,
+            color = OIACoral,
+            lineHeight = 19.sp
+        )
+    }
+    Spacer(modifier = Modifier.height(8.dp))
+    Text("— ${affirmation.citation}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
 }
 
 @Composable

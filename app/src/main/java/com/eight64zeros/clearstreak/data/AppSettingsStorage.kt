@@ -23,6 +23,11 @@ class AppSettingsStorage(context: Context) {
         get() = prefs.getBoolean(KEY_FAITH, false)
         set(value) = prefs.edit().putBoolean(KEY_FAITH, value).apply()
 
+    /** Opt-in: show the Affirmation card (with a Random button) at the bottom of each Reflect segment. */
+    var showAffirmations: Boolean
+        get() = prefs.getBoolean(KEY_AFFIRMATIONS, false)
+        set(value) = prefs.edit().putBoolean(KEY_AFFIRMATIONS, value).apply()
+
     /**
      * Local cache of the Play Billing one-time-unlock entitlement. Play is the source of truth;
      * this lets premium features work instantly offline and before the billing client reconnects.
@@ -36,6 +41,7 @@ class AppSettingsStorage(context: Context) {
         private const val KEY_VERSE_ON_HOME = "verse_on_home"
         private const val KEY_PASSAGE_ON_HOME = "passage_on_home"
         private const val KEY_FAITH = "faith_reflections"
+        private const val KEY_AFFIRMATIONS = "show_affirmations"
         private const val KEY_PREMIUM = "premium_unlocked"
     }
 }
