@@ -30,7 +30,7 @@ Verify:
 **Path-to-launch — the remaining blockers (see §6):**
 1. **Play Console setup (user)** — create the account ($25 + ID verification) and define product `clearstreak_unlock` as a one-time product at **$14.99**; add a license tester. Billing code is done and CI-green; it just can't be *tested* until the SKU exists.
 2. **Real release keystore** — `storeRelease` is debug-signed; cannot go to Play.
-3. **Store-readiness** — privacy policy, listing copy (see `overview.html`), health-category medical-claims framing, content rating. Also fix the store-flavor "no internet at all" privacy copy (store build has INTERNET for billing).
+3. **Store-readiness** — privacy policy, listing copy (see `overview.html`), health-category medical-claims framing, content rating. *(Store-flavor privacy copy now flavor-aware via `config/FlavorInfo` — store build honestly states the only network use is Google's purchase check.)*
 
 **Polish (trails the launch):** milestone-hit haptic pulse, crisis-intercept usage logging, slip-framing immediacy, midnight `WorkManager` widget refresh, verse emotion-tag review, ch01/ch02 passage over-mining trim, CI `setup-java` v4→v5 bump, first `StreakCalculator` unit test.
 
