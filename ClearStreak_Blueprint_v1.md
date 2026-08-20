@@ -12,7 +12,7 @@
 - **Local-First & Air-Gapped:** Core build excludes `android.permission.INTERNET` entirely. Zero cloud accounts, zero telemetry, zero analytics, zero central databases.
 - **Hardware-Bound Security:** SQLCipher (AES-256) encrypted database with keys tied to device biometrics (StrongBox/TEE on Android; Secure Enclave on iOS).
 - **"Data Over Shame" Engine:** Slips reset the active streak counter but never erase cumulative history. The database permanently preserves cumulative clean days, previous milestone stretches, and the personal best record.
-- **Anti-SaaS Pricing:** $4.99 one-time Core Unlock + optional $9.99 Supporter Tier. No recurring subscriptions.
+- **Anti-SaaS Pricing:** **7-day free trial → $14.99 one-time unlock** (Google Play Billing, INAPP product `clearstreak_unlock`). No recurring subscriptions. *(Supersedes the earlier $4.99 + $9.99-supporter model — locked 2026-08-20 after market research.)* Crisis Rescue tools always stay reachable even after the trial locks the app.
 
 ---
 
@@ -100,11 +100,11 @@ Per **Elaborated Intrusion (EI) Theory**, cravings depend on visual/spatial work
        ├──► [Brick 3: Minimalist Calendar & Progress Visualizer]
        ├──► [Brick 4: Somatosensory Reset (Pocket Anchor & 4×4 Breather)]
        ├──► [Brick 5: Offline Visuospatial Mini-Games (gated per §7)]
-       ├──► [Brick 6: Offline Heritage Vault (Proverbs DB, 1939 Big Book, FTS5)]
+       ├──► [Brick 6: Offline Reflect suite (Scripture verses + 130 re-authored Recovery passages, in-memory JSON)]
        └──► [Brick 7: Unified Crisis Intercept Hub]
 ```
 
-**Reconciliation note:** Bricks 1 and 7 (encrypted DB, crisis hub), the biometric gate, streak calculator, multi-journey model, and Glance widget **already exist** in the current codebase. Treat the sequence as *reconcile + extend*, not greenfield. Items the blueprint drops or leaves unassigned: the coping-card table / seed / CSV / Python pipeline (obsolete under §2), the HALT taxonomy and 4-tier check-in modal (needs an explicit keep/simplify/drop decision), the Glance widget, and IAP (in pricing but owned by no brick).
+**Reconciliation note:** Bricks 1 and 7 (encrypted DB, crisis hub), the biometric gate, streak calculator, multi-journey model, and Glance widget **already exist** in the current codebase. Treat the sequence as *reconcile + extend*, not greenfield. Items the blueprint drops or leaves unassigned: the coping-card table / seed / CSV / Python pipeline (obsolete under §2), the HALT taxonomy and 4-tier check-in modal (needs an explicit keep/simplify/drop decision), and the Glance widget. *(IAP is now built — see the Decision Register and `billing/`.)*
 
 ---
 
@@ -116,3 +116,5 @@ Per **Elaborated Intrusion (EI) Theory**, cravings depend on visual/spatial work
 | 2026-08-18 | No ingestion, ever; any card text is an awareness statement, not a command | Applies to all user-facing intervention text |
 | 2026-08-18 | 1939 Big Book is counsel-gated, not "100% legal" | Contested/US-only/AAWS-disputed; reverses spec §9.1 |
 | 2026-08-18 | **All mini-games (2048, Block Drop, Pattern Echo) gated OFF gaming/screen journeys** via per-journey `suppress_game_tools` | Entire suite suppressed; falls back to haptic + heritage tools |
+| 2026-08-19 | Heritage vault ships as **in-memory JSON, not FTS5/DB**; Big Book verbatim reader dropped in favor of **130 re-authored, original Recovery passages** | Android system SQLite FTS5 unreliable; re-authoring sidesteps the copyright question entirely. Big Book source files scrubbed from git history |
+| 2026-08-20 | Charging model locked: **7-day free trial → $14.99 one-time unlock** (Play Billing), post market research | Supersedes $4.99 + $9.99-supporter. Whole-app try-before-buy, no feature tier; crisis always free. Built in `billing/` + `UnlockScreen` |
