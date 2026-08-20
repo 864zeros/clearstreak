@@ -230,29 +230,9 @@ fun SettingsScreen(
                 }
             }
 
-            // Unlock / support
-            item {
-                if (isPremiumUnlocked) {
-                    OIACard(
-                        backgroundColor = OIASage.copy(alpha = 0.12f),
-                        borderColor = OIASage.copy(alpha = 0.3f),
-                        cornerRadius = 16.dp,
-                        padding = 16.dp
-                    ) {
-                        Text(
-                            text = "✓ ClearStreak unlocked",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = OIASage
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = "You have everything, forever. Thank you for supporting privacy-first recovery.",
-                            fontSize = 13.sp,
-                            color = OIAStone
-                        )
-                    }
-                } else {
+            // Unlock CTA — only shown before purchase; hidden once unlocked (no "unlocked" card).
+            if (!isPremiumUnlocked) {
+                item {
                     OIACard(
                         modifier = Modifier.clickable { onOpenUnlock() },
                         backgroundColor = OIAWarmWhite,
@@ -337,31 +317,6 @@ fun SettingsScreen(
                         text = "How the games, breathing, and Pocket Anchor work — plain language, with the research behind them.",
                         fontSize = 13.sp,
                         color = OIAStone
-                    )
-                }
-            }
-
-            // 864zeros Manifesto
-            item {
-                OIACard(
-                    backgroundColor = OIASage.copy(alpha = 0.12f),
-                    borderColor = OIASage.copy(alpha = 0.3f),
-                    cornerRadius = 16.dp,
-                    padding = 18.dp
-                ) {
-                    Text(
-                        text = "864zeros LLC • Core Promise",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = OIASage
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = "“Your recovery is yours alone. We cannot see it, sell it, subpoena it, or lose it.”",
-                        fontSize = 14.sp,
-                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                        color = OIACharcoal,
-                        lineHeight = 20.sp
                     )
                 }
             }
