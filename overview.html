@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearStreak — Product Overview</title>
+<style>
+  :root {
+    --cream: #F5F2ED;
+    --warm-white: #FDFCFA;
+    --charcoal: #2B2A26;
+    --stone: #7A756B;
+    --sage: #8BA888;
+    --sage-dark: #6E8A6B;
+    --coral: #E8A598;
+    --mustard: #C9A86C;
+    --dusty-blue: #7A8FA3;
+    --line: #E4DFD6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(160deg, #EFF3EC 0%, var(--cream) 55%);
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--line);
+  }
+  .pillar-tag {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    background: rgba(139,168,136,0.14);
+    border: 1px solid rgba(139,168,136,0.3);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: 56px;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    font-weight: 800;
+  }
+  .hero .tagline {
+    font-size: 22px;
+    color: var(--stone);
+    max-width: 620px;
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+  .promise {
+    border-left: 4px solid var(--sage);
+    padding: 4px 0 4px 22px;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--charcoal);
+    max-width: 640px;
+  }
+
+  /* Sections */
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 34px;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  h3 { font-size: 20px; margin-bottom: 8px; font-weight: 650; }
+  p.lead { font-size: 18px; color: var(--charcoal); max-width: 720px; margin-bottom: 16px; }
+  p.body { font-size: 16px; color: var(--stone); max-width: 720px; margin-bottom: 14px; }
+
+  /* Grids */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; }
+  .card {
+    background: var(--warm-white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px;
+  }
+  .card .ic { font-size: 26px; margin-bottom: 12px; display: block; }
+  .card p { font-size: 15px; color: var(--stone); }
+
+  /* Privacy centerpiece */
+  .privacy { background: #2B2A26; color: #F5F2ED; border-bottom: none; }
+  .privacy .eyebrow { color: var(--sage); }
+  .privacy h2 { color: #FDFCFA; }
+  .privacy p.lead { color: #DCD8CF; }
+  .privacy .pcard {
+    display: flex;
+    gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+  }
+  .privacy .pcard:last-child { border-bottom: none; }
+  .privacy .pcard .ic { font-size: 26px; flex-shrink: 0; }
+  .privacy .pcard h3 { color: #FDFCFA; margin-bottom: 4px; }
+  .privacy .pcard p { color: #B9B4A8; font-size: 15px; }
+
+  /* Feature list rows */
+  .feature-row { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .feature-row:last-child { border-bottom: none; }
+  .feature-row .ic { font-size: 26px; flex-shrink: 0; width: 40px; }
+  .feature-row p { font-size: 15px; color: var(--stone); }
+  .tag {
+    display: inline-block; font-size: 12px; font-weight: 600; color: var(--sage-dark);
+    background: rgba(139,168,136,0.14); padding: 3px 10px; border-radius: 999px; margin-left: 8px;
+  }
+
+  .audience-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 28px; }
+  .audience-list li {
+    list-style: none; background: var(--warm-white); border: 1px solid var(--line);
+    border-radius: 12px; padding: 16px 18px; font-size: 15px; color: var(--charcoal);
+  }
+  .audience-list li b { display:block; margin-bottom: 3px; }
+
+  footer { padding: 48px 0; text-align: center; color: var(--stone); font-size: 13px; }
+  footer .rule { width: 48px; height: 3px; background: var(--sage); margin: 0 auto 24px; border-radius: 2px; }
+
+  @media (max-width: 680px) {
+    .hero h1 { font-size: 40px; }
+    .hero .tagline { font-size: 19px; }
+    h2 { font-size: 27px; }
+    .grid, .grid-3, .audience-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="pillar-tag">864zeros LLC · Faith, Health &amp; Growth</span>
+    <h1>ClearStreak</h1>
+    <p class="tagline">A private, offline recovery companion that lives entirely on your phone — where your sobriety is yours alone, and no one else can ever see it.</p>
+    <p class="promise">“Your recovery is yours alone. We cannot see it, sell it, subpoena it, or lose it.”</p>
+  </div>
+</header>
+
+<!-- WHY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Why it exists</div>
+    <h2>Recovery is the last place you should be surveilled.</h2>
+    <p class="lead">Most recovery apps run on the surveillance economy: accounts, cloud sync, analytics, and data that quietly becomes someone else's asset. That means the most sensitive record a person keeps — their cravings, their slips, their reasons for staying clean — sits on a server that can be breached, sold, subpoenaed, or simply mined.</p>
+    <p class="body">ClearStreak is built on the opposite premise. It keeps a person's recovery on their own device, encrypted and offline, and gives them a companion that treats them with dignity instead of tracking them for profit. No accounts. No cloud. No telemetry. Nothing to leak, because nothing ever leaves the phone.</p>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The 864zeros philosophy</div>
+    <h2>Tools that serve the person — not the platform.</h2>
+    <p class="lead">864zeros builds local-first software: utilities that work for you, on your device, without an account or a subscription tollbooth between you and your own life. Recovery is where that principle matters most.</p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="ic">🕊️</span>
+        <h3>Dignity over data</h3>
+        <p>A person in recovery is not a data point to be optimized. The app is designed to respect them, never to extract from them.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🏠</span>
+        <h3>Local-first, always</h3>
+        <p>Your device is the whole system. No servers to trust, no cloud to breach, no company standing between you and your record.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🤝</span>
+        <h3>Compassion, not judgment</h3>
+        <p>Recovery isn't linear. Every mechanic — especially how slips are handled — is built to encourage, never to shame.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">What makes it different</div>
+    <h2>The benefits people feel.</h2>
+    <div class="grid">
+      <div class="card">
+        <span class="ic">🔒</span>
+        <h3>Truly private</h3>
+        <p>Your journal and history are encrypted with a key tied to your fingerprint or face. Not even 864zeros can read them — there's no password anyone could recover or be forced to hand over.</p>
+      </div>
+      <div class="card">
+        <span class="ic">✈️</span>
+        <h3>Works fully offline</h3>
+        <p>The core app has no internet access at all. It works on a plane, in a basement, on a dead-zone road — and it can never phone home.</p>
+      </div>
+      <div class="card">
+        <span class="ic">💚</span>
+        <h3>Shame-free by design</h3>
+        <p>A slip resets today's streak but never erases your history. Your record and hard-won milestones stay permanent, and the language never says “failure” or “lost.”</p>
+      </div>
+      <div class="card">
+        <span class="ic">🆘</span>
+        <h3>Help in the hardest moment</h3>
+        <p>One tap opens a full-screen rescue hub — your sponsor, your support person, and national lifelines — plus grounding tools to ride out the wave.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🌱</span>
+        <h3>Track everything, together</h3>
+        <p>Alcohol, drugs, vaping, gambling, behavioral, or your own custom goal — as many recoveries as you need, each with its own history.</p>
+      </div>
+      <div class="card">
+        <span class="ic">📿</span>
+        <h3>Meaning, if you want it</h3>
+        <p>An optional library of reflections and scripture for grounding and perspective — always there, never forced.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY CENTERPIECE -->
+<section class="privacy">
+  <div class="wrap">
+    <div class="eyebrow">Privacy, by architecture</div>
+    <h2>Not a privacy policy — a privacy design.</h2>
+    <p class="lead">Most apps promise privacy in a document you have to trust. ClearStreak makes it structural: the app is built so that exposing your data isn't just against policy — it's technically impossible. Here's what that means in plain terms.</p>
+    <div style="margin-top:32px;">
+      <div class="pcard">
+        <span class="ic">✈️</span>
+        <div><h3>It has no way to reach the internet</h3>
+        <p>The core build ships without the internet permission entirely. Nothing you write can be sent, synced, shared, or leaked online — the capability simply isn't there.</p></div>
+      </div>
+      <div class="pcard">
+        <span class="ic">🔐</span>
+        <div><h3>Your data is encrypted on the device</h3>
+        <p>Everything sensitive is stored in an AES-256 encrypted database (SQLCipher). On the phone itself, it's unreadable scramble without the key.</p></div>
+      </div>
+      <div class="pcard">
+        <span class="ic">👆</span>
+        <div><h3>Only your body unlocks it</h3>
+        <p>The encryption key is bound to your fingerprint or face and this phone's secure hardware (StrongBox / Trusted Execution Environment). There is no recovery password — which means nothing anyone could steal, guess, or compel.</p></div>
+      </div>
+      <div class="pcard">
+        <span class="ic">☁️</span>
+        <div><h3>Nothing goes to any cloud</h3>
+        <p>No accounts, no backups, no server. Your recovery data is never copied off the device — not to us, not to Google, not anywhere. If it isn't on your phone, it doesn't exist.</p></div>
+      </div>
+      <div class="pcard">
+        <span class="ic">📊</span>
+        <div><h3>Zero telemetry, zero analytics</h3>
+        <p>The app doesn't measure you. There are no trackers, no usage analytics, no ad SDKs — nothing watching what you do.</p></div>
+      </div>
+      <div class="pcard">
+        <span class="ic">🙈</span>
+        <div><h3>Invisible to onlookers</h3>
+        <p>Screenshots and screen-recording are blocked, and the app hides its contents in the app switcher — so your recovery never flashes on screen by accident.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOVERY MODEL -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The recovery model</div>
+    <h2>Built around how recovery actually works.</h2>
+    <div style="margin-top:24px;">
+      <div class="feature-row">
+        <span class="ic">🧭</span>
+        <div><h3>Multi-journey tracking</h3>
+        <p>Track concurrent recoveries — substances, smoking, vaping, gambling, behavioral, or a custom goal — each with its own start date and running history.</p></div>
+      </div>
+      <div class="feature-row">
+        <span class="ic">🎚️</span>
+        <div><h3>Four-tier check-ins <span class="tag">HALT-aware</span></h3>
+        <p>Clear, Passing, White-Knuckling, or Critical — a quick honest read of the moment, with optional HALT context (Hungry, Angry, Lonely, Tired). Critical routes straight to the rescue hub.</p></div>
+      </div>
+      <div class="feature-row">
+        <span class="ic">💚</span>
+        <div><h3>“Data over shame” slip model</h3>
+        <p>A slip resets the active streak but never deletes the past. Cumulative clean days, previous stretches, and your personal best are preserved — and a slip is immediately reframed toward the record you're already climbing back toward.</p></div>
+      </div>
+      <div class="feature-row">
+        <span class="ic">🏅</span>
+        <div><h3>Milestones &amp; a visual calendar</h3>
+        <p>Permanent milestone badges and a high-contrast heatmap calendar make progress visible and earned — momentum you can see at a glance.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRISIS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">In the hardest moment</div>
+    <h2>A rescue hub, one tap away.</h2>
+    <p class="lead">When a craving turns critical, ClearStreak drops everything and opens a calm, full-screen Rescue hub — designed to be usable when someone is overwhelmed, and to always put a real human within one tap.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="ic">📞</span>
+        <h3>Your people first</h3>
+        <p>One-tap dialers for your sponsor and support person, always shown — with a gentle prompt to add them if you haven't yet.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🛟</span>
+        <h3>National lifelines built in</h3>
+        <p>SAMHSA's helpline, the 988 Suicide &amp; Crisis Lifeline, Crisis Text Line, and specialized quit-lines for smoking and gambling.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🌬️</span>
+        <h3>Ground the wave</h3>
+        <p>A 60-second grounding timer and a 4-7-8 breathing circle with haptic pacing — eyes-free tools to let the craving crest and pass.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🕯️</span>
+        <h3>Calm, not clinical</h3>
+        <p>A deliberate long-press exit prevents accidental dismissal, and the whole screen is built to steady, not to alarm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUNDING -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Riding out a craving</div>
+    <h2>Distraction that treats the urge — without ever telling you what to do.</h2>
+    <p class="lead">The craving toolkit is built on a strict rule: <b>zero ingestion, zero advice.</b> It never suggests consuming anything, and any words on screen are gentle awareness, never a command. Instead it uses the body and the senses to let an urge pass.</p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="ic">🫧</span>
+        <h3>Pocket Anchor</h3>
+        <p>A tactile, timed session with rhythmic vibration that chunks time into manageable pieces and resolves with a calming wave.</p>
+      </div>
+      <div class="card">
+        <span class="ic">📦</span>
+        <h3>Tactile box breather</h3>
+        <p>A four-part breath guided by haptic ramps — inhale, hold, exhale, rest — so you can follow it without even looking.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🧩</span>
+        <h3>Mind-occupying mini-games</h3>
+        <p>Quick visuospatial games that crowd out craving imagery — and are automatically withheld from screen- or gaming-recovery journeys, so a tool never feeds the habit it's treating.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECT -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Reflect</div>
+    <h2>Grounding and perspective, on your terms.</h2>
+    <p class="lead">An optional, entirely offline library for the quieter side of recovery — always available, never pushed, and free of any doctrine you didn't ask for.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="ic">📖</span>
+        <h3>Recovery reflections</h3>
+        <p>An original library of short, modern recovery passages — written to carry the wisdom of early recovery literature in plain, contemporary language — browsable by theme, with a fresh passage each day.</p>
+      </div>
+      <div class="card">
+        <span class="ic">🌅</span>
+        <h3>Scripture &amp; the Serenity Prayer</h3>
+        <p>A daily verse and public-domain scripture for those who want it, with the Serenity Prayer close at hand — and an optional faith layer you can switch on or leave off.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIDGET -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Always in view</div>
+    <h2>Your streak on the home screen.</h2>
+    <p class="lead">A home-screen widget shows your current streak and next milestone at a glance — a quiet, daily reminder of how far you've come — reading only from the phone's own sandboxed storage.</p>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Who it's for</div>
+    <h2>Anyone who wants recovery that stays theirs.</h2>
+    <ul class="audience-list">
+      <li><b>People in active recovery</b> who want a daily companion that respects their privacy.</li>
+      <li><b>Privacy-conscious users</b> who refuse to put their most sensitive record in the cloud.</li>
+      <li><b>Sponsors &amp; support networks</b> looking for a tool they can recommend without reservation.</li>
+      <li><b>Anyone changing a habit</b> — smoking, vaping, gambling, screens, or a personal goal.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="rule"></div>
+    <p><strong>ClearStreak</strong> — a local-first recovery companion by 864zeros LLC.</p>
+    <p>Faith, Health &amp; Growth · Private by architecture · Offline by default.</p>
+    <p style="margin-top:16px; opacity:0.7;">Internal product overview — 864zeros LLC.</p>
+  </div>
+</footer>
+
+</body>
+</html>

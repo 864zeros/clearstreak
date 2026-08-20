@@ -14,6 +14,7 @@ ClearStreak counters the surveillance economics of incumbent recovery apps by op
 Built strictly according to the **864zeros Build Kit** and the **OIA Design System v1.0**.
 
 > **📍 Project docs & current state**
+> - `overview.html` — marketing-slanted product overview (features, privacy, philosophy).
 > - `ClearStreak_Spec_v2.md` — original product spec.
 > - `ClearStreak_Blueprint_v1.md` — strategic blueprint (current direction authority).
 > - `PROGRESS.md` — build state & full decision log. **Read this first to see what's actually built.**
@@ -24,43 +25,70 @@ Built strictly according to the **864zeros Build Kit** and the **OIA Design Syst
 
 ## 🛡️ Core Security Architecture
 
-1. **Air-Gapped by Default**: `android.permission.INTERNET` is completely removed from the default `core` build flavor.
+1. **Air-Gapped by Default**: `android.permission.INTERNET` is completely removed from the default `core` build flavor. *(The `store` flavor adds INTERNET solely for Google Play Billing — no recovery data ever leaves the device.)*
 2. **Hardware-Bound Biometric Gate**: `BiometricPrompt` with `CryptoObject` gates all access to the encrypted database (`recovery_enc.db`). The master key is generated with `setUserAuthenticationRequired(true)` and `setInvalidatedByBiometricEnrollment(true)`, StrongBox-backed with a TEE fallback.
 3. **Database Partitioning**:
    - `streak_core.db`: Plaintext SQLite for journey records, milestone tracking, and Glance widget synchronization.
    - `recovery_enc.db`: AES-256 encrypted with SQLCipher 4.x for check-in records and sensitive journal notes.
 4. **Zero Cloud Backup**: Excluded via `android:allowBackup="false"` and `<data-extraction-rules>` (encrypted DB + secure prefs excluded from backup/transfer).
 5. **Screen Protection**: `FLAG_SECURE` prevents OS-level screen captures and task-switcher snapshot leaks.
+6. **No Telemetry**: Zero analytics, zero trackers, zero ad SDKs.
+
+> **Theme note:** the app is currently **light-only** (screens hardcode the OIA light palette). `OIATextField` forces dark input text so entries stay readable even on a dark-mode phone. A real light/dark system is deferred to the **864zeros-mobile-build-kit** (not built here).
 
 ---
 
 ## 🧭 Recovery Model
 
-- **Multi-Journey Tracker**: Track concurrent recoveries (substances, smoking, gambling, behavioral, custom) with independent start dates.
-- **Recovery Ledger (`StreakCalculator`)**: current / longest / cumulative days, money saved, milestone progress.
+- **Multi-Journey Tracker**: Track concurrent recoveries — Alcohol / Drugs / Vape / Gambling / Behavioral / Custom (with a per-journey custom label) — each with an independent start date. No default journey is auto-seeded.
+- **Recovery Ledger (`StreakCalculator`)**: current / longest / cumulative days (with sub-day hours), money saved, milestone progress.
 - **Data Over Shame**: A slip resets the *active* streak but never erases history. Earned milestone badges are permanent; slip framing centers the preserved personal record and never uses "failure / lost / broken" language.
 - **4-Tier Check-In**: 🟢 Clear · 🟡 Passing · 🟠 White-Knuckling · 🔴 Critical, with HALT context; 🔴 Critical routes to the Crisis Intercept.
+- **Home is journeys-first**: journey cards + "Add Journey" sit at the top; the optional daily verse and passage cards are supplemental, below.
 
 ---
 
-## 🌬️ Acute-Craving Intervention (in progress)
+## 🌬️ Acute-Craving Intervention (built)
 
-The intervention model deliberately **avoids text "advice" and never suggests ingesting anything**. Instead it uses (see blueprint §2 and `PROGRESS.md`):
+The intervention model deliberately **avoids text "advice" and never suggests ingesting anything** — any on-screen text is awareness, never a command:
 
-- **Somatosensory tools** — 60-second grounding timer and a 4-7-8 breathing circle with haptic pacing (built); a background "Pocket Anchor" and tactile box-breather are planned (Brick 4).
-- **Visuospatial mini-games** — planned (Brick 5), and **gated off gaming/screen-recovery journeys** (per-journey `suppress_game_tools` flag) so the tool never feeds the habit it's treating.
-- **Public-domain heritage content** — planned (Brick 6): Proverbs (KJV/WEB) and the Serenity Prayer. *(An AA Big Book vault is copyright-gated — pending legal confirmation; see `PROGRESS.md` §5.)*
+- **Somatosensory tools** — a 60-second grounding timer and a 4-7-8 breathing circle with haptic pacing; a foreground **Pocket Anchor** and a **4×4×4×4 tactile box breather** (screen kept awake via `keepScreenOn`, no background service).
+- **Visuospatial mini-games** — offline Canvas engines that crowd out craving imagery, **auto-withheld from gaming/screen-recovery journeys** (per-journey suppression) so a tool never feeds the habit it treats.
+- **"Words for this moment"** — a contextual recovery passage on the Reset tab, routed by urge state.
+- **The Science** — a plain-language screen explaining the games / breathing / Pocket Anchor with the research behind them.
 
 > The earlier deterministic "coping cards" feature was **removed** in favor of this model.
 
 ---
 
+## 📖 Reflect (Scripture + Recovery)
+
+The former "Faith" tab is now **Reflect**, with two mirrored segments:
+
+- **Scripture** — Proverb/verse-of-the-day (Public Domain WEB/KJV), the Serenity Prayer, and a verse calendar. 100% offline.
+- **Recovery** — **130 re-authored recovery passages** written in plain, modern language, carrying the wisdom of early recovery literature. **Original content** (no verbatim reader, no clinical/legal gate); shipped as `assets/passages.json` with a passage-of-the-day, calendar, theme browse, and randomize.
+- **Optional faith layer** — a Settings toggle adds an optional faith line under passages; off by default.
+
+Content is served from lightweight in-memory JSON stores (`HeritageStore`, `PassageStore`) — no runtime DB (Android's system SQLite FTS5 proved unreliable).
+
+---
+
+## 💳 Monetization (store flavor)
+
+- **Model**: **7-day free trial → $14.99 one-time unlock** via **Google Play Billing (8.3.0)**. No subscription, no account.
+- **Product ID**: `clearstreak_unlock` (one-time / INAPP). Create it in the Play Console at $14.99.
+- **Trial**: anchored to `PackageManager.firstInstallTime` (survives clear-data; resets on true reinstall — offline privacy stance rules out server enforcement).
+- **Ethical line**: after the trial the app requires the unlock, **but the crisis Rescue hub always stays reachable** — no one is ever trapped behind a paywall in a hard moment, and nothing logged is deleted.
+- **Flavor split**: real billing lives only in `store` (`billing/StoreBillingManager`); the air-gapped `core` flavor uses a stub that reports everything unlocked (`billing/CorePremiumManager`), with no billing dependency.
+
+---
+
 ## 🎨 OIA Design System v1.0
 
-- **Palette**: Warm Neutrals (Cream `#F5F2ED`, Warm White `#FDFCFA`, Dark BG `#1A1A1A`) with Sage (`#8BA888`), Coral (`#E8A598`), Mustard (`#C9A86C`), Dusty Blue (`#7A8FA3`). **No pure `#000000` / `#FFFFFF`.**
+- **Palette**: Warm Neutrals (Cream `#F5F2ED`, Warm White `#FDFCFA`) with Sage (`#8BA888`), Coral (`#E8A598`), Mustard (`#C9A86C`), Dusty Blue (`#7A8FA3`). **No pure `#000000` / `#FFFFFF`.**
 - **Typography**: Rounded, relaxed type scale (SansSerif).
 - **ADHD-Friendly UX**: one primary action per screen; large touch targets; non-shaming relapse model.
-- **Crisis Intercept**: high-contrast fullscreen hub with native `tel://` dialers (Sponsor, Support Person, SAMHSA `1-800-662-4357`, 988 Lifeline), anonymous map queries (`geo:0,0?q=...`), and a 2-second long-press exit.
+- **Crisis Intercept**: high-contrast fullscreen hub with native `tel://` dialers (Sponsor + Support Person always shown, SAMHSA `1-800-662-4357`, 988 Lifeline, Crisis Text Line, smoking/gambling quit-lines), anonymous map queries (`geo:0,0?q=...`), grounding timer + 4-7-8 breather, and a long-press exit.
 
 ---
 
@@ -73,8 +101,8 @@ The intervention model deliberately **avoids text "advice" and never suggests in
 
 ## 🏗️ Build Flavors
 
-- `coreDebug` / `coreRelease`: completely air-gapped, zero-network build.
-- `storeDebug` / `storeRelease`: minimal networking strictly for optional Google Play Billing (IAP not yet implemented).
+- `coreDebug` / `coreRelease`: completely air-gapped, zero-network build; premium always unlocked (operator/dogfood).
+- `storeDebug` / `storeRelease`: minimal networking for Google Play Billing (7-day trial → $14.99 one-time unlock).
 
 CI (`.github/workflows/build.yml`) builds **`assembleCoreDebug`** and **`assembleStoreRelease`** (the latter exercises R8 minify + resource shrink) on every push and uploads both APKs as artifacts.
 
@@ -90,40 +118,36 @@ clearStreak/
 │   └── src/
 │       ├── main/
 │       │   ├── AndroidManifest.xml
+│       │   ├── assets/passages.json        (130 re-authored recovery passages)
 │       │   ├── java/com/eight64zeros/clearstreak/
-│       │   │   ├── ClearStreakApp.kt
 │       │   │   ├── MainActivity.kt
-│       │   │   ├── security/
-│       │   │   │   ├── KeyStoreManager.kt
-│       │   │   │   └── DatabasePassphraseProvider.kt
-│       │   │   ├── database/
-│       │   │   │   └── DatabaseManager.kt
-│       │   │   ├── model/
-│       │   │   │   ├── Enums.kt
-│       │   │   │   ├── Journey.kt
-│       │   │   │   ├── CheckIn.kt
-│       │   │   │   ├── Milestone.kt
-│       │   │   │   └── StreakStats.kt
-│       │   │   ├── data/
-│       │   │   │   ├── StreakCalculator.kt
-│       │   │   │   ├── SharedStreakStorage.kt
-│       │   │   │   └── EmergencyContactStorage.kt
-│       │   │   ├── widget/
-│       │   │   │   ├── ClearStreakWidget.kt
-│       │   │   │   └── ClearStreakWidgetReceiver.kt
-│       │   │   ├── navigation/
-│       │   │   │   └── Screen.kt
+│       │   │   ├── billing/                 (PremiumManager, TrialStatus)  [store: StoreBillingManager]
+│       │   │   ├── security/                (KeyStoreManager, DatabasePassphraseProvider)
+│       │   │   ├── database/                (DatabaseManager)
+│       │   │   ├── model/                   (Journey, CheckIn, Milestone, StreakStats,
+│       │   │   │                             BookPassage, DailyVerse, JourneyCategory, Enums)
+│       │   │   ├── data/                    (StreakCalculator, SharedStreakStorage,
+│       │   │   │                             EmergencyContactStorage, AppSettingsStorage,
+│       │   │   │                             HeritageStore, PassageStore)
+│       │   │   ├── widget/                  (ClearStreakWidget, ClearStreakWidgetReceiver)
+│       │   │   ├── navigation/              (Screen)
 │       │   │   └── ui/
-│       │   │       ├── theme/       (Color, Theme, Type, Shape, Spacing)
-│       │   │       ├── components/  (UrgePulseGrid, HaltTriggerRow, BreathingCircle,
-│       │   │       │                 GroundingTimer, OIAButton, OIACard, OIATextField)
-│       │   │       └── screens/     (Dashboard, CheckInModal, CrisisIntercept,
-│       │   │                         JourneyDetail, Journal, Settings, AddJourney,
-│       │   │                         BiometricLock)
-│       │   └── res/                 (values, xml, drawable, mipmap, layout)
+│       │   │       ├── theme/               (Color, Theme, Type, Shape, Spacing)
+│       │   │       ├── components/          (UrgePulseGrid, HaltTriggerRow, BreathingCircle,
+│       │   │       │                         GroundingTimer, BoxBreather, PocketAnchor,
+│       │   │       │                         MiniGamesCard, CalendarHeatmap, VerseCalendar,
+│       │   │       │                         OIAButton, OIACard, OIATextField)
+│       │   │       └── screens/             (Dashboard, CheckInModal, CrisisIntercept,
+│       │   │                                 JourneyDetail, Journal, Settings, AddJourney,
+│       │   │                                 BiometricLock, GroundingTools, Heritage [Reflect],
+│       │   │                                 Science, Unlock)
+│       │   └── res/                         (values, xml, drawable, mipmap, layout)
+│       ├── core/java/.../billing/           (CorePremiumManager — always-unlocked stub)
 │       └── store/
-│           └── AndroidManifest.xml  (adds INTERNET + BILLING)
+│           ├── AndroidManifest.xml          (adds INTERNET + BILLING)
+│           └── java/.../billing/            (StoreBillingManager — Play Billing)
 ├── .github/workflows/build.yml
+├── overview.html
 ├── ClearStreak_Spec_v2.md
 ├── ClearStreak_Blueprint_v1.md
 ├── PROGRESS.md
@@ -136,4 +160,4 @@ clearStreak/
 
 ---
 
-*Classification: 864zeros Internal — Ready for Build*
+*Classification: 864zeros Internal — In active development*
