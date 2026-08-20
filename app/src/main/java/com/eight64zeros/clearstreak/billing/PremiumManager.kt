@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 const val PRODUCT_UNLOCK = "clearstreak_unlock"
 
 /** Shown before Play returns the localized/formatted price (and on the air-gapped core flavor). */
-const val UNLOCK_PRICE_FALLBACK = "$9.99"
+const val UNLOCK_PRICE_FALLBACK = "$14.99"
 
 enum class PremiumStatus {
     /** Connecting to Play / querying the product. */

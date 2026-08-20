@@ -2,7 +2,6 @@ package com.eight64zeros.clearstreak.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +33,7 @@ import com.eight64zeros.clearstreak.billing.PremiumState
 import com.eight64zeros.clearstreak.billing.PremiumStatus
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
+import com.eight64zeros.clearstreak.ui.components.OIASecondaryButton
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
 import com.eight64zeros.clearstreak.ui.theme.OIACoral
 import com.eight64zeros.clearstreak.ui.theme.OIACream
@@ -42,17 +42,24 @@ import com.eight64zeros.clearstreak.ui.theme.OIAStone
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
 /**
- * One-time unlock paywall. Deliberately un-pushy: crisis and core recovery tools are always free,
- * this only unlocks the supplemental library/features, once, forever — no subscription.
+ * Unlock paywall for the one-time purchase after the free trial.
+ *
+ * [forced] = the trial is over and the app is locked: no dismiss, and the crisis Rescue escape
+ * is shown so a person in a hard moment is NEVER blocked by a paywall.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UnlockScreen(
     state: PremiumState,
+    trialDaysRemaining: Int,
+    forced: Boolean,
     onUnlockClicked: () -> Unit,
     onRestoreClicked: () -> Unit,
+    onOpenCrisis: () -> Unit,
     onBack: () -> Unit
 ) {
+    val expired = !state.isUnlocked && trialDaysRemaining <= 0
+
     Scaffold(
         containerColor = OIACream,
         topBar = {
@@ -66,12 +73,14 @@ fun UnlockScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = OIACharcoal
-                        )
+                    if (!forced) {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                                tint = OIACharcoal
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = OIACream)
@@ -102,18 +111,36 @@ fun UnlockScreen(
                     lineHeight = 22.sp
                 )
             } else {
-                Text(
-                    text = "Everything, forever",
-                    fontSize = 26.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = OIACharcoal
-                )
-                Text(
-                    text = "One payment unlocks the full app on this phone. No subscription, no account, no tracking — the same promise as everything else here.",
-                    fontSize = 15.sp,
-                    color = OIAStone,
-                    lineHeight = 22.sp
-                )
+                if (expired) {
+                    Text(
+                        text = "Your free week is over",
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = OIACharcoal
+                    )
+                    Text(
+                        text = "You've had the full app for 7 days. Unlock it once to keep going — no subscription, ever. Everything you've logged is safe on this phone, waiting for you.",
+                        fontSize = 15.sp,
+                        color = OIAStone,
+                        lineHeight = 22.sp
+                    )
+                } else {
+                    Text(
+                        text = "Yours to keep",
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = OIACharcoal
+                    )
+                    Text(
+                        text = if (trialDaysRemaining > 0)
+                            "You're on your free week — ${trialDaysRemaining} ${if (trialDaysRemaining == 1) "day" else "days"} left. Unlock any time to keep ClearStreak for good, with one payment and no subscription."
+                        else
+                            "One payment unlocks the full app on this phone. No subscription, no account, no tracking — the same promise as everything else here.",
+                        fontSize = 15.sp,
+                        color = OIAStone,
+                        lineHeight = 22.sp
+                    )
+                }
 
                 OIACard(
                     backgroundColor = OIAWarmWhite,
@@ -121,12 +148,12 @@ fun UnlockScreen(
                     padding = 18.dp
                 ) {
                     BenefitRow("📚", "The full library", "Every recovery passage and scripture reflection, browsable by theme.")
-                    BenefitRow("🌱", "Unlimited journeys", "Track as many recoveries as you need, side by side.")
+                    BenefitRow("🌱", "Every recovery, no limits", "Track as many journeys as you need, side by side.")
                     BenefitRow("📅", "Daily passage on Home", "A fresh recovery passage waiting each morning.")
                     BenefitRow("♾️", "All future updates", "Everything we add later is included — you never pay again.")
                 }
 
-                // The ethos / anti-subscription reassurance.
+                // Crisis is always free — the ethical line.
                 OIACard(
                     backgroundColor = OIASage.copy(alpha = 0.12f),
                     borderColor = OIASage.copy(alpha = 0.3f),
@@ -134,7 +161,7 @@ fun UnlockScreen(
                     padding = 16.dp
                 ) {
                     Text(
-                        text = "Crisis tools, streak tracking, and your encrypted journal are always free — in a hard moment, nothing is ever behind a paywall.",
+                        text = "The crisis Rescue tools are always free — trial or not, you will never hit a paywall in a hard moment.",
                         fontSize = 14.sp,
                         fontStyle = FontStyle.Italic,
                         color = OIACharcoal,
@@ -183,6 +210,17 @@ fun UnlockScreen(
                         fontSize = 14.sp,
                         color = OIASage,
                         fontWeight = FontWeight.SemiBold
+                    )
+                }
+
+                // When locked out (trial over), never trap someone in crisis behind the paywall.
+                if (forced) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    OIASecondaryButton(
+                        text = "In crisis? Open Rescue tools",
+                        onClick = onOpenCrisis,
+                        borderColor = OIACoral,
+                        contentColor = OIACoral
                     )
                 }
             }

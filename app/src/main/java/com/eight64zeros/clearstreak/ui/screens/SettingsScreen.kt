@@ -64,6 +64,7 @@ fun SettingsScreen(
     onOpenScience: () -> Unit,
     isPremiumUnlocked: Boolean,
     unlockPriceText: String,
+    trialDaysRemaining: Int,
     onOpenUnlock: () -> Unit,
     onLockApp: () -> Unit,
     onBack: () -> Unit
@@ -254,7 +255,10 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "One-time, no subscription. Crisis tools are always free.",
+                            text = if (trialDaysRemaining > 0)
+                                "Free trial — $trialDaysRemaining ${if (trialDaysRemaining == 1) "day" else "days"} left. One-time, no subscription."
+                            else
+                                "One-time, no subscription. Crisis tools are always free.",
                             fontSize = 13.sp,
                             color = OIAStone
                         )

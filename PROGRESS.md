@@ -25,10 +25,12 @@ Verify:
 - **Faith → "Reflect"** (Scripture + Recovery segments) is the shipped direction; passages are contextual in Reset + optional on Home.
 - **Big Book content is history-scrubbed** (see top matter) — this backlog item is now **closed**.
 
+**Charging model (locked 2026-08-20, post market-research):** **7-day free trial → $14.99 one-time unlock** via Play Billing (no subscription). Try-before-you-buy, so there is no permanent free feature tier. Built: `billing/` (PremiumManager + StoreBillingManager + CorePremiumManager + TrialStatus) and the `UnlockScreen` paywall; trial gate in `MainActivity`. **The crisis Rescue hub always stays reachable even when locked** (ethical line). Trial anchored to `PackageManager.firstInstallTime`.
+
 **Path-to-launch — the remaining blockers (see §6):**
-1. **Play Billing (P0 IAP)** — the $4.99 one-time unlock; `store` flavor has the permission but no code.
+1. **Play Console setup (user)** — create the account ($25 + ID verification) and define product `clearstreak_unlock` as a one-time product at **$14.99**; add a license tester. Billing code is done and CI-green; it just can't be *tested* until the SKU exists.
 2. **Real release keystore** — `storeRelease` is debug-signed; cannot go to Play.
-3. **Store-readiness** — privacy policy, listing copy, health-category medical-claims framing, content rating.
+3. **Store-readiness** — privacy policy, listing copy (see `overview.html`), health-category medical-claims framing, content rating. Also fix the store-flavor "no internet at all" privacy copy (store build has INTERNET for billing).
 
 **Polish (trails the launch):** milestone-hit haptic pulse, crisis-intercept usage logging, slip-framing immediacy, midnight `WorkManager` widget refresh, verse emotion-tag review, ch01/ch02 passage over-mining trim, CI `setup-java` v4→v5 bump, first `StreakCalculator` unit test.
 

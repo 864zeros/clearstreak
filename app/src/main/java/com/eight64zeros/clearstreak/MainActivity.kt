@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.eight64zeros.clearstreak.billing.PremiumManager
+import com.eight64zeros.clearstreak.billing.computeTrialStatus
 import com.eight64zeros.clearstreak.billing.createPremiumManager
 import com.eight64zeros.clearstreak.data.AppSettingsStorage
 import com.eight64zeros.clearstreak.data.EmergencyContactStorage
@@ -209,6 +210,29 @@ class MainActivity : FragmentActivity() {
         }
 
         val premiumState by premiumManager.state.collectAsState()
+        val trialDaysLeft = remember { computeTrialStatus(this@MainActivity).daysRemaining }
+
+        // Free-trial gate: after the trial, the app requires the one-time unlock — but the crisis
+        // Rescue hub stays reachable so no one is ever trapped behind a paywall in a hard moment.
+        if (!premiumState.isUnlocked && trialDaysLeft <= 0) {
+            if (currentRoute == Screen.CrisisIntercept.route) {
+                CrisisInterceptScreen(
+                    contacts = contactsState,
+                    onSafeReturn = { currentRoute = Screen.Unlock.route }
+                )
+            } else {
+                UnlockScreen(
+                    state = premiumState,
+                    trialDaysRemaining = 0,
+                    forced = true,
+                    onUnlockClicked = { premiumManager.launchPurchase(this@MainActivity) },
+                    onRestoreClicked = { premiumManager.restorePurchases() },
+                    onOpenCrisis = { currentRoute = Screen.CrisisIntercept.route },
+                    onBack = {}
+                )
+            }
+            return
+        }
 
         when {
             currentRoute == Screen.CrisisIntercept.route -> {
@@ -266,6 +290,7 @@ class MainActivity : FragmentActivity() {
                     onOpenScience = { currentRoute = Screen.Science.route },
                     isPremiumUnlocked = premiumState.isUnlocked,
                     unlockPriceText = premiumState.priceText,
+                    trialDaysRemaining = trialDaysLeft,
                     onOpenUnlock = { currentRoute = Screen.Unlock.route },
                     onLockApp = { lockApp() },
                     onBack = { currentRoute = Screen.Dashboard.route }
@@ -274,8 +299,11 @@ class MainActivity : FragmentActivity() {
             currentRoute == Screen.Unlock.route -> {
                 UnlockScreen(
                     state = premiumState,
+                    trialDaysRemaining = trialDaysLeft,
+                    forced = false,
                     onUnlockClicked = { premiumManager.launchPurchase(this@MainActivity) },
                     onRestoreClicked = { premiumManager.restorePurchases() },
+                    onOpenCrisis = { currentRoute = Screen.CrisisIntercept.route },
                     onBack = { currentRoute = Screen.Settings.route }
                 )
             }
