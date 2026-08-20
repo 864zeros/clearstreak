@@ -16,6 +16,11 @@ local.properties
 *.apk
 *.aab
 
+# Release signing — NEVER commit the keystore or its passwords
+keystore.properties
+*.jks
+*.keystore
+
 # Local source / reference material — never commit (shipped assets live in app/src/main/assets/)
 /content/
 /_*.txt

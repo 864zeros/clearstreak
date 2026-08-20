@@ -1,8 +1,21 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
+
+// Release signing is driven by (in priority order) a gitignored `keystore.properties` at the repo
+// root, or environment variables (CI secrets). If neither is present, release falls back to the
+// debug key so CI/testing builds stay green. NOTHING secret is committed. See RELEASE_SIGNING.md.
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) keystorePropsFile.inputStream().use { load(it) }
+}
+fun signingValue(propKey: String, envKey: String): String? =
+    keystoreProps.getProperty(propKey) ?: System.getenv(envKey)
+val hasReleaseKeystore = signingValue("storeFile", "KEYSTORE_FILE") != null
 
 android {
     namespace = "com.eight64zeros.clearstreak"
@@ -39,6 +52,17 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            if (hasReleaseKeystore) {
+                storeFile = file(signingValue("storeFile", "KEYSTORE_FILE")!!)
+                storePassword = signingValue("storePassword", "KEYSTORE_PASSWORD")
+                keyAlias = signingValue("keyAlias", "KEY_ALIAS")
+                keyPassword = signingValue("keyPassword", "KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -47,7 +71,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug") // Placeholder for local release builds
+            // Real release key when provided (keystore.properties / CI secrets); debug fallback
+            // keeps CI + local testing builds green without secrets. Not Play-uploadable until signed.
+            signingConfig = if (hasReleaseKeystore)
+                signingConfigs.getByName("release")
+            else
+                signingConfigs.getByName("debug")
         }
         debug {
             isMinifyEnabled = false
