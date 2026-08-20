@@ -1,6 +1,12 @@
 # ClearStreak Product Specification
 ## 864zeros Local-First Utility | Pillar: Faith, Health & Growth
 
+> ⚠️ **Historical original — partially superseded.** This is the first product spec, kept for reference. Where it disagrees with reality, the order of authority is **`PROGRESS.md` + `ClearStreak_Blueprint_v1.md` > this spec.** Known supersessions:
+> - **Pricing/model:** the `$4.99` IAP + `$9.99` Supporter Tier here is replaced by a **7-day free trial → $14.99 one-time unlock** (see Blueprint §1 / `PROGRESS.md`).
+> - **Literature:** the FTS5 licensed/PD literature companion is replaced by **130 re-authored, original Recovery passages** served from in-memory JSON (no verbatim reader, no FTS5).
+> - **Coping cards:** the deterministic coping-card feature was **removed** in favor of the haptics + mini-games craving model.
+> - Current dev-facing state lives in `README.md`; market-facing overview in `overview.html`.
+
 ---
 
 ## 1. Executive Overview
