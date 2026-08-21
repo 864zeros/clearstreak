@@ -82,11 +82,15 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Enforce FLAG_SECURE to block screen captures and recent app switcher leaks
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
+        // Enforce FLAG_SECURE to block screen captures and recent app switcher leaks.
+        // The only exception is an opt-in debug capture build (`-Pcapture`) used to shoot store
+        // screenshots — release always sets FLAG_SECURE (ALLOW_CAPTURE is false in release).
+        if (!BuildConfig.ALLOW_CAPTURE) {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE
+            )
+        }
 
         databaseManager = DatabaseManager(this)
         passphraseProvider = DatabasePassphraseProvider(this)

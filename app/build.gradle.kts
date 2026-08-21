@@ -28,6 +28,10 @@ android {
         versionCode = 1
         versionName = "1.0.0"
 
+        // Screen-capture is blocked by FLAG_SECURE (see MainActivity). Default: never capturable.
+        // A debug build invoked with `-Pcapture` flips this to true ONLY to shoot store screenshots.
+        buildConfigField("boolean", "ALLOW_CAPTURE", "false")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -81,6 +85,9 @@ android {
         debug {
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
+            // Opt-in ONLY in debug: `gradle assembleCoreDebug -Pcapture` disables FLAG_SECURE so
+            // store screenshots can be taken. Release never sees this (stays false above).
+            buildConfigField("boolean", "ALLOW_CAPTURE", project.hasProperty("capture").toString())
         }
     }
 
@@ -95,6 +102,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     packaging {
