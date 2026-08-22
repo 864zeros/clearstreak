@@ -55,6 +55,8 @@ import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.DailyVerse
 import com.eight64zeros.clearstreak.model.Journey
+import com.eight64zeros.clearstreak.navigation.Screen
+import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.OIASecondaryButton
@@ -82,10 +84,7 @@ fun DashboardScreen(
     onJourneySelected: (Journey) -> Unit,
     onAddJourneyClicked: () -> Unit,
     onCrisisTriggered: () -> Unit,
-    onNavigateJournal: () -> Unit,
-    onNavigateReset: () -> Unit,
-    onNavigateHeritage: () -> Unit,
-    onNavigateSettings: () -> Unit,
+    onNavigate: (String) -> Unit,
     onLockApp: () -> Unit
 ) {
     Scaffold(
@@ -108,62 +107,7 @@ fun DashboardScreen(
             }
         },
         bottomBar = {
-            NavigationBar(
-                containerColor = OIAWarmWhite,
-                tonalElevation = 4.dp
-            ) {
-                NavigationBarItem(
-                    selected = true,
-                    onClick = { /* Already on Home */ },
-                    icon = { Icon(Icons.Default.FlashOn, contentDescription = "Home") },
-                    label = { Text("Home", fontSize = 12.sp) },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = OIASage,
-                        selectedTextColor = OIASage,
-                        indicatorColor = OIASage.copy(alpha = 0.15f)
-                    )
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = onNavigateJournal,
-                    icon = { Icon(Icons.Outlined.Book, contentDescription = "Journal") },
-                    label = { Text("Journal", fontSize = 12.sp) },
-                    colors = NavigationBarItemDefaults.colors(
-                        unselectedIconColor = OIATaupe,
-                        unselectedTextColor = OIAStone
-                    )
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = onNavigateReset,
-                    icon = { Icon(Icons.Outlined.Spa, contentDescription = "Reset") },
-                    label = { Text("Reset", fontSize = 12.sp) },
-                    colors = NavigationBarItemDefaults.colors(
-                        unselectedIconColor = OIATaupe,
-                        unselectedTextColor = OIAStone
-                    )
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = onNavigateHeritage,
-                    icon = { Icon(Icons.Outlined.MenuBook, contentDescription = "Reflect") },
-                    label = { Text("Reflect", fontSize = 12.sp) },
-                    colors = NavigationBarItemDefaults.colors(
-                        unselectedIconColor = OIATaupe,
-                        unselectedTextColor = OIAStone
-                    )
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = onNavigateSettings,
-                    icon = { Icon(Icons.Outlined.Settings, contentDescription = "Settings") },
-                    label = { Text("Settings", fontSize = 12.sp) },
-                    colors = NavigationBarItemDefaults.colors(
-                        unselectedIconColor = OIATaupe,
-                        unselectedTextColor = OIAStone
-                    )
-                )
-            }
+            ClearStreakBottomBar(current = Screen.Dashboard.route, onNavigate = onNavigate)
         }
     ) { paddingValues ->
         LazyColumn(

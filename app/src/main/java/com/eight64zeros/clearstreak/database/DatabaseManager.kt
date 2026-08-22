@@ -167,12 +167,14 @@ class DatabaseManager(private val context: Context) {
         return parseCheckInsCursor(cursor)
     }
 
+    // Journal = every check-in (newest first), not only note-bearing ones — so a check-in always
+    // shows up here (notes render when present; the urge/HALT/date always do).
     fun getJournalEntries(): List<CheckIn> {
         val db = checkEncryptedDb()
         val cursor = db.query(
             "check_ins",
             null,
-            "note_encrypted IS NOT NULL",
+            null,
             null,
             null,
             null,

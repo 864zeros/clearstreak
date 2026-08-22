@@ -34,6 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.Journey
+import com.eight64zeros.clearstreak.navigation.Screen
+import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
 import com.eight64zeros.clearstreak.ui.theme.OIACoral
@@ -52,6 +54,7 @@ import java.util.Locale
 fun JournalScreen(
     journalEntries: List<CheckIn>,
     journeys: List<Journey>,
+    onNavigate: (String) -> Unit,
     onBack: () -> Unit
 ) {
     val journeyMap = journeys.associateBy { it.id }
@@ -89,6 +92,9 @@ fun JournalScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = OIACream)
             )
+        },
+        bottomBar = {
+            ClearStreakBottomBar(current = Screen.Journal.route, onNavigate = onNavigate)
         }
     ) { paddingValues ->
         if (journalEntries.isEmpty()) {
@@ -101,14 +107,14 @@ fun JournalScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "No reflections yet",
+                        text = "No check-ins yet",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = OIACharcoal
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Your reflections and notes written during check-ins will be encrypted and shown here.",
+                        text = "Every check-in appears here, encrypted — with any reflection you write.",
                         fontSize = 14.sp,
                         color = OIAStone,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,

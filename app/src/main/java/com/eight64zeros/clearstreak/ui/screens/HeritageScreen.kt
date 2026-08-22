@@ -43,6 +43,8 @@ import com.eight64zeros.clearstreak.data.PassageStore
 import com.eight64zeros.clearstreak.model.Affirmation
 import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.DailyVerse
+import com.eight64zeros.clearstreak.navigation.Screen
+import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.VerseCalendar
@@ -63,6 +65,7 @@ private enum class Segment { SCRIPTURE, RECOVERY }
 fun HeritageScreen(
     showFaith: Boolean,
     showAffirmations: Boolean,
+    onNavigate: (String) -> Unit,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -98,6 +101,9 @@ fun HeritageScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = OIACream)
             )
+        },
+        bottomBar = {
+            ClearStreakBottomBar(current = Screen.Heritage.route, onNavigate = onNavigate)
         }
     ) { paddingValues ->
         Column(

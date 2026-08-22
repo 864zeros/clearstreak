@@ -252,12 +252,14 @@ class MainActivity : FragmentActivity() {
                 JournalScreen(
                     journalEntries = databaseManager.getJournalEntries(),
                     journeys = journeysState,
+                    onNavigate = { currentRoute = it },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
             currentRoute == Screen.Reset.route -> {
                 GroundingToolsScreen(
                     showFaith = showFaithReflections,
+                    onNavigate = { currentRoute = it },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
@@ -265,6 +267,7 @@ class MainActivity : FragmentActivity() {
                 HeritageScreen(
                     showFaith = showFaithReflections,
                     showAffirmations = showAffirmations,
+                    onNavigate = { currentRoute = it },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
             }
@@ -306,6 +309,7 @@ class MainActivity : FragmentActivity() {
                     trialDaysRemaining = trialDaysLeft,
                     onOpenUnlock = { currentRoute = Screen.Unlock.route },
                     onRateClicked = { launchReview(this@MainActivity) },
+                    onNavigate = { currentRoute = it },
                     onLockApp = { lockApp() },
                     onBack = { currentRoute = Screen.Dashboard.route }
                 )
@@ -392,10 +396,7 @@ class MainActivity : FragmentActivity() {
                     onCrisisTriggered = {
                         currentRoute = Screen.CrisisIntercept.route
                     },
-                    onNavigateJournal = { currentRoute = Screen.Journal.route },
-                    onNavigateReset = { currentRoute = Screen.Reset.route },
-                    onNavigateHeritage = { currentRoute = Screen.Heritage.route },
-                    onNavigateSettings = { currentRoute = Screen.Settings.route },
+                    onNavigate = { currentRoute = it },
                     onLockApp = { lockApp() }
                 )
             }

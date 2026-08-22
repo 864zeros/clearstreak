@@ -30,7 +30,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.data.PassageStore
+import com.eight64zeros.clearstreak.navigation.Screen
 import com.eight64zeros.clearstreak.ui.components.BoxBreather
+import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
 import com.eight64zeros.clearstreak.ui.components.BreathingCircle
 import com.eight64zeros.clearstreak.ui.components.MiniGamesCard
 import com.eight64zeros.clearstreak.ui.components.OIACard
@@ -47,6 +49,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 @Composable
 fun GroundingToolsScreen(
     showFaith: Boolean,
+    onNavigate: (String) -> Unit,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -76,6 +79,9 @@ fun GroundingToolsScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = OIACream)
             )
+        },
+        bottomBar = {
+            ClearStreakBottomBar(current = Screen.Reset.route, onNavigate = onNavigate)
         }
     ) { paddingValues ->
         Column(

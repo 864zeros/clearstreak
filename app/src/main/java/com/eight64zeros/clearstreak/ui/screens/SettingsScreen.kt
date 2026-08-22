@@ -40,6 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.config.FlavorInfo
 import com.eight64zeros.clearstreak.data.EmergencyContacts
+import com.eight64zeros.clearstreak.navigation.Screen
+import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.OIASecondaryButton
@@ -71,6 +73,7 @@ fun SettingsScreen(
     trialDaysRemaining: Int,
     onOpenUnlock: () -> Unit,
     onRateClicked: () -> Unit,
+    onNavigate: (String) -> Unit,
     onLockApp: () -> Unit,
     onBack: () -> Unit
 ) {
@@ -103,6 +106,9 @@ fun SettingsScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = OIACream)
             )
+        },
+        bottomBar = {
+            ClearStreakBottomBar(current = Screen.Settings.route, onNavigate = onNavigate)
         }
     ) { paddingValues ->
         LazyColumn(
