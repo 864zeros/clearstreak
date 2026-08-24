@@ -10,7 +10,7 @@
 ## 1. Core Architecture & Privacy Guardrails
 
 - **Local-First & Air-Gapped:** Core build excludes `android.permission.INTERNET` entirely. Zero cloud accounts, zero telemetry, zero analytics, zero central databases.
-- **Hardware-Bound Security:** SQLCipher (AES-256) encrypted database with keys tied to device biometrics (StrongBox/TEE on Android; Secure Enclave on iOS).
+- **Hardware-Bound Security:** SQLCipher (AES-256) encrypted database with the wrapping key tied to device authentication — **biometric OR device credential (PIN/pattern/password)** — in hardware (StrongBox/TEE on Android; Secure Enclave on iOS). Requires a device screen lock; the app guides the user to set one if none exists.
 - **"Data Over Shame" Engine:** Slips reset the active streak counter but never erase cumulative history. The database permanently preserves cumulative clean days, previous milestone stretches, and the personal best record.
 - **Anti-SaaS Pricing:** **7-day free trial → $14.99 one-time unlock** (Google Play Billing, INAPP product `clearstreak_unlock`). No recurring subscriptions. *(Supersedes the earlier $4.99 + $9.99-supporter model — locked 2026-08-20 after market research.)* Crisis Rescue tools always stay reachable even after the trial locks the app.
 

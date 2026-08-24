@@ -26,7 +26,7 @@ Built strictly according to the **864zeros Build Kit** and the **OIA Design Syst
 ## 🛡️ Core Security Architecture
 
 1. **Air-Gapped by Default**: `android.permission.INTERNET` is completely removed from the default `core` build flavor. *(The `store` flavor adds INTERNET solely for Google Play Billing — no recovery data ever leaves the device.)*
-2. **Hardware-Bound Biometric Gate**: `BiometricPrompt` with `CryptoObject` gates all access to the encrypted database (`recovery_enc.db`). The master key is generated with `setUserAuthenticationRequired(true)` and `setInvalidatedByBiometricEnrollment(true)`, StrongBox-backed with a TEE fallback.
+2. **Hardware-Bound Auth Gate**: unlock requires device authentication — **biometric (fingerprint/face) OR the device credential (PIN/pattern/password)** — via `BiometricPrompt` (`BIOMETRIC_STRONG | DEVICE_CREDENTIAL`). The master key (`setUserAuthenticationRequired(true)`, StrongBox with TEE fallback) is usable only within a short window after auth and wraps the SQLCipher passphrase for `recovery_enc.db`. If the phone has no screen lock at all, the app guides the user to set one. *(No CryptoObject — that path is biometric-only and would fail on PIN-only devices.)*
 3. **Database Partitioning**:
    - `streak_core.db`: Plaintext SQLite for journey records, milestone tracking, and Glance widget synchronization.
    - `recovery_enc.db`: AES-256 encrypted with SQLCipher 4.x for check-in records and sensitive journal notes.
