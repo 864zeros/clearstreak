@@ -298,7 +298,7 @@ fun SettingsScreen(
                 ) {
                     SecurityItem(FlavorInfo.privacyIcon, FlavorInfo.privacyTitle, FlavorInfo.privacyBody)
                     SecurityItem("🔒", "Your journal is encrypted", "Everything you record is scrambled with strong encryption and stored only on this phone.")
-                    SecurityItem("👆", "Only you can unlock it", "The key is tied to your fingerprint or face and this phone's secure chip — there's no password anyone (including us) could recover or be forced to hand over.")
+                    SecurityItem("👆", "Only you can unlock it", "The key is tied to your device lock — fingerprint, face, or PIN — and this phone's secure chip. We hold nothing that could open it: no password to recover, leak, or hand over.")
                     SecurityItem("☁️", "Nothing goes to the cloud", "Your recovery data is never backed up to any cloud, account, or server. If it isn't on this phone, it doesn't exist.")
                     SecurityItem("🙈", "Screenshots are blocked", "The app stops screenshots and hides your screen when you switch apps, so nothing shows up by accident.")
                 }
