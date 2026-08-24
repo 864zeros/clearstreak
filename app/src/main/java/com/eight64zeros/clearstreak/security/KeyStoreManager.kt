@@ -10,25 +10,34 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
+/**
+ * Hardware-bound AES-256 master key in Android Keystore (StrongBox with TEE fallback).
+ *
+ * The key requires user authentication and accepts **either a strong biometric OR the device
+ * credential (PIN / pattern / password)** — so the app works whether or not a fingerprint/face is
+ * enrolled. It's usable for a short window after a successful auth; the DB passphrase is
+ * encrypted/decrypted immediately after auth, well inside that window (no CryptoObject needed —
+ * that path is biometric-only and would fail on PIN-only devices).
+ */
 object KeyStoreManager {
     private const val ANDROID_KEYSTORE = "AndroidKeyStore"
     private const val KEY_ALIAS = "ClearStreakMasterKey"
     private const val TRANSFORMATION = "AES/GCM/NoPadding"
     private const val GCM_TAG_LENGTH = 128
+    private const val AUTH_VALIDITY_SECONDS = 30
 
     private val keyStore: KeyStore by lazy {
         KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
     }
 
-    /**
-     * Ensures the hardware-bound AES-256 master key exists in Android Keystore.
-     * Tries StrongBox first, falling back to standard TEE.
-     */
     fun getOrCreateMasterKey(): SecretKey {
-        if (!keyStore.containsAlias(KEY_ALIAS)) {
-            generateMasterKey(useStrongBox = true)
-        }
+        if (!keyStore.containsAlias(KEY_ALIAS)) generateMasterKey(useStrongBox = true)
         return keyStore.getKey(KEY_ALIAS, null) as SecretKey
+    }
+
+    /** Remove the master key (e.g. after it's permanently invalidated by a lock change). */
+    fun deleteMasterKey() {
+        if (keyStore.containsAlias(KEY_ALIAS)) keyStore.deleteEntry(KEY_ALIAS)
     }
 
     private fun generateMasterKey(useStrongBox: Boolean) {
@@ -47,8 +56,16 @@ object KeyStoreManager {
                 .setKeySize(256)
                 .setUserAuthenticationRequired(true)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                builder.setInvalidatedByBiometricEnrollment(true)
+            // Accept biometric OR device credential. (We deliberately do NOT invalidate on new
+            // biometric enrollment — that's biometric-specific and would nuke a PIN-unlockable vault.)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                builder.setUserAuthenticationParameters(
+                    AUTH_VALIDITY_SECONDS,
+                    KeyProperties.AUTH_BIOMETRIC_STRONG or KeyProperties.AUTH_DEVICE_CREDENTIAL
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                builder.setUserAuthenticationValidityDurationSeconds(AUTH_VALIDITY_SECONDS)
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && useStrongBox) {
@@ -59,7 +76,6 @@ object KeyStoreManager {
             keyGenerator.generateKey()
         } catch (e: Exception) {
             if (useStrongBox && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && e is StrongBoxUnavailableException) {
-                // Fallback to standard TEE keystore if device lacks StrongBox hardware
                 generateMasterKey(useStrongBox = false)
             } else {
                 throw e
@@ -67,24 +83,17 @@ object KeyStoreManager {
         }
     }
 
-    /**
-     * Initializes a Cipher for encryption to pass to BiometricPrompt.CryptoObject.
-     */
-    fun getCipherForEncryption(): Cipher {
+    /** Encrypt within the auth window. Returns ciphertext + IV. */
+    fun encrypt(data: ByteArray): Pair<ByteArray, ByteArray> {
         val cipher = Cipher.getInstance(TRANSFORMATION)
-        val key = getOrCreateMasterKey()
-        cipher.init(Cipher.ENCRYPT_MODE, key)
-        return cipher
+        cipher.init(Cipher.ENCRYPT_MODE, getOrCreateMasterKey())
+        return cipher.doFinal(data) to cipher.iv
     }
 
-    /**
-     * Initializes a Cipher for decryption using the provided IV to pass to BiometricPrompt.CryptoObject.
-     */
-    fun getCipherForDecryption(iv: ByteArray): Cipher {
+    /** Decrypt within the auth window. */
+    fun decrypt(ciphertext: ByteArray, iv: ByteArray): ByteArray {
         val cipher = Cipher.getInstance(TRANSFORMATION)
-        val key = getOrCreateMasterKey()
-        val spec = GCMParameterSpec(GCM_TAG_LENGTH, iv)
-        cipher.init(Cipher.DECRYPT_MODE, key, spec)
-        return cipher
+        cipher.init(Cipher.DECRYPT_MODE, getOrCreateMasterKey(), GCMParameterSpec(GCM_TAG_LENGTH, iv))
+        return cipher.doFinal(ciphertext)
     }
 }

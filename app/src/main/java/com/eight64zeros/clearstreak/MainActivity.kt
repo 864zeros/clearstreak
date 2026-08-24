@@ -1,10 +1,15 @@
 package com.eight64zeros.clearstreak
 
+import android.app.admin.DevicePolicyManager
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
+import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,9 +40,9 @@ import com.eight64zeros.clearstreak.model.UrgeLevel
 import com.eight64zeros.clearstreak.navigation.Screen
 import com.eight64zeros.clearstreak.review.launchReview
 import com.eight64zeros.clearstreak.security.DatabasePassphraseProvider
-import com.eight64zeros.clearstreak.security.KeyStoreManager
 import com.eight64zeros.clearstreak.ui.screens.AddJourneyModal
 import com.eight64zeros.clearstreak.ui.screens.BiometricLockScreen
+import com.eight64zeros.clearstreak.ui.screens.LockMode
 import com.eight64zeros.clearstreak.ui.screens.CheckInModal
 import com.eight64zeros.clearstreak.ui.screens.CrisisInterceptScreen
 import com.eight64zeros.clearstreak.ui.screens.DashboardScreen
@@ -49,7 +54,6 @@ import com.eight64zeros.clearstreak.ui.screens.JourneyDetailScreen
 import com.eight64zeros.clearstreak.ui.screens.SettingsScreen
 import com.eight64zeros.clearstreak.ui.screens.UnlockScreen
 import com.eight64zeros.clearstreak.ui.theme.ClearStreakTheme
-import javax.crypto.Cipher
 
 class MainActivity : FragmentActivity() {
 
@@ -63,6 +67,7 @@ class MainActivity : FragmentActivity() {
     private lateinit var premiumManager: PremiumManager
 
     private var isUnlockedState by mutableStateOf(false)
+    private var needsDeviceLock by mutableStateOf(false)
     private var currentRoute by mutableStateOf<String>(Screen.Dashboard.route)
     private var activeJourneyId by mutableStateOf<String?>(null)
     private var authErrorMessage by mutableStateOf<String?>(null)
@@ -115,17 +120,47 @@ class MainActivity : FragmentActivity() {
             }
         }
 
-        // Trigger initial biometric authentication
-        authenticateBiometrics()
+        // Kick off the unlock/setup flow
+        startAuthFlow()
     }
 
-    private fun authenticateBiometrics() {
+    override fun onResume() {
+        super.onResume()
+        // If we sent the user to set up a device lock, re-check when they return.
+        if (!isUnlockedState && needsDeviceLock) startAuthFlow()
+    }
+
+    /** Entry point: require a device lock, then prompt for biometric OR device credential. */
+    private fun startAuthFlow() {
+        val authenticators =
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        val status = BiometricManager.from(this).canAuthenticate(authenticators)
+        if (status == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
+            // No biometric AND no PIN/pattern/password — can't create an auth-bound key.
+            needsDeviceLock = true
+            return
+        }
+        needsDeviceLock = false
+        authenticateBiometrics(authenticators)
+    }
+
+    private fun openDeviceLockSettings() {
+        try {
+            startActivity(Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD))
+        } catch (e: Exception) {
+            try {
+                startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS))
+            } catch (_: Exception) { /* nothing else to do */ }
+        }
+    }
+
+    private fun authenticateBiometrics(authenticators: Int) {
         val executor = ContextCompat.getMainExecutor(this)
+        // DEVICE_CREDENTIAL is the fallback, so no negative ("cancel") button is set.
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.biometric_prompt_title))
             .setSubtitle(getString(R.string.biometric_prompt_subtitle))
-            .setDescription(getString(R.string.biometric_prompt_description))
-            .setNegativeButtonText(getString(R.string.biometric_prompt_cancel))
+            .setAllowedAuthenticators(authenticators)
             .build()
 
         val biometricPrompt = BiometricPrompt(
@@ -134,21 +169,22 @@ class MainActivity : FragmentActivity() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    val cipher = result.cryptoObject?.cipher
-                    if (cipher != null) {
-                        try {
-                            val passphrase = if (!passphraseProvider.isPassphraseInitialized) {
-                                passphraseProvider.initializePassphrase(cipher)
-                            } else {
-                                passphraseProvider.unlockPassphrase(cipher)
-                            }
-                            databaseManager.unlockEncryptedDatabase(passphrase)
-                            isUnlockedState = true
-                            authErrorMessage = null
-                            loadData()
-                        } catch (e: Exception) {
-                            authErrorMessage = "Failed to unlock database: ${e.message}"
+                    try {
+                        val passphrase = if (!passphraseProvider.isPassphraseInitialized) {
+                            passphraseProvider.initializePassphrase()
+                        } else {
+                            passphraseProvider.unlockPassphrase()
                         }
+                        databaseManager.unlockEncryptedDatabase(passphrase)
+                        isUnlockedState = true
+                        authErrorMessage = null
+                        loadData()
+                    } catch (e: KeyPermanentlyInvalidatedException) {
+                        authErrorMessage =
+                            "Your device security changed, so the encrypted vault can't be opened. " +
+                            "If you recently removed your screen lock, restore it and try again."
+                    } catch (e: Exception) {
+                        authErrorMessage = "Failed to unlock: ${e.message}"
                     }
                 }
 
@@ -159,20 +195,13 @@ class MainActivity : FragmentActivity() {
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    authErrorMessage = "Biometric authentication failed. Please try again."
+                    authErrorMessage = "Authentication failed. Please try again."
                 }
             }
         )
 
         try {
-            val cipher = if (!passphraseProvider.isPassphraseInitialized) {
-                KeyStoreManager.getCipherForEncryption()
-            } else {
-                val iv = passphraseProvider.getStoredIv()
-                    ?: throw IllegalStateException("Stored IV not found.")
-                KeyStoreManager.getCipherForDecryption(iv)
-            }
-            biometricPrompt.authenticate(promptInfo, BiometricPrompt.CryptoObject(cipher))
+            biometricPrompt.authenticate(promptInfo)
         } catch (e: Exception) {
             authErrorMessage = "Security error: ${e.localizedMessage}"
         }
@@ -210,7 +239,14 @@ class MainActivity : FragmentActivity() {
     private fun MainAppContent() {
         if (!isUnlockedState) {
             BiometricLockScreen(
-                onAuthenticateClicked = { authenticateBiometrics() },
+                mode = when {
+                    needsDeviceLock -> LockMode.NEEDS_DEVICE_LOCK
+                    !passphraseProvider.isPassphraseInitialized -> LockMode.SETUP
+                    else -> LockMode.UNLOCK
+                },
+                onPrimaryAction = {
+                    if (needsDeviceLock) openDeviceLockSettings() else startAuthFlow()
+                },
                 errorMessage = authErrorMessage
             )
             return
