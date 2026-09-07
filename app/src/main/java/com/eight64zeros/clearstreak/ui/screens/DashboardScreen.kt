@@ -1,5 +1,6 @@
 package com.eight64zeros.clearstreak.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -46,10 +47,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eight64zeros.clearstreak.R
 import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.CheckIn
@@ -124,18 +127,34 @@ fun DashboardScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column {
-                        Text(
-                            text = "ClearStreak",
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = OIASage
-                        )
-                        Text(
-                            text = "Air-Gapped • Zero Knowledge",
-                            fontSize = 13.sp,
-                            color = OIAStone
-                        )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Surface(
+                            modifier = Modifier.size(42.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            color = OIASage.copy(alpha = 0.12f)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                    contentDescription = "ClearStreak Logo",
+                                    modifier = Modifier.size(34.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column {
+                            Text(
+                                text = "ClearStreak",
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = OIASage
+                            )
+                            Text(
+                                text = "Air-Gapped • Zero Knowledge",
+                                fontSize = 13.sp,
+                                color = OIAStone
+                            )
+                        }
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {

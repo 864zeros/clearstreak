@@ -1,5 +1,6 @@
 package com.eight64zeros.clearstreak.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,10 +19,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.eight64zeros.clearstreak.R
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.theme.OIACream
 import com.eight64zeros.clearstreak.ui.theme.OIAError
@@ -64,16 +67,15 @@ fun BiometricLockScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Surface(
-                modifier = Modifier.size(96.dp),
+                modifier = Modifier.size(104.dp),
                 shape = CircleShape,
-                color = OIASage.copy(alpha = 0.15f)
+                color = OIASage.copy(alpha = 0.12f)
             ) {
                 Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "Lock",
-                        tint = OIASage,
-                        modifier = Modifier.size(48.dp)
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        contentDescription = "ClearStreak Shield Logo",
+                        modifier = Modifier.size(72.dp)
                     )
                 }
             }
