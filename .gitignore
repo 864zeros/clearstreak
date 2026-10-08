@@ -28,3 +28,7 @@ keystore.properties
 
 # Counsel-gated content — do NOT ship until Big Book copyright is confirmed (PROGRESS.md §5)
 /app/src/main/assets/big_book.json
+
+# Local planning & notes
+IGNORE/
+
