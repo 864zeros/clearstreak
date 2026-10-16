@@ -18,13 +18,13 @@ Unlike cloud-backed habit trackers and recovery apps that charge $40–$120/year
 1. **Mode A — Streak DOING a Journey (Building & Consistency):**
    - Track daily disciplines you are actively showing up for: **Morning Workouts, Prayer & Scripture Study, Deep Work, Cold Plunges, Intermittent Fasting, Reading, Hydration, or 30/75/90-Day Personal Challenges**.
 2. **Mode B — Days NOT DOING a Journey (Breaking & Abstaining):**
-   - Track habits, compulsions, or vices you are leaving behind: **Late-Night Doomscrolling, Vaping, Alcohol, Sugar, Impulsive Spending, Gaming, or Custom Targets** — complete with real-time **Daily Cost Savings ($)** calculation.
+   - Track habits, compulsions, or vices you are leaving behind: **Late-Night Doomscrolling, Vaping, Alcohol, Sugar, Late-Night Spending, Gaming, or Custom Targets** — complete with real-time **Daily Cost Savings ($)** calculation.
 
 ---
 
 ## 2. Top 6 Feature Indicators for Voiceovers, Video Scripts & GTM
 
-When authoring voiceovers (Edge-TTS `en-US-AvaNeural`, NotebookLM audio overviews, or live-action/lifestyle shorts), prioritize these **6 Core Value Indicators** in exact order of emotional and conversion impact:
+When authoring voiceovers (Edge-TTS `en-US-AvaNeural`, NotebookLM audio overviews, or live-action/lifestyle shorts), prioritize these **6 Core Value Indicators** in exact order of emotional and conversion impact (note: **never** state hardcoded dollar amounts for our app and **never** use the word `"impulse"` in customer-facing copy):
 
 | Priority | Feature Indicator | The Hook / Problem Solved | Exact Voiceover Copy / Soundbite |
 | :---: | :--- | :--- | :--- |
@@ -33,7 +33,7 @@ When authoring voiceovers (Edge-TTS `en-US-AvaNeural`, NotebookLM audio overview
 | **#3** | **100% On-Device Hardware Encryption (`SQLCipher AES-256` + `FLAG_SECURE`)** | Intimate habits, slips, and reflections don't belong on a startup's cloud server where they can be leaked, sold, or subpoenaed. ClearStreak has zero servers, zero accounts, and blocks screenshots (`FLAG_SECURE`). | *"No accounts. No cloud servers. Unlocked only by your fingerprint, face, or device PIN with AES-256 encryption. If it isn't on your phone, it doesn't exist."* |
 | **#4** | **Eyes-Free Somatosensory Reset (`Pocket Anchor` & `4×4 / 4-7-8 Haptics`)** | When restlessness or an urge hits in public, you don't want to stare at text advice on a bright screen. ClearStreak uses rhythmic haptic pulses you can feel right in your hand or pocket. | *"When a restless moment hits, don't read a wall of text. Trigger the Tactile Pocket Anchor or 4-by-4 haptic box-breather and ride out the wave eyes-free, right in your hand."* |
 | **#5** | **Offline Visuospatial Mini-Games & Reflect Vault** | Competing for visuospatial working memory (Elaborated Intrusion theory) quiets craving loops in 3–5 minutes; optional daily wisdom (365 KJV verses + 130 reflection passages + 100 affirmations) grounds the mind offline. | *"Quiet mental noise in three minutes with offline spatial puzzles — or open the optional Reflect vault for daily wisdom and affirmations."* |
-| **#6** | **Always-Free Rescue Hub & Anti-SaaS Ownership (`$14.99` Once)** | Stop paying $60/year to count days, and never lock crisis support behind a paywall. ClearStreak gives a 7-day full trial, a single $14.99 lifetime unlock, and keeps the one-tap Rescue Hub 100% free forever. | *"Stop paying subscription rent to build discipline. Seven-day free trial, one-time unlock forever, and a one-tap Rescue Hub that stays 100% free for life."* |
+| **#6** | **Always-Free Rescue Hub & Anti-SaaS Ownership (`One-Time Unlock`)** | Stop paying $60–$120/year to count days, and never lock crisis support behind a paywall. ClearStreak gives a 7-day full trial, a single one-time lifetime unlock, and keeps the one-tap Rescue Hub 100% free forever. | *"Stop paying subscription rent to build discipline. Seven-day free trial, one-time lifetime unlock, and a one-tap Rescue Hub that stays 100% free for life."* |
 
 ---
 
