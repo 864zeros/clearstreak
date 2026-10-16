@@ -102,7 +102,7 @@ fun AddJourneyModal(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Add Recovery Target",
+                    text = "Start a New Journey",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     color = OIACharcoal
@@ -116,7 +116,7 @@ fun AddJourneyModal(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "What habit or substance are you leaving behind?",
+                text = "What journey are you tracking? (Days doing a discipline or days not doing a habit)",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = OIACharcoal
@@ -127,7 +127,7 @@ fun AddJourneyModal(
             OIATextField(
                 value = title,
                 onValueChange = { title = it },
-                placeholder = "e.g., Alcohol, Smoking, Gambling, Social Media"
+                placeholder = "e.g., Morning Run, Deep Work, No Doomscrolling, Vaping"
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -173,7 +173,7 @@ fun AddJourneyModal(
                 OIATextField(
                     value = customLabel,
                     onValueChange = { customLabel = it },
-                    placeholder = "Label this (e.g., Social media, Shopping)"
+                    placeholder = "Label this (e.g., Streak Doing: Fitness, Days Not Doing: Sugar)"
                 )
             }
 
