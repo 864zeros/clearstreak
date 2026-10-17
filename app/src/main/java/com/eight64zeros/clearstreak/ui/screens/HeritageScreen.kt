@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,11 +40,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.data.AffirmationStore
+import com.eight64zeros.clearstreak.data.FocusPackRepository
 import com.eight64zeros.clearstreak.data.HeritageStore
 import com.eight64zeros.clearstreak.data.PassageStore
 import com.eight64zeros.clearstreak.model.Affirmation
 import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.DailyVerse
+import com.eight64zeros.clearstreak.model.FocusPackEntry
+import com.eight64zeros.clearstreak.model.FocusPacks
 import com.eight64zeros.clearstreak.navigation.Screen
 import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
 import com.eight64zeros.clearstreak.ui.components.OIACard
@@ -58,7 +63,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-private enum class Segment { SCRIPTURE, RECOVERY }
+private enum class Segment { FOCUS_PACKS, SCRIPTURE, RECOVERY }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,16 +71,26 @@ fun HeritageScreen(
     showFaith: Boolean,
     showAffirmations: Boolean,
     onNavigate: (String) -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    activeFocusPackId: String = FocusPacks.STOIC_MEDITATIONS,
+    onSelectFocusPack: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
     val heritageStore = remember { HeritageStore(context) }
     val passageStore = remember { PassageStore(context) }
     val affirmationStore = remember { AffirmationStore(context) }
+    val focusPackRepo = remember { FocusPackRepository(context, heritageStore, passageStore, affirmationStore) }
     val today = remember { LocalDate.now() }
     val dateFmt = remember { DateTimeFormatter.ofPattern("MMMM d") }
 
-    var segment by remember { mutableStateOf(Segment.SCRIPTURE) }
+    var segment by remember { mutableStateOf(Segment.FOCUS_PACKS) }
+
+    // Focus Pack state
+    var focusDate by remember { mutableStateOf(today) }
+    val dateFocusEntry = remember(activeFocusPackId, focusDate, showFaith, focusPackRepo) {
+        focusPackRepo.entryForDate(activeFocusPackId, focusDate, showFaith)
+    }
+    var randomFocusEntry by remember(activeFocusPackId) { mutableStateOf<FocusPackEntry?>(null) }
 
     // Scripture state
     var verseDate by remember { mutableStateOf(today) }
@@ -93,7 +108,7 @@ fun HeritageScreen(
         containerColor = OIACream,
         topBar = {
             TopAppBar(
-                title = { Text("Reflect", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OIACharcoal) },
+                title = { Text("Reflect & Focus Packs", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OIACharcoal) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = OIACharcoal)
@@ -117,6 +132,9 @@ fun HeritageScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                SegmentChip("🏛️ Focus Packs", segment == Segment.FOCUS_PACKS, Modifier.weight(1f)) {
+                    segment = Segment.FOCUS_PACKS
+                }
                 SegmentChip("📖 Scripture", segment == Segment.SCRIPTURE, Modifier.weight(1f)) {
                     segment = Segment.SCRIPTURE
                 }
@@ -128,6 +146,17 @@ fun HeritageScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             when (segment) {
+                Segment.FOCUS_PACKS -> FocusPacksSection(
+                    activeFocusPackId = activeFocusPackId,
+                    onSelectFocusPack = onSelectFocusPack,
+                    today = today,
+                    selectedDate = focusDate,
+                    dateFmt = dateFmt,
+                    dateEntry = dateFocusEntry,
+                    onSelectDate = { focusDate = it },
+                    randomEntry = randomFocusEntry,
+                    onRandomEntry = { randomFocusEntry = focusPackRepo.randomEntry(activeFocusPackId, showFaith) }
+                )
                 Segment.SCRIPTURE -> ScriptureSection(
                     today = today,
                     selectedDate = verseDate,
@@ -158,6 +187,107 @@ fun HeritageScreen(
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun FocusPacksSection(
+    activeFocusPackId: String,
+    onSelectFocusPack: (String) -> Unit,
+    today: LocalDate,
+    selectedDate: LocalDate,
+    dateFmt: DateTimeFormatter,
+    dateEntry: FocusPackEntry?,
+    onSelectDate: (LocalDate) -> Unit,
+    randomEntry: FocusPackEntry?,
+    onRandomEntry: () -> Unit
+) {
+    val activeMeta = FocusPacks.metaFor(activeFocusPackId)
+
+    ContentCard(
+        title = "Compartmentalized Focus Packs",
+        subtitle = "Choose which philosophy or wisdom voice powers your daily card so worldviews never clash."
+    ) {
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            FocusPacks.ALL.forEach { pack ->
+                val isSelected = pack.id == activeFocusPackId
+                Surface(
+                    modifier = Modifier.clickable { onSelectFocusPack(pack.id) },
+                    shape = RoundedCornerShape(16.dp),
+                    color = if (isSelected) OIASage.copy(alpha = 0.2f) else OIACream.copy(alpha = 0.6f),
+                    border = BorderStroke(
+                        if (isSelected) 2.dp else 1.dp,
+                        if (isSelected) OIASage else OIATaupe.copy(alpha = 0.4f)
+                    )
+                ) {
+                    Text(
+                        text = "${pack.emoji} ${pack.title}",
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                        fontSize = 12.sp,
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        color = OIACharcoal
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = "${activeMeta.emoji} Active Voice: ${activeMeta.title} — ${activeMeta.subtitle}",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = OIASage
+        )
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+    ContentCard(
+        title = if (selectedDate == today) "Daily Focus Card" else "Focus Card for ${selectedDate.format(dateFmt)}",
+        subtitle = activeMeta.title
+    ) {
+        if (dateEntry == null) EmptyLine("Focus Pack entry unavailable.")
+        else FocusEntryBody(dateEntry)
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+    ContentCard(title = "Browse by Date", subtitle = "Tap any day to read its Focus Pack entry above.") {
+        VerseCalendar(selectedDate = selectedDate, onSelectDate = onSelectDate)
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+    ContentCard(title = "Random Draw from ${activeMeta.title}") {
+        OIAPrimaryButton(text = "🎲 Draw another from this pack", onClick = onRandomEntry)
+        randomEntry?.let {
+            Spacer(modifier = Modifier.height(16.dp))
+            FocusEntryBody(it)
+        }
+    }
+}
+
+@Composable
+private fun FocusEntryBody(entry: FocusPackEntry) {
+    Text("“${entry.text}”", fontSize = 16.sp, fontStyle = FontStyle.Italic, color = OIACharcoal, lineHeight = 24.sp)
+    Spacer(modifier = Modifier.height(10.dp))
+    Text(entry.plain, fontSize = 14.sp, color = OIACharcoal, lineHeight = 21.sp)
+    Spacer(modifier = Modifier.height(10.dp))
+    Surface(
+        shape = RoundedCornerShape(10.dp),
+        color = OIASage.copy(alpha = 0.12f)
+    ) {
+        Text(
+            text = "🎯 Today's Practice: ${entry.application}",
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Medium,
+            color = OIACharcoal,
+            lineHeight = 19.sp,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+        )
+    }
+    Spacer(modifier = Modifier.height(8.dp))
+    Text("— ${entry.citation}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = OIASage)
 }
 
 @Composable

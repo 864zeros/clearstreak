@@ -1,9 +1,12 @@
 package com.eight64zeros.clearstreak.ui.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -22,6 +26,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -40,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.config.FlavorInfo
 import com.eight64zeros.clearstreak.data.EmergencyContacts
+import com.eight64zeros.clearstreak.model.FocusPacks
 import com.eight64zeros.clearstreak.navigation.Screen
 import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
 import com.eight64zeros.clearstreak.ui.components.OIACard
@@ -54,7 +60,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIAStone
 import com.eight64zeros.clearstreak.ui.theme.OIATaupe
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(
     contacts: EmergencyContacts,
@@ -75,7 +81,11 @@ fun SettingsScreen(
     onRateClicked: () -> Unit,
     onNavigate: (String) -> Unit,
     onLockApp: () -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    showFocusPackOnHome: Boolean = true,
+    onToggleFocusPackOnHome: (Boolean) -> Unit = {},
+    activeFocusPackId: String = FocusPacks.STOIC_MEDITATIONS,
+    onSelectFocusPack: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
     var sponsorName by remember { mutableStateOf(contacts.sponsorName) }
@@ -194,7 +204,7 @@ fun SettingsScreen(
             // Home & Content preferences
             item {
                 Text(
-                    text = "Home & Content",
+                    text = "Home & Content (Focus Packs)",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = OIACharcoal
@@ -206,6 +216,47 @@ fun SettingsScreen(
                     cornerRadius = 16.dp,
                     padding = 16.dp
                 ) {
+                    ToggleRow(
+                        title = "Show Daily Focus Pack card on Home",
+                        subtitle = "Displays your chosen philosophy or wisdom voice with a daily practice prompt.",
+                        checked = showFocusPackOnHome,
+                        onToggle = onToggleFocusPackOnHome
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = "Active Focus Pack Voice",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = OIACharcoal
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        FocusPacks.ALL.forEach { pack ->
+                            val selected = pack.id == activeFocusPackId
+                            Surface(
+                                modifier = Modifier.clickable { onSelectFocusPack(pack.id) },
+                                shape = RoundedCornerShape(14.dp),
+                                color = if (selected) OIASage.copy(alpha = 0.2f) else OIACream.copy(alpha = 0.6f),
+                                border = BorderStroke(
+                                    if (selected) 2.dp else 1.dp,
+                                    if (selected) OIASage else OIATaupe.copy(alpha = 0.4f)
+                                )
+                            ) {
+                                Text(
+                                    text = "${pack.emoji} ${pack.title}",
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                    fontSize = 12.sp,
+                                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
+                                    color = OIACharcoal
+                                )
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(14.dp))
                     ToggleRow(
                         title = "Show today's verse on Home",
                         subtitle = "A daily scripture verse card on your home screen.",

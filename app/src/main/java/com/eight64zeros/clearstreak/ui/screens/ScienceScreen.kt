@@ -104,6 +104,19 @@ fun ScienceScreen(onBack: () -> Unit) {
                 )
             )
 
+            ScienceSection(
+                icon = "🎯",
+                title = "Primary Focus, Routine Anchors & Floor Reps",
+                plain = "Lasting habits do not form on a fixed calendar day count; machine-learning studies of millions of real-world check-ins show that context stability — acting at a consistent daily cue — is what wires automaticity. Pinning one Primary Focus habit prevents attention depletion (Benjamin Franklin's 1791 sequential focus method), linking it to an existing daily cue via a When–Then Routine Anchor delegates initiation to your environment, and defining a low-friction Floor Rep keeps neural continuity unbroken on high-stress or low-energy days.",
+                references = listOf(
+                    "Buyalskaya, Ho, Milkman, Li, Duckworth & Camerer (2023). What can machine learning teach us about habit formation? Proceedings of the National Academy of Sciences (PNAS), 120(17).",
+                    "Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. American Psychologist, 54(7), 493–503.",
+                    "Premack, D. (1965). Reinforcement theory. Nebraska Symposium on Motivation, 13, 123–180.",
+                    "James, W. (1890). The Principles of Psychology, Chapter IV: Habit. Henry Holt & Co. (Public Domain).",
+                    "Franklin, B. (1791). The Autobiography of Benjamin Franklin (Public Domain)."
+                )
+            )
+
             OIACard(
                 backgroundColor = OIASage.copy(alpha = 0.10f),
                 borderColor = OIASage.copy(alpha = 0.3f),

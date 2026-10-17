@@ -21,10 +21,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +43,7 @@ import com.eight64zeros.clearstreak.ui.components.MilestoneCoin
 import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.OIASecondaryButton
+import com.eight64zeros.clearstreak.ui.components.OIATextField
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
 import com.eight64zeros.clearstreak.ui.theme.OIACoral
 import com.eight64zeros.clearstreak.ui.theme.OIACream
@@ -57,12 +63,17 @@ fun JourneyDetailScreen(
     checkIns: List<CheckIn>,
     onCheckInClicked: () -> Unit,
     onArchiveClicked: () -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onTogglePrimaryFocus: (Boolean) -> Unit = {},
+    onUpdateHabitPlan: (String?, String?) -> Unit = { _, _ -> }
 ) {
     val stats = StreakCalculator.calculateStats(journey, checkIns)
     val journeyCheckIns = checkIns.filter { it.journeyId == journey.id }
     val dateFormat = SimpleDateFormat("MMM d, yyyy • h:mm a", Locale.getDefault())
     val startDateStr = SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(Date(journey.startTimestamp * 1000))
+    var routineAnchorDraft by remember(journey.id, journey.routineAnchor) { mutableStateOf(journey.routineAnchor.orEmpty()) }
+    var floorRepDraft by remember(journey.id, journey.floorRep) { mutableStateOf(journey.floorRep.orEmpty()) }
+    var isEditingPlan by remember { mutableStateOf(false) }
 
     Scaffold(
         containerColor = OIACream,
@@ -103,11 +114,31 @@ fun JourneyDetailScreen(
                     cornerRadius = 16.dp,
                     padding = 20.dp
                 ) {
-                    Text(
-                        text = "Started: $startDateStr",
-                        fontSize = 13.sp,
-                        color = OIAStone
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Started: $startDateStr",
+                            fontSize = 13.sp,
+                            color = OIAStone
+                        )
+                        if (journey.isPrimaryFocus) {
+                            Surface(
+                                shape = OIARadiusPill,
+                                color = OIASage.copy(alpha = 0.2f)
+                            ) {
+                                Text(
+                                    text = "🎯 Primary Focus",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = OIASage,
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
+                    }
 
                     Spacer(modifier = Modifier.height(10.dp))
 
@@ -161,6 +192,101 @@ fun JourneyDetailScreen(
                         text = "Check In Now",
                         onClick = onCheckInClicked
                     )
+                }
+            }
+
+            // 4-Pillar Habit Engine Plan (Primary Focus + Routine Anchor + Floor Rep)
+            item {
+                OIACard(
+                    backgroundColor = OIAWarmWhite,
+                    cornerRadius = 16.dp,
+                    padding = 16.dp
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "🎯 Primary Focus Pin",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = OIACharcoal
+                            )
+                            Text(
+                                text = "Pin to top of Home as your single undivided priority (Franklin 1791).",
+                                fontSize = 12.sp,
+                                color = OIAStone
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Switch(
+                            checked = journey.isPrimaryFocus,
+                            onCheckedChange = onTogglePrimaryFocus
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    if (!isEditingPlan) {
+                        Text(
+                            text = "⚓ When–Then Routine Anchor: ${journey.routineAnchor?.takeIf { it.isNotBlank() } ?: "Not set"}",
+                            fontSize = 13.sp,
+                            color = OIACharcoal,
+                            lineHeight = 19.sp
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = "🛡️ Floor Rep (Minimum Viable Day): ${journey.floorRep?.takeIf { it.isNotBlank() } ?: "Not set"}",
+                            fontSize = 13.sp,
+                            color = OIASage,
+                            fontWeight = FontWeight.Medium,
+                            lineHeight = 19.sp
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        OIASecondaryButton(
+                            text = "Edit Routine Anchor & Floor Rep",
+                            onClick = { isEditingPlan = true }
+                        )
+                    } else {
+                        Text(
+                            text = "⚓ When–Then Routine Anchor",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIACharcoal
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        OIATextField(
+                            value = routineAnchorDraft,
+                            onValueChange = { routineAnchorDraft = it },
+                            placeholder = "After / When I [daily anchor], I will [action]"
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = "🛡️ Floor Rep (Minimum Viable Action)",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIACharcoal
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        OIATextField(
+                            value = floorRepDraft,
+                            onValueChange = { floorRepDraft = it },
+                            placeholder = "e.g., 5 pushups, 1 page read, or 60-sec breath"
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        OIAPrimaryButton(
+                            text = "Save Habit Plan",
+                            onClick = {
+                                onUpdateHabitPlan(
+                                    routineAnchorDraft.trim().ifBlank { null },
+                                    floorRepDraft.trim().ifBlank { null }
+                                )
+                                isEditingPlan = false
+                            }
+                        )
+                    }
                 }
             }
 

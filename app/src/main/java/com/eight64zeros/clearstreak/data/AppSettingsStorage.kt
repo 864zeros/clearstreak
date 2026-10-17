@@ -28,6 +28,16 @@ class AppSettingsStorage(context: Context) {
         get() = prefs.getBoolean(KEY_AFFIRMATIONS, false)
         set(value) = prefs.edit().putBoolean(KEY_AFFIRMATIONS, value).apply()
 
+    /** Active compartmentalized Focus Pack ID (e.g. stoic_meditations, franklin_virtues, james_habit). */
+    var activeFocusPackId: String
+        get() = prefs.getString(KEY_ACTIVE_FOCUS_PACK, "stoic_meditations") ?: "stoic_meditations"
+        set(value) = prefs.edit().putString(KEY_ACTIVE_FOCUS_PACK, value).apply()
+
+    /** Show the daily Focus Pack card on the Home Dashboard. */
+    var showFocusPackOnHome: Boolean
+        get() = prefs.getBoolean(KEY_FOCUS_PACK_ON_HOME, true)
+        set(value) = prefs.edit().putBoolean(KEY_FOCUS_PACK_ON_HOME, value).apply()
+
     /**
      * Local cache of the Play Billing one-time-unlock entitlement. Play is the source of truth;
      * this lets premium features work instantly offline and before the billing client reconnects.
@@ -42,6 +52,8 @@ class AppSettingsStorage(context: Context) {
         private const val KEY_PASSAGE_ON_HOME = "passage_on_home"
         private const val KEY_FAITH = "faith_reflections"
         private const val KEY_AFFIRMATIONS = "show_affirmations"
+        private const val KEY_ACTIVE_FOCUS_PACK = "active_focus_pack"
+        private const val KEY_FOCUS_PACK_ON_HOME = "focus_pack_on_home"
         private const val KEY_PREMIUM = "premium_unlocked"
     }
 }

@@ -57,6 +57,7 @@ import com.eight64zeros.clearstreak.data.StreakCalculator
 import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.DailyVerse
+import com.eight64zeros.clearstreak.model.FocusPackEntry
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.navigation.Screen
 import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
@@ -88,7 +89,9 @@ fun DashboardScreen(
     onAddJourneyClicked: () -> Unit,
     onCrisisTriggered: () -> Unit,
     onNavigate: (String) -> Unit,
-    onLockApp: () -> Unit
+    onLockApp: () -> Unit,
+    dailyFocusEntry: FocusPackEntry? = null,
+    onCycleFocusPack: (() -> Unit)? = null
 ) {
     Scaffold(
         containerColor = OIACream,
@@ -221,6 +224,83 @@ fun DashboardScreen(
                 }
             }
 
+            // Compartmentalized Focus Pack Card
+            dailyFocusEntry?.let { focus ->
+                item {
+                    OIACard(
+                        backgroundColor = OIAWarmWhite,
+                        borderColor = OIASage.copy(alpha = 0.35f),
+                        cornerRadius = 16.dp,
+                        padding = 16.dp
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "🏛️ ${focus.packTitle}",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = OIASage,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Surface(
+                                modifier = Modifier.clickable {
+                                    if (onCycleFocusPack != null) onCycleFocusPack() else onNavigate(Screen.Heritage.route)
+                                },
+                                shape = OIARadiusPill,
+                                color = OIASage.copy(alpha = 0.12f)
+                            ) {
+                                Text(
+                                    text = "Switch Voice",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = OIASage,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "“${focus.text}”",
+                            fontSize = 15.sp,
+                            fontStyle = FontStyle.Italic,
+                            color = OIACharcoal,
+                            lineHeight = 22.sp
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = focus.plain,
+                            fontSize = 13.sp,
+                            color = OIAStone,
+                            lineHeight = 19.sp
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Surface(
+                            shape = RoundedCornerShape(10.dp),
+                            color = OIASage.copy(alpha = 0.10f)
+                        ) {
+                            Text(
+                                text = "🎯 Today's Practice: ${focus.application}",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = OIACharcoal,
+                                lineHeight = 18.sp,
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = "— ${focus.citation}",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIAStone
+                        )
+                    }
+                }
+            }
+
             // Supplemental content below the journeys (verse + passage of the day)
             dailyVerse?.let { v ->
                 item {
@@ -308,6 +388,7 @@ private fun JourneyCard(
     OIACard(
         modifier = Modifier.clickable { onCardClicked() },
         backgroundColor = OIAWarmWhite,
+        borderColor = if (journey.isPrimaryFocus) OIASage.copy(alpha = 0.55f) else OIATaupe.copy(alpha = 0.25f),
         cornerRadius = 16.dp,
         padding = 20.dp
     ) {
@@ -316,7 +397,7 @@ private fun JourneyCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = journey.title,
                     fontSize = 18.sp,
@@ -332,15 +413,47 @@ private fun JourneyCard(
 
             Surface(
                 shape = OIARadiusPill,
-                color = OIASage.copy(alpha = 0.15f)
+                color = if (journey.isPrimaryFocus) OIASage.copy(alpha = 0.22f) else OIASage.copy(alpha = 0.15f)
             ) {
                 Text(
-                    text = "Active",
+                    text = if (journey.isPrimaryFocus) "🎯 Primary Focus" else "Active",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     color = OIASage,
                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
                 )
+            }
+        }
+
+        if (!journey.routineAnchor.isNullOrBlank() || !journey.floorRep.isNullOrBlank()) {
+            Spacer(modifier = Modifier.height(10.dp))
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = OIACream.copy(alpha = 0.7f),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)) {
+                    if (!journey.routineAnchor.isNullOrBlank()) {
+                        Text(
+                            text = "⚓ When–Then: ${journey.routineAnchor}",
+                            fontSize = 12.sp,
+                            color = OIACharcoal,
+                            lineHeight = 17.sp
+                        )
+                    }
+                    if (!journey.floorRep.isNullOrBlank()) {
+                        if (!journey.routineAnchor.isNullOrBlank()) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                        }
+                        Text(
+                            text = "🛡️ Floor Rep: ${journey.floorRep}",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = OIASage,
+                            lineHeight = 17.sp
+                        )
+                    }
+                }
             }
         }
 

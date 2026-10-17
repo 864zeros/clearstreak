@@ -115,6 +115,36 @@ fun CheckInModal(
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            if (!journey.routineAnchor.isNullOrBlank() || !journey.floorRep.isNullOrBlank()) {
+                OIACard(
+                    backgroundColor = OIASage.copy(alpha = 0.12f),
+                    borderColor = OIASage.copy(alpha = 0.35f),
+                    cornerRadius = 14.dp,
+                    padding = 14.dp
+                ) {
+                    if (!journey.routineAnchor.isNullOrBlank()) {
+                        Text(
+                            text = "⚓ Routine Anchor: ${journey.routineAnchor}",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = OIACharcoal
+                        )
+                    }
+                    if (!journey.floorRep.isNullOrBlank()) {
+                        if (!journey.routineAnchor.isNullOrBlank()) {
+                            Spacer(modifier = Modifier.height(6.dp))
+                        }
+                        Text(
+                            text = "🛡️ Floor Rep: ${journey.floorRep} (Counts as a full day clear on high-friction days)",
+                            fontSize = 13.sp,
+                            color = OIASage,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
             // Step 1: Urge Grid
             Text(
                 text = "How are you feeling right now?",

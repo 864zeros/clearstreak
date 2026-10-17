@@ -11,6 +11,9 @@ data class Journey(
     val dailyCostSavings: Double = 0.0,
     val isArchived: Boolean = false,
     val suppressGameTools: Boolean = false, // Gaming/screen recovery: hide in-app mini-games (blueprint §7)
+    val isPrimaryFocus: Boolean = false, // Benjamin Franklin (1791) Sequential Single-Habit Focus pin
+    val routineAnchor: String? = null, // Gollwitzer (1999) / Premack (1965) When-Then Routine Anchor
+    val floorRep: String? = null, // William James (1890) Minimum Viable Daily Action (Continuity Principle)
     val createdAt: Long = System.currentTimeMillis() / 1000
 ) {
     /** Label shown for the category — the user's custom label when set, else the category name. */

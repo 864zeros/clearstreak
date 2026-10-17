@@ -1,0 +1,363 @@
+{
+  "version": "1.1.0",
+  "legal_basis": "100% Pre-1931 US Public Domain Safe Harbor (17 U.S.C. § 102(b)); verified editions: John Jackson (1906 OUP) & George Long (1862) for Marcus Aurelius; P.E. Matheson (1916 OUP) & T.W. Higginson (1890) for Epictetus; Aubrey Stewart (1889) & R.M. Gummere (1917-1925) for Seneca; Benjamin Franklin Autobiography (1791); W.D. Ross (1908 OUP) for Aristotle; William James Principles of Psychology Ch. IV (1890).",
+  "packs": [
+    {
+      "id": "stoic_meditations",
+      "title": "Marcus Aurelius — Meditations",
+      "subtitle": "Roman Stoic Citadel & Inner Sovereignty (1862 / 1906 PD)",
+      "entries": [
+        {
+          "id": "stoic_med_01",
+          "citation": "Marcus Aurelius · Meditations II.1 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "At dawn, when you feel reluctant to rise, have this thought ready: I am rising to do the work of a human being.",
+          "plain": "Resistance in the first minute of the day is normal. You do not need to wait for inspiration to begin; you only need to step into your chosen role.",
+          "application": "Execute your Primary Focus habit or your Floor Rep before opening any feed."
+        },
+        {
+          "id": "stoic_med_02",
+          "citation": "Marcus Aurelius · Meditations IV.3 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "People seek retreats for themselves in the country, by the sea, or in the mountains; yet nowhere can a person find a quieter or more untroubled retreat than in their own soul.",
+          "plain": "Calm is not waiting in another room or at the end of a craving. You carry an inner citadel that can be entered in sixty seconds of stillness.",
+          "application": "When a friction moment rises, pause for four slow breaths and retreat inward before acting."
+        },
+        {
+          "id": "stoic_med_03",
+          "citation": "Marcus Aurelius · Meditations V.16 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Such as are your habitual thoughts, such also will be the character of your mind; for the soul is dyed by its thoughts.",
+          "plain": "What you repeatedly rehearse in your mind becomes the default color of your days. Guard your attention at the cue.",
+          "application": "Use your When–Then Routine Anchor today to replace an old automatic thought with deliberate action."
+        },
+        {
+          "id": "stoic_med_04",
+          "citation": "Marcus Aurelius · Meditations VI.16 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Not to be driven this way and that by every craving, but to hold straight on your course and keep your ruling center clear.",
+          "plain": "An urge is only a passing gust of wind; it does not steer the ship unless you hand over the helm.",
+          "application": "Log your check-in honestly today—whether Clear or riding out a passing thought."
+        },
+        {
+          "id": "stoic_med_05",
+          "citation": "Marcus Aurelius · Meditations V.9 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Do not be disgusted, nor discouraged, nor give up in impatience if you do not entirely succeed in acting from right principles in every detail; but when you have been thrown off, return to the work again.",
+          "plain": "Data Over Shame was practiced in ancient Rome: an off moment is never a reason to abandon the discipline. Return immediately and preserve your lifetime progress.",
+          "application": "If today feels heavy, complete your Floor Rep and keep your return immediate."
+        },
+        {
+          "id": "stoic_med_06",
+          "citation": "Marcus Aurelius · Meditations VII.9 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Let not future things disturb you, for you will come to them, if it shall be necessary, carrying with you the same reason which you now use for present things.",
+          "plain": "You do not have to carry a year of discipline on your shoulders today. You only have to stay steady in the hour in front of you.",
+          "application": "Narrow your horizon to today's check-in on your Primary Focus habit."
+        },
+        {
+          "id": "stoic_med_07",
+          "citation": "Marcus Aurelius · Meditations VIII.36 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Confine yourself to the present. Ask yourself: What is there in this single moment that cannot be borne and surmounted?",
+          "plain": "Looking too far ahead magnifies friction. Any single minute of craving or effort is bearable when met on its own.",
+          "application": "If restlessness peaks, run the 60-second Pocket Anchor and master just the next minute."
+        },
+        {
+          "id": "stoic_med_08",
+          "citation": "Marcus Aurelius · Meditations IV.7 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Take away your opinion, and then there is taken away the complaint, 'I have been harmed.' Take away the complaint, and the harm is gone.",
+          "plain": "Discomfort is just a physical signal; it only becomes overwhelming when we tell ourselves we cannot stand it.",
+          "application": "Notice the sensation of an urge without adding a story to it, then let the wave pass."
+        },
+        {
+          "id": "stoic_med_09",
+          "citation": "Marcus Aurelius · Meditations X.16 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Waste no more time arguing about what a good person should be. Be one.",
+          "plain": "Over-planning and self-criticism burn the very energy meant for action. Proof lives in today's repetition.",
+          "application": "Complete your Primary Focus action now and record the win."
+        },
+        {
+          "id": "stoic_med_10",
+          "citation": "Marcus Aurelius · Meditations V.20 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "The mind adapts and converts to its own purposes the obstacle to our acting. The impediment to action advances action. What stands in the way becomes the way.",
+          "plain": "Every high-friction day you navigate without surrendering strengthens your capacity more than ten easy days.",
+          "application": "Treat today's hardest HALT trigger as training ground and log how you met it."
+        },
+        {
+          "id": "stoic_med_11",
+          "citation": "Marcus Aurelius · Meditations XI.18 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Remember that to change your course and to follow what corrects a mistake is freer than to persist in error; for the action is your own, performed according to your own will and judgment.",
+          "plain": "Course-correction is an act of sovereignty, not defeat. Stepping back onto your path is proof that your will is intact.",
+          "application": "Check in with total honesty—your cumulative days and milestones remain permanently yours."
+        },
+        {
+          "id": "stoic_med_12",
+          "citation": "Marcus Aurelius · Meditations XII.6 (tr. Jackson 1906 / Long 1862, PD)",
+          "text": "Practice even the things which you despair of accomplishing. For even the left hand, which is ineffectual for other things for want of practice, holds the bridle more vigorously than the right; for it has been practiced in this.",
+          "plain": "What feels awkward or effortful at first becomes natural grip strength once repeated in a stable daily context.",
+          "application": "Honor your When–Then Routine Anchor at the exact same cue today."
+        }
+      ]
+    },
+    {
+      "id": "stoic_masters",
+      "title": "Epictetus & Seneca — Sovereign Will",
+      "subtitle": "Stoic Command of Assent & Time (1889 / 1916 PD)",
+      "entries": [
+        {
+          "id": "stoic_mas_01",
+          "citation": "Epictetus · Enchiridion 1 (tr. P.E. Matheson 1916 / Higginson 1890, PD)",
+          "text": "Of things, some are in our power and others are not. In our power are opinion, aim, desire, aversion, and, in a word, whatever affairs are our own.",
+          "plain": "You cannot always control stress, fatigue, or the arrival of a craving—but your next action is 100% inside your command.",
+          "application": "Let go of what triggered the friction today and place all energy into your next deliberate choice."
+        },
+        {
+          "id": "stoic_mas_02",
+          "citation": "Epictetus · Discourses II.18 (tr. P.E. Matheson 1916, PD)",
+          "text": "Every habit and faculty is maintained and increased by the corresponding actions: the habit of walking by walking, the habit of running by running. When you have kept clear for ten days, thank God, and reckon up the days in which you have not yielded.",
+          "plain": "Epictetus explicitly taught day-counting two thousand years ago: every day you refrain from an old pattern weakens its hold and strengthens your self-command.",
+          "application": "Check in today to add another visible link to your cumulative ledger."
+        },
+        {
+          "id": "stoic_mas_03",
+          "citation": "Epictetus · Enchiridion 34 (tr. P.E. Matheson 1916 / Higginson 1890, PD)",
+          "text": "When you are struck by the appearance of any pleasure, guard yourself against being carried away by it; let the matter wait upon your leisure, and procure yourself some delay.",
+          "plain": "A craving demands instant action because it cannot survive a calm five-minute delay. Creating space breaks the spell.",
+          "application": "Insert a three-minute visuospatial puzzle or breathing cycle between the urge and your response."
+        },
+        {
+          "id": "stoic_mas_04",
+          "citation": "Seneca · Moral Letters to Lucilius I.1 (tr. R.M. Gummere 1917, PD)",
+          "text": "Gather and save your time, which till lately has been forced from you, or filched away, or has merely slipped from your hands. Hold every hour in your grasp.",
+          "plain": "Small leaks of attention and unexamined habits quietly drain a life. Reclaiming today's hour restores ownership of your time.",
+          "application": "Protect the time-pocket reserved for your Primary Focus habit today."
+        },
+        {
+          "id": "stoic_mas_05",
+          "citation": "Seneca · On the Shortness of Life III (tr. Aubrey Stewart 1889, PD)",
+          "text": "It is not that we have a short space of time, but that we waste much of it. Life is long enough, and has been given in sufficiently generous measure to allow the accomplishment of the very greatest things, if the whole of it is well invested.",
+          "plain": "Every day clear of distraction or compulsion returns hours of clear-headed life directly back to you.",
+          "application": "Review your total days clear and notice how much sovereign time you have already reclaimed."
+        },
+        {
+          "id": "stoic_mas_06",
+          "citation": "Epictetus · Discourses III.12 (tr. P.E. Matheson 1916, PD)",
+          "text": "Do not make your practice for display before outsiders, but let your training be within yourself, where the real contest of will takes place.",
+          "plain": "Real discipline does not need an audience, social feed, or cloud leaderboard. Private consistency is the highest proof.",
+          "application": "Record a quiet, private check-in on your device—for your eyes alone."
+        },
+        {
+          "id": "stoic_mas_07",
+          "citation": "Seneca · On Anger II.29 (tr. Aubrey Stewart 1889, PD)",
+          "text": "The greatest remedy for anger and restlessness is delay. Ask the urge to grant you a short truce at the outset, not that it may pardon, but that it may judge.",
+          "plain": "Urgency is a trick of physiological arousal. When you slow the breathing and delay the reaction, clear judgment returns.",
+          "application": "If you feel HALT-angry or stressed today, run the 4×4 Box Breather before speaking or acting."
+        },
+        {
+          "id": "stoic_mas_08",
+          "citation": "Epictetus · Discourses IV.9 (tr. P.E. Matheson 1916, PD)",
+          "text": "Nothing is smaller than love of pleasure, and nothing more noble than greatness of soul and gentleness; here is your contest, and here is your crown.",
+          "plain": "Choosing long-term peace over a ten-minute escape builds unshakeable self-respect.",
+          "application": "When a friction moment tests you today, choose the action your evening self will respect."
+        },
+        {
+          "id": "stoic_mas_09",
+          "citation": "Seneca · Moral Letters to Lucilius XIII.4 (tr. R.M. Gummere 1917, PD)",
+          "text": "There are more things likely to frighten us than there are to crush us; we suffer more often in imagination than in reality.",
+          "plain": "The mind magnifies discomfort before we begin. Once you start the Floor Rep or step through the craving, the dread shrinks.",
+          "application": "Start with just 60 seconds of your Floor Rep to dissolve hesitation."
+        },
+        {
+          "id": "stoic_mas_10",
+          "citation": "Epictetus · Enchiridion 51 (tr. P.E. Matheson 1916 / Higginson 1890, PD)",
+          "text": "How long will you defer thinking yourself worthy of the noblest things? You have received the principles; what teacher do you still wait for? This is no longer the time for delay—the contest is now.",
+          "plain": "There is no future Monday more real than today. Your character is forged in the choice right in front of you.",
+          "application": "Honor your Primary Focus pin today without waiting for perfect conditions."
+        }
+      ]
+    },
+    {
+      "id": "franklin_virtues",
+      "title": "Benjamin Franklin — The 13 Virtues",
+      "subtitle": "Pragmatic Daily Ledger & Sequential Focus (1791 PD)",
+      "entries": [
+        {
+          "id": "franklin_01",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — The Sequential Focus Method",
+          "text": "My intention being to acquire the habitude of all these virtues, I judged it would be well not to distract my attention by attempting the whole at once, but to fix it on one of them at a time; and, when I should be master of that, then to proceed to another.",
+          "plain": "Trying to overhaul ten habits at once fractures your attention. Pinning one Primary Focus habit while keeping others in steady maintenance lets you master one bed in the garden at a time.",
+          "application": "Verify that your #1 priority is pinned as your Primary Focus habit at the top of your Dashboard."
+        },
+        {
+          "id": "franklin_02",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — The Daily Ledger",
+          "text": "I made a little book, in which I allotted a page for each of the virtues. I ruled each page with red ink, so as to have seven columns, one for each day of the week, marking every day's examination.",
+          "plain": "What you inspect daily improves naturally. A visible, honest ledger replaces vague intentions with clear daily feedback.",
+          "application": "Complete your daily check-in to mark today's square on your Progress Calendar."
+        },
+        {
+          "id": "franklin_03",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — Virtue 1: Temperance",
+          "text": "Temperance: Eat not to dullness; drink not to elevation. Keep the head clear so that reason and vigilance remain on guard against old habits.",
+          "plain": "Clarity of body protects clarity of mind. Fatigue and dullness are the cracks through which old cravings enter.",
+          "application": "Watch the 'Hungry' and 'Tired' flags on your HALT check-in today and protect your baseline energy."
+        },
+        {
+          "id": "franklin_04",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — Virtue 3: Order",
+          "text": "Order: Let all your things have their places; let each part of your business have its time.",
+          "plain": "When a discipline has an assigned place and an assigned daily cue, you no longer spend willpower deciding when to do it.",
+          "application": "Attach your habit to a fixed When–Then Routine Anchor so its time is settled in advance."
+        },
+        {
+          "id": "franklin_05",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — Virtue 4: Resolution",
+          "text": "Resolution: Resolve to perform what you ought; perform without fail what you resolve.",
+          "plain": "Keep your daily promise small enough that you can honor it even on a chaotic day. Self-trust grows every time your word to yourself holds.",
+          "application": "If your schedule is packed today, execute your Floor Rep so your resolution stays unbroken."
+        },
+        {
+          "id": "franklin_06",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — Virtue 6: Industry",
+          "text": "Industry: Lose no time; be always employed in something useful; cut off all unnecessary actions.",
+          "plain": "Replacing idle scrolling or restless boredom with a constructive five-minute craft starves cravings of their oxygen.",
+          "application": "When boredom strikes, redirect your hands to a purposeful task or a 3-minute spatial puzzle."
+        },
+        {
+          "id": "franklin_07",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — Virtue 9: Moderation",
+          "text": "Moderation: Avoid extremes; forbear resenting injuries so much as you think they deserve.",
+          "plain": "Resentment and all-or-nothing thinking destabilize steady progress. Balance and steady pacing outlast bursts of intensity.",
+          "application": "Choose steady continuity over extreme intensity today."
+        },
+        {
+          "id": "franklin_08",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — Virtue 11: Tranquillity",
+          "text": "Tranquillity: Be not disturbed at trifles, or at accidents common or unavoidable.",
+          "plain": "Daily friction, delays, and minor frustrations are guaranteed. Do not let an ordinary annoyance become an excuse to abandon your streak.",
+          "application": "Meet today's first unexpected disruption with a slow exhale and keep your streak intact."
+        },
+        {
+          "id": "franklin_09",
+          "citation": "Benjamin Franklin · Autobiography (1791, PD) — Data Over Shame in Practice",
+          "text": "Though I never arrived at the perfection I had been so ambitious of obtaining, but fell far short of it, yet I was, by the endeavor, a happier and a better man than I otherwise should have been if I had not attempted it.",
+          "plain": "Perfection is not the requirement; cumulative progress is. Every clean day recorded in your ledger permanently compounds your life.",
+          "application": "Look at your Cumulative Days Clear—every single one of those days belongs to you forever."
+        }
+      ]
+    },
+    {
+      "id": "aristotle_ethics",
+      "title": "Aristotle — Excellence by Repetition",
+      "subtitle": "Character Forged Through Daily Action (1908 PD)",
+      "entries": [
+        {
+          "id": "aristotle_01",
+          "citation": "Aristotle · Nicomachean Ethics II.1, 1103a (tr. W.D. Ross 1908, PD)",
+          "text": "Moral excellence comes about as a result of habit. None of the moral virtues arises in us by nature; rather we are adapted by nature to receive them, and are made perfect by habit.",
+          "plain": "Self-discipline is not a genetic trait some people are born with. It is a skill built through deliberate daily repetition.",
+          "application": "Treat today's check-in as one more deliberate repetition that shapes who you are becoming."
+        },
+        {
+          "id": "aristotle_02",
+          "citation": "Aristotle · Nicomachean Ethics II.1, 1103b (tr. W.D. Ross 1908, PD)",
+          "text": "The things we have to learn before we can do them, we learn by doing them: people become builders by building and lyre-players by playing the lyre; so too we become just by doing just acts, temperate by doing temperate acts, brave by doing brave acts.",
+          "plain": "Action comes before identity. You do not wait until you feel disciplined to act; you become disciplined by casting today's action.",
+          "application": "Perform today's Primary Focus action or Floor Rep to cast concrete proof of your character."
+        },
+        {
+          "id": "aristotle_03",
+          "citation": "Aristotle · Nicomachean Ethics II.2, 1104a (tr. W.D. Ross 1908, PD)",
+          "text": "Both excessive and defective exercise destroys the strength; whereas proportionate practice both produces and increases and preserves it. So too is it with temperance and courage and the other virtues.",
+          "plain": "Setting an unsustainable standard leads to burnout, while doing nothing leads to decay. The sustainable middle—supported by a Floor Rep on hard days—preserves strength.",
+          "application": "Match your effort to today's energy: full rep when strong, Floor Rep when stretched thin."
+        },
+        {
+          "id": "aristotle_04",
+          "citation": "Aristotle · Nicomachean Ethics II.3, 1104b (tr. W.D. Ross 1908, PD)",
+          "text": "By abstaining from pleasures we become temperate, and it is when we have become so that we are most able to abstain from them.",
+          "plain": "The first days require conscious effort, but each time you step past an urge, the next time becomes measurably lighter.",
+          "application": "Remember that riding out today's urge makes tomorrow's baseline noticeably easier."
+        },
+        {
+          "id": "aristotle_05",
+          "citation": "Aristotle · Nicomachean Ethics I.7, 1098a (tr. W.D. Ross 1908, PD)",
+          "text": "For one swallow does not make a summer, nor does one day; and so too one day, or a short time, does not make a person blessed and happy.",
+          "plain": "Lasting fulfillment is built across seasons of steady days, and a single off day never erases a season of honest work.",
+          "application": "Focus on your long-term trajectory and cumulative days rather than judging yourself on a single mood."
+        },
+        {
+          "id": "aristotle_06",
+          "citation": "Aristotle · Nicomachean Ethics II.9, 1109b (tr. W.D. Ross 1908, PD)",
+          "text": "We must drag ourselves away to the contrary extreme; for by pulling far away from error we shall reach the intermediate state, as people do in straightening bent timber.",
+          "plain": "When an environment or routine strongly pulls you toward an old habit, redesign the cue so the right choice is the easiest path.",
+          "application": "Review your When–Then Routine Anchor and remove one source of friction from your space today."
+        },
+        {
+          "id": "aristotle_07",
+          "citation": "Aristotle · Nicomachean Ethics III.5, 1114a (tr. W.D. Ross 1908, PD)",
+          "text": "It is activities exercised on particular objects that make the corresponding character; this is plain from the case of people training for any contest or action, for they continually practice the activity itself.",
+          "plain": "Consistent practice in real-world moments—not theory—is what wires resilience.",
+          "application": "Log your check-in today and celebrate the real-world repetition you completed."
+        }
+      ]
+    },
+    {
+      "id": "james_habit",
+      "title": "William James — The Science of Habit",
+      "subtitle": "Neuroplasticity & Unbroken Continuity (1890 PD)",
+      "entries": [
+        {
+          "id": "james_01",
+          "citation": "William James · The Principles of Psychology, Ch. IV: Habit (1890, PD)",
+          "text": "Could the young but realize how soon they will become mere walking bundles of habits, they would give more heed to their conduct while in the plastic state. We are spinning our own fates, good or evil, and never to be undone.",
+          "plain": "Your nervous system is plastic: every repeated action carves a physical pathway that makes the next repetition more automatic.",
+          "application": "Use today's Primary Focus check-in to deepen the neural groove you want to keep."
+        },
+        {
+          "id": "james_02",
+          "citation": "William James · The Principles of Psychology, Ch. IV: Habit — First Maxim (1890, PD)",
+          "text": "In the acquisition of a new habit, or the leaving off of an old one, we must take care to launch ourselves with as strong and decided an initiative as possible. Accumulate all the possible circumstances which shall reinforce the right motives.",
+          "plain": "Do not rely on raw willpower alone. Surround your habit with a clear When–Then Routine Anchor so your environment does half the lifting.",
+          "application": "Set or refine the When–Then Routine Anchor on your Primary Focus journey today."
+        },
+        {
+          "id": "james_03",
+          "citation": "William James · The Principles of Psychology, Ch. IV: Habit — Second Maxim (1890, PD)",
+          "text": "Continuity of training is the great means of making the nervous system act infallibly right. Keep the chain of daily execution unbroken by adapting the effort to what the day allows.",
+          "plain": "Showing up in a small way on an exhausted day preserves the neural cue far better than skipping altogether.",
+          "application": "On high-friction days, execute your Floor Rep so continuity stays intact."
+        },
+        {
+          "id": "james_04",
+          "citation": "William James · The Principles of Psychology, Ch. IV: Habit — Third Maxim (1890, PD)",
+          "text": "Seize the very first possible opportunity to act on every resolution you make, and on every emotional prompting you may experience in the direction of the habits you aspire to gain.",
+          "plain": "Intentions left unacted upon fade. The moment your daily cue arrives, initiate the first sixty seconds immediately.",
+          "application": "When your Routine Anchor cue happens today, begin within ten seconds."
+        },
+        {
+          "id": "james_05",
+          "citation": "William James · The Principles of Psychology, Ch. IV: Habit — Automaticity Benefit (1890, PD)",
+          "text": "Habit diminishes the conscious attention with which our acts are performed. The more of the details of our daily life we can hand over to the effortless custody of automatism, the more our higher powers of mind will be set free for their own proper work.",
+          "plain": "We build habits not to make life rigid, but to free our minds from constant decision fatigue.",
+          "application": "Let your When–Then Routine Anchor remove the daily debate of 'when' and 'whether' to act."
+        },
+        {
+          "id": "james_06",
+          "citation": "William James · The Principles of Psychology, Ch. IV: Habit — Permanent Ledger (1890, PD)",
+          "text": "Nothing we ever do is, in strict scientific literalness, wiped out. As we become permanent drunkards by so many separate drinks, so we become saints in the moral, and authorities and experts in the practical and scientific spheres, by so many separate acts and hours of work.",
+          "plain": "William James formulated the scientific basis of Data Over Shame in 1890: no honest day of effort or restraint is ever erased from your nervous system.",
+          "application": "Check your Cumulative Days Clear—every single day has permanently rewired your resilience."
+        },
+        {
+          "id": "james_07",
+          "citation": "William James · The Principles of Psychology, Ch. IV: Habit — Fourth Maxim (1890, PD)",
+          "text": "Keep the faculty of effort alive in you by a little gratuitous exercise every day. That is, be systematically heroic in little unnecessary points, do every day or two something for no other reason than that you would rather not do it.",
+          "plain": "Small daily acts of voluntary self-command act like insurance: when a real test or craving arrives, your capacity to stand firm is already trained.",
+          "application": "Complete your check-in and one deliberate grounding rep today."
+        },
+        {
+          "id": "james_08",
+          "citation": "Arnold Bennett · How to Live on 24 Hours a Day, Ch. IV (1910, PD)",
+          "text": "Beware of undertaking too much at the start. Be content with quite a little. Allow for accidents. Allow for human nature. A glorious failure is not what we want; we want a modest, quiet certainty.",
+          "plain": "Grandiose all-or-nothing plans collapse the first time life gets busy. A modest Floor Rep that you can execute with quiet certainty wins over months and years.",
+          "application": "Make sure your Floor Rep is small enough that you can complete it even on your busiest day."
+        }
+      ]
+    }
+  ]
+}

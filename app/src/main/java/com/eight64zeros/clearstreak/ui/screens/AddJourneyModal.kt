@@ -13,8 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.DatePicker
@@ -24,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -40,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.JourneyCategory
+import com.eight64zeros.clearstreak.ui.components.OIACard
 import com.eight64zeros.clearstreak.ui.components.OIAPrimaryButton
 import com.eight64zeros.clearstreak.ui.components.OIATextField
 import com.eight64zeros.clearstreak.ui.theme.OIACharcoal
@@ -56,9 +61,12 @@ fun AddJourneyModal(
     onDismiss: () -> Unit
 ) {
     var title by remember { mutableStateOf("") }
-    var selectedCategory by remember { mutableStateOf(JourneyCategory.ALCOHOL) }
+    var selectedCategory by remember { mutableStateOf(JourneyCategory.BEHAVIORAL) }
     var customLabel by remember { mutableStateOf("") }
     var dailyCostSavingsStr by remember { mutableStateOf("") }
+    var isPrimaryFocus by remember { mutableStateOf(true) }
+    var routineAnchor by remember { mutableStateOf("") }
+    var floorRep by remember { mutableStateOf("") }
     var startMillis by remember { mutableStateOf(System.currentTimeMillis()) }
     var showDatePicker by remember { mutableStateOf(false) }
     val startDateLabel = remember(startMillis) {
@@ -95,7 +103,11 @@ fun AddJourneyModal(
             .background(OIACream)
             .padding(20.dp)
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -113,7 +125,7 @@ fun AddJourneyModal(
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "What journey are you tracking? (Days doing a discipline or days not doing a habit)",
@@ -130,7 +142,42 @@ fun AddJourneyModal(
                 placeholder = "e.g., Morning Run, Deep Work, No Doomscrolling, Vaping"
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Pillar 1: Primary Focus Pin (Benjamin Franklin 1791 Sequential Focus)
+            OIACard(
+                backgroundColor = OIAWarmWhite,
+                cornerRadius = 14.dp,
+                padding = 14.dp
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "🎯 Primary Focus Habit",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = OIACharcoal
+                        )
+                        Text(
+                            text = "Pin as your #1 priority on Home so attention stays undivided (Franklin Sequential Focus).",
+                            fontSize = 12.sp,
+                            color = OIAStone,
+                            lineHeight = 17.sp
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Switch(
+                        checked = isPrimaryFocus,
+                        onCheckedChange = { isPrimaryFocus = it }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "Category",
@@ -177,7 +224,49 @@ fun AddJourneyModal(
                 )
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Pillar 2: When-Then Routine Anchor
+            Text(
+                text = "⚓ When–Then Routine Anchor (optional)",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = OIACharcoal
+            )
+            Text(
+                text = "After / When I [existing daily anchor], I will [perform this discipline / choose my alternative].",
+                fontSize = 12.sp,
+                color = OIAStone
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            OIATextField(
+                value = routineAnchor,
+                onValueChange = { routineAnchor = it },
+                placeholder = "e.g., After I pour morning coffee, I will read for 15 mins"
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Pillar 3: Floor Rep (Minimum Viable Day)
+            Text(
+                text = "🛡️ Floor Rep — Minimum Viable Day (optional)",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = OIACharcoal
+            )
+            Text(
+                text = "Smallest action that counts on low-energy or high-friction days to keep continuity unbroken.",
+                fontSize = 12.sp,
+                color = OIAStone
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            OIATextField(
+                value = floorRep,
+                onValueChange = { floorRep = it },
+                placeholder = "e.g., 5 pushups, 1 page read, or 60-sec Pocket Anchor"
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "Start date (when did you begin?)",
@@ -205,7 +294,7 @@ fun AddJourneyModal(
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "Daily Cost Saved ($ / day, optional)",
@@ -223,7 +312,7 @@ fun AddJourneyModal(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             OIAPrimaryButton(
                 text = "Start Journey",
@@ -235,11 +324,16 @@ fun AddJourneyModal(
                         category = selectedCategory,
                         customLabel = customLabel.trim().ifBlank { null },
                         startTimestamp = startMillis / 1000,
-                        dailyCostSavings = savings
+                        dailyCostSavings = savings,
+                        isPrimaryFocus = isPrimaryFocus,
+                        routineAnchor = routineAnchor.trim().ifBlank { null },
+                        floorRep = floorRep.trim().ifBlank { null }
                     )
                     onAddJourney(journey)
                 }
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }

@@ -26,6 +26,7 @@ import com.eight64zeros.clearstreak.billing.createPremiumManager
 import com.eight64zeros.clearstreak.data.AppSettingsStorage
 import com.eight64zeros.clearstreak.data.EmergencyContactStorage
 import com.eight64zeros.clearstreak.data.EmergencyContacts
+import com.eight64zeros.clearstreak.data.FocusPackRepository
 import com.eight64zeros.clearstreak.data.HeritageStore
 import com.eight64zeros.clearstreak.data.PassageStore
 import com.eight64zeros.clearstreak.data.SharedStreakStorage
@@ -34,6 +35,8 @@ import com.eight64zeros.clearstreak.database.DatabaseManager
 import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.CheckIn
 import com.eight64zeros.clearstreak.model.DailyVerse
+import com.eight64zeros.clearstreak.model.FocusPackEntry
+import com.eight64zeros.clearstreak.model.FocusPacks
 import com.eight64zeros.clearstreak.model.Journey
 import com.eight64zeros.clearstreak.model.JourneyCategory
 import com.eight64zeros.clearstreak.model.UrgeLevel
@@ -64,6 +67,7 @@ class MainActivity : FragmentActivity() {
     private lateinit var settingsStorage: AppSettingsStorage
     private lateinit var heritageStore: HeritageStore
     private lateinit var passageStore: PassageStore
+    private lateinit var focusPackRepository: FocusPackRepository
     private lateinit var premiumManager: PremiumManager
 
     private var isUnlockedState by mutableStateOf(false)
@@ -80,8 +84,11 @@ class MainActivity : FragmentActivity() {
     private var showPassageOnHome by mutableStateOf(false)
     private var showFaithReflections by mutableStateOf(false)
     private var showAffirmations by mutableStateOf(false)
+    private var showFocusPackOnHome by mutableStateOf(true)
+    private var activeFocusPackId by mutableStateOf(FocusPacks.STOIC_MEDITATIONS)
     private var todaysVerse by mutableStateOf<DailyVerse?>(null)
     private var todaysPassage by mutableStateOf<BookPassage?>(null)
+    private var todaysFocusEntry by mutableStateOf<FocusPackEntry?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,6 +111,7 @@ class MainActivity : FragmentActivity() {
         settingsStorage = AppSettingsStorage(this)
         heritageStore = HeritageStore(this)
         passageStore = PassageStore(this)
+        focusPackRepository = FocusPackRepository(this, heritageStore, passageStore)
         premiumManager = createPremiumManager(this)
 
         contactsState = contactStorage.getContacts()
@@ -111,8 +119,12 @@ class MainActivity : FragmentActivity() {
         showPassageOnHome = settingsStorage.showDailyPassageOnHome
         showFaithReflections = settingsStorage.showFaithReflections
         showAffirmations = settingsStorage.showAffirmations
-        todaysVerse = heritageStore.verseForDate(java.time.LocalDate.now())
-        todaysPassage = passageStore.passageForDate(java.time.LocalDate.now())
+        showFocusPackOnHome = settingsStorage.showFocusPackOnHome
+        activeFocusPackId = settingsStorage.activeFocusPackId
+        val today = java.time.LocalDate.now()
+        todaysVerse = heritageStore.verseForDate(today)
+        todaysPassage = passageStore.passageForDate(today)
+        todaysFocusEntry = focusPackRepository.entryForDate(activeFocusPackId, today, showFaithReflections)
 
         setContent {
             ClearStreakTheme {
@@ -304,7 +316,13 @@ class MainActivity : FragmentActivity() {
                     showFaith = showFaithReflections,
                     showAffirmations = showAffirmations,
                     onNavigate = { currentRoute = it },
-                    onBack = { currentRoute = Screen.Dashboard.route }
+                    onBack = { currentRoute = Screen.Dashboard.route },
+                    activeFocusPackId = activeFocusPackId,
+                    onSelectFocusPack = { packId ->
+                        settingsStorage.activeFocusPackId = packId
+                        activeFocusPackId = packId
+                        todaysFocusEntry = focusPackRepository.entryForDate(packId, java.time.LocalDate.now(), showFaithReflections)
+                    }
                 )
             }
             currentRoute == Screen.Science.route -> {
@@ -333,6 +351,7 @@ class MainActivity : FragmentActivity() {
                     onToggleFaithReflections = {
                         settingsStorage.showFaithReflections = it
                         showFaithReflections = it
+                        todaysFocusEntry = focusPackRepository.entryForDate(activeFocusPackId, java.time.LocalDate.now(), it)
                     },
                     showAffirmations = showAffirmations,
                     onToggleAffirmations = {
@@ -347,7 +366,18 @@ class MainActivity : FragmentActivity() {
                     onRateClicked = { launchReview(this@MainActivity) },
                     onNavigate = { currentRoute = it },
                     onLockApp = { lockApp() },
-                    onBack = { currentRoute = Screen.Dashboard.route }
+                    onBack = { currentRoute = Screen.Dashboard.route },
+                    showFocusPackOnHome = showFocusPackOnHome,
+                    onToggleFocusPackOnHome = {
+                        settingsStorage.showFocusPackOnHome = it
+                        showFocusPackOnHome = it
+                    },
+                    activeFocusPackId = activeFocusPackId,
+                    onSelectFocusPack = { packId ->
+                        settingsStorage.activeFocusPackId = packId
+                        activeFocusPackId = packId
+                        todaysFocusEntry = focusPackRepository.entryForDate(packId, java.time.LocalDate.now(), showFaithReflections)
+                    }
                 )
             }
             currentRoute == Screen.Unlock.route -> {
@@ -405,7 +435,20 @@ class MainActivity : FragmentActivity() {
                             loadData()
                             currentRoute = Screen.Dashboard.route
                         },
-                        onBack = { currentRoute = Screen.Dashboard.route }
+                        onBack = { currentRoute = Screen.Dashboard.route },
+                        onTogglePrimaryFocus = { isPrimary ->
+                            databaseManager.setPrimaryFocus(journey.id, isPrimary)
+                            loadData()
+                        },
+                        onUpdateHabitPlan = { anchor, floor ->
+                            databaseManager.updateJourney(
+                                journey.copy(
+                                    routineAnchor = anchor,
+                                    floorRep = floor
+                                )
+                            )
+                            loadData()
+                        }
                     )
                 } else {
                     currentRoute = Screen.Dashboard.route
@@ -433,7 +476,16 @@ class MainActivity : FragmentActivity() {
                         currentRoute = Screen.CrisisIntercept.route
                     },
                     onNavigate = { currentRoute = it },
-                    onLockApp = { lockApp() }
+                    onLockApp = { lockApp() },
+                    dailyFocusEntry = if (showFocusPackOnHome) todaysFocusEntry else null,
+                    onCycleFocusPack = {
+                        val allIds = FocusPacks.ALL.map { it.id }
+                        val nextIdx = (allIds.indexOf(activeFocusPackId) + 1) % allIds.size
+                        val nextId = allIds[nextIdx]
+                        settingsStorage.activeFocusPackId = nextId
+                        activeFocusPackId = nextId
+                        todaysFocusEntry = focusPackRepository.entryForDate(nextId, java.time.LocalDate.now(), showFaithReflections)
+                    }
                 )
             }
         }

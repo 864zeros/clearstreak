@@ -9,6 +9,7 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+/app/build
 /captures
 .externalNativeBuild
 .cxx
@@ -18,6 +19,7 @@ local.properties
 
 # Release signing — NEVER commit the keystore or its passwords
 keystore.properties
+keystore/
 *.jks
 *.keystore
 

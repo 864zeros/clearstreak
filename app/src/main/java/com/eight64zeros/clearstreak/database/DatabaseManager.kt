@@ -58,10 +58,13 @@ class DatabaseManager(private val context: Context) {
             null,
             null,
             null,
-            "created_at ASC"
+            "is_primary_focus DESC, created_at ASC"
         )
         val journeys = mutableListOf<Journey>()
         cursor.use {
+            val primaryIdx = it.getColumnIndex("is_primary_focus")
+            val anchorIdx = it.getColumnIndex("routine_anchor")
+            val floorIdx = it.getColumnIndex("floor_rep")
             while (it.moveToNext()) {
                 journeys.add(
                     Journey(
@@ -73,6 +76,9 @@ class DatabaseManager(private val context: Context) {
                         dailyCostSavings = it.getDouble(it.getColumnIndexOrThrow("daily_cost_savings")),
                         isArchived = it.getInt(it.getColumnIndexOrThrow("is_archived")) == 1,
                         suppressGameTools = it.getInt(it.getColumnIndexOrThrow("suppress_game_tools")) == 1,
+                        isPrimaryFocus = if (primaryIdx >= 0 && !it.isNull(primaryIdx)) it.getInt(primaryIdx) == 1 else false,
+                        routineAnchor = if (anchorIdx >= 0 && !it.isNull(anchorIdx)) it.getString(anchorIdx) else null,
+                        floorRep = if (floorIdx >= 0 && !it.isNull(floorIdx)) it.getString(floorIdx) else null,
                         createdAt = it.getLong(it.getColumnIndexOrThrow("created_at"))
                     )
                 )
@@ -83,6 +89,10 @@ class DatabaseManager(private val context: Context) {
 
     fun insertJourney(journey: Journey) {
         val db = coreDbHelper.writableDatabase
+        if (journey.isPrimaryFocus) {
+            val clearPrimary = ContentValues().apply { put("is_primary_focus", 0) }
+            db.update("journeys", clearPrimary, null, null)
+        }
         val values = ContentValues().apply {
             put("id", journey.id)
             put("title", journey.title)
@@ -92,6 +102,9 @@ class DatabaseManager(private val context: Context) {
             put("daily_cost_savings", journey.dailyCostSavings)
             put("is_archived", if (journey.isArchived) 1 else 0)
             put("suppress_game_tools", if (journey.suppressGameTools) 1 else 0)
+            put("is_primary_focus", if (journey.isPrimaryFocus) 1 else 0)
+            put("routine_anchor", journey.routineAnchor)
+            put("floor_rep", journey.floorRep)
             put("created_at", journey.createdAt)
         }
         db.insertWithOnConflict("journeys", null, values, AndroidSQLiteDatabase.CONFLICT_REPLACE)
@@ -99,6 +112,10 @@ class DatabaseManager(private val context: Context) {
 
     fun updateJourney(journey: Journey) {
         val db = coreDbHelper.writableDatabase
+        if (journey.isPrimaryFocus) {
+            val clearPrimary = ContentValues().apply { put("is_primary_focus", 0) }
+            db.update("journeys", clearPrimary, "id != ?", arrayOf(journey.id))
+        }
         val values = ContentValues().apply {
             put("title", journey.title)
             put("category", journey.category.dbValue)
@@ -107,14 +124,30 @@ class DatabaseManager(private val context: Context) {
             put("daily_cost_savings", journey.dailyCostSavings)
             put("is_archived", if (journey.isArchived) 1 else 0)
             put("suppress_game_tools", if (journey.suppressGameTools) 1 else 0)
+            put("is_primary_focus", if (journey.isPrimaryFocus) 1 else 0)
+            put("routine_anchor", journey.routineAnchor)
+            put("floor_rep", journey.floorRep)
         }
         db.update("journeys", values, "id = ?", arrayOf(journey.id))
+    }
+
+    fun setPrimaryFocus(journeyId: String, isPrimary: Boolean) {
+        val db = coreDbHelper.writableDatabase
+        if (isPrimary) {
+            val clearAll = ContentValues().apply { put("is_primary_focus", 0) }
+            db.update("journeys", clearAll, null, null)
+        }
+        val values = ContentValues().apply {
+            put("is_primary_focus", if (isPrimary) 1 else 0)
+        }
+        db.update("journeys", values, "id = ?", arrayOf(journeyId))
     }
 
     fun archiveJourney(journeyId: String) {
         val db = coreDbHelper.writableDatabase
         val values = ContentValues().apply {
             put("is_archived", 1)
+            put("is_primary_focus", 0)
         }
         db.update("journeys", values, "id = ?", arrayOf(journeyId))
     }
@@ -229,6 +262,9 @@ class DatabaseManager(private val context: Context) {
                     daily_cost_savings REAL DEFAULT 0.0,
                     is_archived INTEGER DEFAULT 0,
                     suppress_game_tools INTEGER DEFAULT 0,
+                    is_primary_focus INTEGER DEFAULT 0,
+                    routine_anchor TEXT,
+                    floor_rep TEXT,
                     created_at INTEGER DEFAULT (strftime('%s','now'))
                 );
                 """.trimIndent()
@@ -272,6 +308,11 @@ class DatabaseManager(private val context: Context) {
                 db.execSQL("DROP TABLE journeys")
                 db.execSQL("ALTER TABLE journeys_new RENAME TO journeys")
             }
+            if (oldVersion < 6) {
+                try { db.execSQL("ALTER TABLE journeys ADD COLUMN is_primary_focus INTEGER DEFAULT 0") } catch (_: Exception) {}
+                try { db.execSQL("ALTER TABLE journeys ADD COLUMN routine_anchor TEXT") } catch (_: Exception) {}
+                try { db.execSQL("ALTER TABLE journeys ADD COLUMN floor_rep TEXT") } catch (_: Exception) {}
+            }
         }
     }
 
@@ -307,6 +348,6 @@ class DatabaseManager(private val context: Context) {
     companion object {
         private const val CORE_DB_NAME = "streak_core.db"
         private const val ENC_DB_NAME = "recovery_enc.db"
-        private const val DB_VERSION = 5
+        private const val DB_VERSION = 6
     }
 }
