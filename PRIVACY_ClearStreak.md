@@ -94,4 +94,4 @@ If we change how the app handles data, we will update this page and revise the e
 
 ## Contact
 
-Questions about this policy or the app's data practices: **jeff.m.conn@gmail.com** · 864zeros LLC
+Questions about this policy or the app's data practices: **contact@864zeros.com** · 864zeros LLC

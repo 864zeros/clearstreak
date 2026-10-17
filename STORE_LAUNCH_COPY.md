@@ -78,7 +78,7 @@ number or the 988 Suicide & Crisis Lifeline.
 - **App category:** Health & Fitness *(NOT "Medical" — avoids the stricter medical-app review track)*.
 - **Tags:** sobriety, recovery, habit tracker, privacy, offline.
 - **Privacy Policy URL:** `https://www.864zeros.com/privacy/clearstreak` *(host `PRIVACY_ClearStreak.md` there — confirm final URL)*.
-- **Contact email:** jeff.m.conn@gmail.com  ·  **Website:** https://www.864zeros.com
+- **Contact email:** contact@864zeros.com  ·  **Website:** https://www.864zeros.com
 - **Graphics still needed (you):** app icon (512×512), feature graphic (1024×500), ≥2 phone
   screenshots (use the `-Pcapture` debug build to shoot them — screenshots are `FLAG_SECURE`-blocked otherwise).
 
