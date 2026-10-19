@@ -322,7 +322,8 @@ class MainActivity : FragmentActivity() {
                         settingsStorage.activeFocusPackId = packId
                         activeFocusPackId = packId
                         todaysFocusEntry = focusPackRepository.entryForDate(packId, java.time.LocalDate.now(), showFaithReflections)
-                    }
+                    },
+                    focusPackRepository = focusPackRepository
                 )
             }
             currentRoute == Screen.Science.route -> {

@@ -147,6 +147,10 @@ dependencies {
     // Google Play In-App Review — store flavor only
     "storeImplementation"(libs.play.review)
 
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.json:json:20231013")
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+

@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "legal_basis": "100% Pre-1931 US Public Domain Safe Harbor (17 U.S.C. § 102(b)); verified editions: John Jackson (1906 OUP) & George Long (1862) for Marcus Aurelius; P.E. Matheson (1916 OUP) & T.W. Higginson (1890) for Epictetus; Aubrey Stewart (1889) & R.M. Gummere (1917-1925) for Seneca; Benjamin Franklin Autobiography (1791); W.D. Ross (1908 OUP) for Aristotle; William James Principles of Psychology Ch. IV (1890).",
   "packs": [
     {
@@ -356,6 +356,1842 @@
           "text": "Beware of undertaking too much at the start. Be content with quite a little. Allow for accidents. Allow for human nature. A glorious failure is not what we want; we want a modest, quiet certainty.",
           "plain": "Grandiose all-or-nothing plans collapse the first time life gets busy. A modest Floor Rep that you can execute with quiet certainty wins over months and years.",
           "application": "Make sure your Floor Rep is small enough that you can complete it even on your busiest day."
+        }
+      ]
+    },
+    {
+      "id": "seneca_shortness_of_life_30day",
+      "pack_id": "seneca_shortness_of_life_30day",
+      "volume": 2,
+      "title": "Time Sovereignty: Seneca on the Shortness of Life",
+      "subtitle": "30 Verbatim Pre-1931 Passages from Seneca's De Brevitate Vitae (Aubrey Stewart 1889) on Reclaiming Your Hours from Reactive Busyness",
+      "entries": [
+        {
+          "id": "seneca_sol_001",
+          "day": 1,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 1",
+          "text": "Thus it is: we do not receive a short life, but we make it a short one, and we are not poor in days, but wasteful of them.",
+          "plain": "Life is not inherently too brief; we shrink it whenever we scatter our hours across reactive distractions.",
+          "application": "Guard your primary focus window today as your highest-value asset.",
+          "strategic_prompt": "Where did your attention leak yesterday without producing clarity or peace?",
+          "micro_action": "Close every unscheduled browser tab and silence notifications for the next 30 minutes.",
+          "focus_theme": "time_stewardship",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_002",
+          "day": 2,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 2",
+          "text": "Let us take one of the elders, and say to him, “We perceive that you have arrived at the extreme limits of human life: you are in your hundredth year, or even older.",
+          "plain": "When the mind chases every restless craving, even moments of rest feel turbulent like a sea after a gale.",
+          "application": "Use a physical grounding breath before transitioning between tasks today.",
+          "strategic_prompt": "What unresolved restlessness follows you into your evening rest?",
+          "micro_action": "Execute four slow 4-second box breaths before opening your next task.",
+          "focus_theme": "inner_harbor",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_003",
+          "day": 3,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 3",
+          "text": "What a foolish forgetfulness of our mortality, to put off wholesome counsels until our fiftieth or sixtieth year, and to choose that our lives shall begin at a point which few of us ever reach.",
+          "plain": "When your schedule is dictated entirely by other people's urgency, you cease to belong to yourself.",
+          "application": "Reclaim one uninterrupted block today that belongs strictly to your Primary Focus Habit.",
+          "strategic_prompt": "Whose priorities are currently occupying the prime hours of your morning?",
+          "micro_action": "Decline or defer one low-priority interruption today to protect yourRoutine Anchor.",
+          "focus_theme": "sovereign_self_ownership",
+          "halt_triggers": [
+            "LONELY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_004",
+          "day": 4,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 4",
+          "text": "You will find that the most powerful and highly-placed men let fall phrases in which they long for leisure, praise it, and prefer it to all the blessings which they enjoy.",
+          "plain": "We readily grant an audience to everyone else's complaints while rarely sitting in honest stillness with our own mind.",
+          "application": "Spend five quiet minutes checking in with your own state before reacting to external noise.",
+          "strategic_prompt": "What internal signal have you been avoiding by staying perpetually busy?",
+          "micro_action": "Write one honest sentence in your journal describing your current emotional baseline.",
+          "focus_theme": "honest_self_inquiry",
+          "halt_triggers": [
+            "LONELY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_005",
+          "day": 5,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 5",
+          "text": "He, who saw everything depending upon himself alone, who swayed the fortunes of men and of nations, thought that his happiest day would be that on which he laid aside his greatness.",
+          "plain": "Merely accumulating calendar days is not the same as living deliberately; unfocused hours vanish from the ledger.",
+          "application": "Measure today by deliberate presence in your chosen discipline rather than hours spent at a desk.",
+          "strategic_prompt": "Which single hour of your day currently feels the most alive and intentional?",
+          "micro_action": "Log your Primary Focus check-in immediately after completing your anchor habit.",
+          "focus_theme": "living_vs_counting_years",
+          "halt_triggers": [
+            "HOPELESS",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_006",
+          "day": 6,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 6",
+          "text": "Scarcely had he escaped from their plot, when his already failing age was terrified by his daughter and all the noble youths who were pledged to her cause by adultery with her by way of oath of fidelity.",
+          "plain": "Postponing wise habits until some future decade is the surest way to forfeit the only day you actually hold.",
+          "application": "Begin your discipline today at its minimum viable threshold rather than waiting for ideal conditions.",
+          "strategic_prompt": "What meaningful practice have you been deferring until life 'slows down'?",
+          "micro_action": "Perform a 60-second Floor Rep of your primary habit right now.",
+          "focus_theme": "present_action_over_delay",
+          "halt_triggers": [
+            "HOPELESS",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_007",
+          "day": 7,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 7",
+          "text": "I am living in my Tusculan villa almost as a prisoner.” He adds more afterwards, wherein he laments his former life, complains of the present, and despairs of the future.",
+          "plain": "Status and external applause demand constant maintenance, whereas inner self-command requires zero outside permission.",
+          "application": "Strip away performative busyness today and execute what genuinely builds character.",
+          "strategic_prompt": "Which obligation in your week exists only to maintain appearances?",
+          "micro_action": "Cross one unnecessary status task off today's list.",
+          "focus_theme": "weight_of_false_ambition",
+          "halt_triggers": [
+            "STRESSED",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "seneca_sol_008",
+          "day": 8,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 8",
+          "text": "He, therefore, had time enough: whereas those who gave up a great part of their lives to the people of necessity had not enough.",
+          "plain": "Even those at the peak of worldly influence eventually realize that unhurried mental clarity is the true luxury.",
+          "application": "Build a 15-minute quiet buffer into your afternoon before fatigue triggers a craving.",
+          "strategic_prompt": "How does your nervous system respond when you remove artificial urgency?",
+          "micro_action": "Step away from all screens for 10 minutes at midday.",
+          "focus_theme": "quiet_margin",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_009",
+          "day": 9,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 9",
+          "text": "You have no grounds, therefore, for supposing that any one has lived long, because he has wrinkles or grey hairs: such a man has not lived long, but has only been long alive.",
+          "plain": "When you audit where your days actually go, you discover how little time was consciously chosen.",
+          "application": "Run a clean, shame-free audit of your day's energy expenditure tonight.",
+          "strategic_prompt": "If your calendar were a bank statement, what would it say you value most?",
+          "micro_action": "Write down the three activities that consumed the most time today.",
+          "focus_theme": "audit_of_hours",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "seneca_sol_010",
+          "day": 10,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 10",
+          "text": "Indeed, if the number of every man’s future years could be laid before him, as we can lay that of his past years, how anxious those who found that they had but few years remaining would be to make the most of them?",
+          "plain": "Enduring a chaotic schedule is not the same as directing a meaningful life; agency begins with deliberate choice.",
+          "application": "Choose one deliberate act of focus today instead of passively drifting through the afternoon.",
+          "strategic_prompt": "Are you steering today's routine, or merely surviving it?",
+          "micro_action": "Anchor your core habit to your very next transition cue.",
+          "focus_theme": "presence_over_endurance",
+          "halt_triggers": [
+            "HOPELESS",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_011",
+          "day": 11,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 11",
+          "text": "Yet it is easy to arrange the distribution of a quantity, however small, if we know how much there is: what you ought to husband most carefully is that which may run short you know not when.",
+          "plain": "People fiercely guard their money and property yet hand away their irreclaimable hours as though time cost nothing.",
+          "application": "Treat every 30-minute block today with the same vigilance you give your financial vault.",
+          "strategic_prompt": "Where are you giving away prime mental energy for zero return?",
+          "micro_action": "Set a strict 25-minute boundary timer on your next meeting or administrative chore.",
+          "focus_theme": "priceless_currency",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_012",
+          "day": 12,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 12",
+          "text": "Why! you are busy, but life is hurrying on: death will be here some time or other, and you must attend to him, whether you will or no.",
+          "plain": "If we saw our remaining days counted out before us, we would immediately stop wasting afternoons on trivial friction.",
+          "application": "Let awareness of finite time sharpen your gratitude and focus rather than creating anxiety.",
+          "strategic_prompt": "What petty irritation can you drop immediately because life is too valuable for it?",
+          "micro_action": "Release one lingering grievance before noon today.",
+          "focus_theme": "finite_horizon",
+          "halt_triggers": [
+            "ANGRY",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "seneca_sol_013",
+          "day": 13,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 13",
+          "text": "Can anything be mentioned which is more insane than the ideas of leisure of those people who boast of their worldly wisdom?",
+          "plain": "When a resource is finite and its exact reserve is unknown, wise stewardship begins with today's allotment.",
+          "application": "Preserve your prime cognitive energy for your keystone discipline before spending it on trivia.",
+          "strategic_prompt": "At what hour of the day is your mental clarity sharpest?",
+          "micro_action": "Schedule your Primary Focus Habit inside your highest-clarity hour tomorrow.",
+          "focus_theme": "careful_husbandry",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_014",
+          "day": 14,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 14",
+          "text": "Whither are you looking, whither are you stretching forward? everything future is uncertain: live now straightway.",
+          "plain": "We often give away our attention in fragments so small we barely notice the loss until the day is gone.",
+          "application": "Batch your messages and notifications into fixed windows so your focus remains whole.",
+          "strategic_prompt": "How many times has your train of thought been fractured in the last two hours?",
+          "micro_action": "Place your phone out of reach in another room for the next 45 minutes.",
+          "focus_theme": "hidden_time_drain",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_015",
+          "day": 15,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 15",
+          "text": "Our swiftness in making use of our time ought therefore to vie with the swiftness of time itself, and we ought to drink of it as we should of a fast-running torrent which will not be always running.",
+          "plain": "Frenetic busyness is not productivity; life moves swiftly regardless of how anxiously we rush.",
+          "application": "Slow your physical cadence down by 20% while executing your next task with total precision.",
+          "strategic_prompt": "When you rush, what are you actually trying to outrun?",
+          "micro_action": "Walk and speak at a calm, unhurried pace for the next hour.",
+          "focus_theme": "unhurried_purpose",
+          "halt_triggers": [
+            "STRESSED",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "seneca_sol_016",
+          "day": 16,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 16",
+          "text": "If I chose to divide this proposition into separate steps, supported by evidence, many things occur to me by which I could prove that the lives of busy men are the shortest of all.",
+          "plain": "Sacrificing today's peace for the promise of future leisure trades a certainty for a mirage.",
+          "application": "Claim ten minutes of genuine stillness today rather than bargaining with next month.",
+          "strategic_prompt": "What part of your well-being have you been holding hostage to a future milestone?",
+          "micro_action": "Take a 5-minute quiet reset walk outside right now.",
+          "focus_theme": "false_promise_of_someday",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "seneca_sol_017",
+          "day": 17,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 17",
+          "text": "It is the privilege of a tranquil and peaceful mind to review all the parts of its life: but the minds of busy men are like animals under the yoke, and cannot bend aside or look back.",
+          "plain": "When you hand your attention over to external chaos, you surrender the only territory within your command.",
+          "application": "Bring your focus back to the immediate action directly in front of your hands.",
+          "strategic_prompt": "What external uncertainty is currently pulling your mind out of the present room?",
+          "micro_action": "Name three physical objects in your immediate environment and begin your next rep.",
+          "focus_theme": "command_of_the_present",
+          "halt_triggers": [
+            "STRESSED",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "seneca_sol_018",
+          "day": 18,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 18",
+          "text": "Busy men, therefore, possess present time, alone, that being so short that they cannot grasp it, and when they are occupied with many things they lose even this.",
+          "plain": "Because tomorrow rests in uncertainty, the only rational moment to practice wisdom and steadiness is today.",
+          "application": "Execute your daily check-in today without waiting for tomorrow's fresh start.",
+          "strategic_prompt": "What small act of discipline can you complete before dinner tonight?",
+          "micro_action": "Complete your daily Floor Rep and log it immediately.",
+          "focus_theme": "live_now_straightway",
+          "halt_triggers": [
+            "HOPELESS",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_019",
+          "day": 19,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 19",
+          "text": "My friend Fabianus used to say that he was not sure that it was not better not to apply oneself to any studies at all than to become interested in these.",
+          "plain": "Time flows like a swift current; only decisive, immediate action draws nourishment from the passing hour.",
+          "application": "Initiate your planned routine within five seconds of encountering your When-Then cue.",
+          "strategic_prompt": "Where does hesitation creep in between your cue and your action?",
+          "micro_action": "Lay out the physical tools for tomorrow's habit tonight before bed.",
+          "focus_theme": "decisive_momentum",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "seneca_sol_020",
+          "day": 20,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 20",
+          "text": "None of these men will force you to die, but all of them will teach you how to die: none of these will waste your time, but will add his own to it.",
+          "plain": "A mind that never practices quiet self-command in daily life is caught unprepared when real storms arrive.",
+          "application": "Treat today's small friction moments as training reps for deeper resilience.",
+          "strategic_prompt": "How did your most recent challenge test your daily habits?",
+          "micro_action": "Practice a 60-second calm pause the next time a minor delay occurs today.",
+          "focus_theme": "lifelong_readiness",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_021",
+          "day": 21,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 21",
+          "text": "The wise man’s life, therefore, includes much: he is not hedged in by the same limits which confine others: he alone is exempt from the laws by which mankind is governed: all ages serve him like a god.",
+          "plain": "Drift happens imperceptibly when we never pause to observe the passing of individual days.",
+          "application": "End your day with a two-minute review so no 24-hour cycle passes unexamined.",
+          "strategic_prompt": "What single moment from today deserves to be remembered?",
+          "micro_action": "Record one sentence of gratitude or progress in your evening check-in.",
+          "focus_theme": "daily_awareness",
+          "halt_triggers": [
+            "LONELY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_022",
+          "day": 22,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 22",
+          "text": "If any time be past, he recals it by his memory; if it be present, he uses it; if it be future, he anticipates it: his life is a long one because he concentrates all times into it.",
+          "plain": "A person who acts with integrity and steadiness can look back on past days with calm satisfaction rather than regret.",
+          "application": "Choose the action today that your future self will review with quiet respect tonight.",
+          "strategic_prompt": "Which choice in front of you right now aligns with your long-term character?",
+          "micro_action": "Do the hardest two minutes of your deferred task right now.",
+          "focus_theme": "clear_conscience_review",
+          "halt_triggers": [
+            "HOPELESS",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "seneca_sol_023",
+          "day": 23,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 23",
+          "text": "How can the nights for which men pay so dear fail to appear of the shortest? they lose the day in looking forward to the night, and lose the night through fear of the dawn.",
+          "plain": "The present arrives one day and one hour at a time; mastering a streak requires only mastering this single hour.",
+          "application": "Shrink your time horizon to the current hour whenever a long-term goal feels overwhelming.",
+          "strategic_prompt": "Can you remain steady for just the next sixty minutes?",
+          "micro_action": "Commit to clean focus for the next single hour without worrying about next week.",
+          "focus_theme": "one_hour_at_a_time",
+          "halt_triggers": [
+            "STRESSED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "seneca_sol_024",
+          "day": 24,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 24",
+          "text": "Do our own preferments trouble us? nay, those of other men occupy more of our time.",
+          "plain": "A tranquil mind can survey its whole journey clearly, whereas frantic busyness keeps the head bowed under a yoke.",
+          "application": "Step back from the immediate grind at midday to view your broader trajectory.",
+          "strategic_prompt": "What cumulative progress have you already built over the past month?",
+          "micro_action": "Open your progress ledger and acknowledge every day you have already banked.",
+          "focus_theme": "unshackled_perspective",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "seneca_sol_025",
+          "day": 25,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 25",
+          "text": "Has he grown old in the salaried management of other people’s property? then he becomes occupied with his own.",
+          "plain": "When you scatter yourself across a dozen competing tasks, even the present moment slips through your fingers.",
+          "application": "Do one thing at a time with complete presence until it is finished.",
+          "strategic_prompt": "What two tasks are you currently trying to half-do simultaneously?",
+          "micro_action": "Close every secondary window and complete the single item in front of you.",
+          "focus_theme": "single_pointed_attention",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_026",
+          "day": 26,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 26",
+          "text": "There will never be any want of strict economists or of laborious workers: slow-going beasts of burden are better suited for carrying loads than well-bred horses, whose generous swiftness no one would encumber with a heavy pack.",
+          "plain": "Even a brief span of time is richly sufficient when every day is lived with deliberate self-command.",
+          "application": "Measure today by the quality of your attention rather than the quantity of your output.",
+          "strategic_prompt": "What would make today feel complete even if nothing else on your list got done?",
+          "micro_action": "Complete your Primary Focus Habit before checking any evening feeds.",
+          "focus_theme": "sufficiency_of_a_steady_life",
+          "halt_triggers": [
+            "TIRED",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "seneca_sol_027",
+          "day": 27,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 27",
+          "text": "In this course of life there await you many good things, such as love and practice of the virtues, forgetfulness of passions, knowledge of how to live and die, deep repose.",
+          "plain": "Through verified classical wisdom, you can sit in counsel with the steadiness of the ancients at any hour.",
+          "application": "Read today's passage slowly twice, letting its cadence settle your breathing.",
+          "strategic_prompt": "Which timeless principle has anchored you most reliably this week?",
+          "micro_action": "Copy one phrase from today's reading onto an index card or journal page.",
+          "focus_theme": "companionship_of_the_wise",
+          "halt_triggers": [
+            "LONELY",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "seneca_sol_028",
+          "day": 28,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 28",
+          "text": "When, therefore, you see a man often wear the purple robes of office, and hear his name often repeated in the forum, do not envy him: he gains these things by losing so much of his life.",
+          "plain": "Consuming endless trivial noise drains the exact mental bandwidth needed for real self-transformation.",
+          "application": "Replace 15 minutes of aimless scrolling today with quiet reflection or physical movement.",
+          "strategic_prompt": "What information have you consumed today that has zero bearing on your life or character?",
+          "micro_action": "Turn off autoplay and close your social feed right now.",
+          "focus_theme": "freedom_from_trivial_curiosity",
+          "halt_triggers": [
+            "HUNGRY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "seneca_sol_029",
+          "day": 29,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 29",
+          "text": "Some, while telling off extreme old age, like youth, for new aspirations, have found it fail from sheer weakness amid great and presumptuous enterprises.",
+          "plain": "After enduring turbulent seasons, wisdom lies in deliberately steering your daily routine into calmer waters.",
+          "application": "Simplify your evening routine tonight so your mind enters rest unagitated.",
+          "strategic_prompt": "What unnecessary storm can you step out of this week?",
+          "micro_action": "Dim the lights 30 minutes before sleep and leave your phone outside the bedroom.",
+          "focus_theme": "peaceful_haven",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "seneca_sol_030",
+          "day": 30,
+          "citation": "Seneca, Of the Shortness of Life (tr. Aubrey Stewart 1889) · Selection 30",
+          "text": "Yet many are of the same mind: they retain their wish for labour longer than their capacity for it, and fight against their bodily weakness; they think old age an evil for no other reason than because it lays them on the shelf.",
+          "plain": "External applause is bought at the cost of your own hours; never trade inner sovereignty for crowd approval.",
+          "application": "Anchor your worth in private consistency ('Data Over Shame') rather than public praise.",
+          "strategic_prompt": "What habit would you still practice faithfully even if no one ever knew?",
+          "micro_action": "Log today's private check-in and honor your quiet consistency.",
+          "focus_theme": "protecting_your_life_equity",
+          "halt_triggers": [
+            "LONELY",
+            "ANGRY"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "epictetus_discourses_30day",
+      "pack_id": "epictetus_discourses_30day",
+      "volume": 2,
+      "title": "Dichotomy of Control: Epictetus's Discourses on Inner Assent",
+      "subtitle": "30 Verbatim Pre-1931 Passages from Epictetus's Discourses (George Long 1877) on Sovereign Agency, Urge Mastery & Unshakeable Composure",
+      "entries": [
+        {
+          "id": "epictetus_disc_001",
+          "day": 1,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 1",
+          "text": "philosophers from Rome by Domitian, A.D. 89, he retired to Nicopolis in Epirus, a city built by Augustus to commemorate the victory at Actium.",
+          "plain": "True dignity comes from remembering that your rational faculty and capacity for choice are noble by nature.",
+          "application": "Carry yourself with quiet self-respect in your speech and posture today.",
+          "strategic_prompt": "Where have you been underestimating your own capacity for self-command?",
+          "micro_action": "Stand upright, drop your shoulders, and take three slow grounding breaths.",
+          "focus_theme": "kinship_with_reason",
+          "halt_triggers": [
+            "HOPELESS",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_002",
+          "day": 2,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 2",
+          "text": "If he does not possess these two qualities, one man will not see the use of things which are and which happen: another will not be thankful for them, even if he does know them.",
+          "plain": "First impressions and sudden cravings are merely appearances—test them with reason before granting your assent.",
+          "application": "Insert a 10-second pause between any sudden urge and your physical response today.",
+          "strategic_prompt": "What initial story did your mind tell you during today's most frustrating moment?",
+          "micro_action": "Ask yourself: 'Is this within my control, or outside my control?'",
+          "focus_theme": "testing_appearances",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_003",
+          "day": 3,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 3",
+          "text": "WHAT PHILOSOPHY PROMISES.—When a man was consulting him how he should persuade his brother to cease being angry with him, Epictetus replied: Philosophy does not propose to secure for a man any external thing.",
+          "plain": "No external event can force your inner judgment; your assent always remains under your own lock and key.",
+          "application": "Refuse to agree with defeatist self-talk when energy dips this afternoon.",
+          "strategic_prompt": "What automatic negative thought is asking for your agreement right now?",
+          "micro_action": "Write down the thought, label it 'Appearance Only,' and return to your task.",
+          "focus_theme": "stewardship_of_assent",
+          "halt_triggers": [
+            "HOPELESS",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_004",
+          "day": 4,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 4",
+          "text": "And if you can now be present on ail such occasions, what will you do when you are dead?",
+          "plain": "When circumstances grow difficult, the real task is simply to uphold the integrity of a steady human being.",
+          "application": "Choose patience over irritation in your very next conversation.",
+          "strategic_prompt": "How would the steadiness you admire respond to today's inconvenience?",
+          "micro_action": "Lower your voice and speak with deliberate calm during your next interaction.",
+          "focus_theme": "fidelity_to_character",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_005",
+          "day": 5,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 5",
+          "text": "But if you observe these, do you want any others besides? “Well, but he has not given these orders,” you will say.",
+          "plain": "Persisting in an unexamined habit out of mere stubbornness is bondage; true strength corrects course when shown the truth.",
+          "application": "Be willing to adjust your daily routine anchor if friction kept tripping you up this week.",
+          "strategic_prompt": "Where is pride keeping you locked in an ineffective routine?",
+          "micro_action": "Simplify your habit cue today so execution becomes effortless.",
+          "focus_theme": "sound_judgment_over_stubbornness",
+          "halt_triggers": [
+            "ANGRY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_006",
+          "day": 6,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 6",
+          "text": "So then all these great and dreadful deeds have this origin, in the appearance (opinion)?",
+          "plain": "Your daily environment and current responsibilities are the exact raw material from which character is forged.",
+          "application": "Treat today's ordinary duties as your training ground rather than an obstacle.",
+          "strategic_prompt": "What everyday chore today can you execute with uncommon excellence?",
+          "micro_action": "Perform your next mundane task with 100% undivided attention.",
+          "focus_theme": "proper_material_of_virtue",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_007",
+          "day": 7,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 7",
+          "text": "It is shameful for philosophers thus to contemplate the works of nature.",
+          "plain": "Habitual exposure to cynical or undisciplined environments gradually pulls our own standards downward if we are not vigilant.",
+          "application": "Curate your physical and digital environment today to reinforce your Primary Focus.",
+          "strategic_prompt": "Which environment or input consistently weakens your resolve?",
+          "micro_action": "Remove one trigger item from your desk or home screen right now.",
+          "focus_theme": "guarding_company_and_inputs",
+          "halt_triggers": [
+            "LONELY",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_008",
+          "day": 8,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 8",
+          "text": "Therefore Socrates said to one who was reminding him to prepare for his trial, Do you not think then that I have been preparing for it all my life?",
+          "plain": "Desiring things outside your control hands your peace of mind over to fortune; desiring only sound action makes you unshakeable.",
+          "application": "Measure today's success strictly by whether you showed up for your rep.",
+          "strategic_prompt": "What outcome are you anxiously gripping that is not yours to command?",
+          "micro_action": "Open your hands physically, exhale slowly, and focus only on your next step.",
+          "focus_theme": "freedom_from_external_craving",
+          "halt_triggers": [
+            "STRESSED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "epictetus_disc_009",
+          "day": 9,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 9",
+          "text": "A tyrant never killed a man in six months: but a fever is often a year about it.",
+          "plain": "Your moral purpose is the one faculty that can use every other faculty rightly and never be coerced from outside.",
+          "application": "Direct your willpower toward one clear When-Then Routine Anchor today.",
+          "strategic_prompt": "What single choice today is 100% within your sovereign power?",
+          "micro_action": "Execute your Floor Rep before noon today.",
+          "focus_theme": "inner_citadel_of_will",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "epictetus_disc_010",
+          "day": 10,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 10",
+          "text": "Thus modest actions preserve the modest man, and immodest actions destroy him; and actions of fidelity preserve the faithful man, and the contrary actions destroy him.",
+          "plain": "Peace begins the moment you demand that events happen as they actually do rather than insisting the world bend to your preference.",
+          "application": "Accept today's weather, traffic, or schedule changes with zero verbal complaint.",
+          "strategic_prompt": "How much energy did you spend today wishing an unchangeable fact were different?",
+          "micro_action": "Go the rest of the day without uttering a single complaint.",
+          "focus_theme": "tranquillity_through_acceptance",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_011",
+          "day": 11,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 11",
+          "text": "ON ANXIETY (SOLICITUDE).—When I see a man anxious, I say, What does this man want?",
+          "plain": "He is truly free who aligns his desires solely with what lies within his own sphere of agency.",
+          "application": "Focus 100% of your effort on your preparation and conduct today.",
+          "strategic_prompt": "Where are you feeling hindered because you attached your goal to someone else's reaction?",
+          "micro_action": "Rewrite today's goal as a pure action statement you can complete solo.",
+          "focus_theme": "unhindered_action",
+          "halt_triggers": [
+            "LONELY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_012",
+          "day": 12,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 12",
+          "text": "Will you not make the beginning and lay the foundation in an inquiry whether the determination is sound or not sound, and so then build on it firmness and security?",
+          "plain": "Inner composure is bought by letting go of petty irritations; you cannot simultaneously keep your anger and keep your peace.",
+          "application": "When a minor annoyance arises today, consciously choose peace over the urge to vent.",
+          "strategic_prompt": "Is winning this minor frustration worth paying the price of your calm?",
+          "micro_action": "Pause for five seconds and let the next minor slight pass without comment.",
+          "focus_theme": "price_of_serenity",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_013",
+          "day": 13,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 13",
+          "text": "Did none of us before you use the words good or just, or do we utter the sounds in an unmeaning and empty way without understanding what they severally signify?",
+          "plain": "Just as athletes build strength through progressive daily reps, the mind builds resilience by mastering small daily tests first.",
+          "application": "Never despise a small Floor Rep; every completed rep strengthens the neural pathway.",
+          "strategic_prompt": "What small win today proves your consistency is growing?",
+          "micro_action": "Complete a 2-minute version of your discipline right now.",
+          "focus_theme": "gradual_training_of_habit",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "epictetus_disc_014",
+          "day": 14,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 14",
+          "text": "What are they saying about me there? now they think that I am improving, and are saying, He will return with all knowledge.",
+          "plain": "When you allow an unexamined craving to carry you away today, you feed the very habit you are trying to starve.",
+          "application": "Starve the craving by shifting immediately into a 60-second grounding reset.",
+          "strategic_prompt": "What situational trigger usually precedes your strongest urge?",
+          "micro_action": "Drink a full glass of water and step into a different room when a craving hits.",
+          "focus_theme": "watchfulness_over_urges",
+          "halt_triggers": [
+            "HUNGRY",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_015",
+          "day": 15,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 15",
+          "text": "For it is this which uses the other (the power of speaking), and all the other faculties both small and great.",
+          "plain": "Being alone is not abandonment; it is an opportunity to practice quiet self-command without outside distraction.",
+          "application": "Use your next solitary hour for deep reading, journaling, or focused craft.",
+          "strategic_prompt": "How can you turn tonight's quiet hours into restorative solitude?",
+          "micro_action": "Leave screens off for 20 minutes tonight and write in your journal.",
+          "focus_theme": "self_sufficiency_in_solitude",
+          "halt_triggers": [
+            "LONELY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_016",
+          "day": 16,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 16",
+          "text": "For such a death awaits you as it did—what was the man’s name—Crinis; and he too was proud, because he understood Archedamus.",
+          "plain": "We do not choose every circumstance on the stage of life, but we always choose how nobly we play our part in it.",
+          "application": "Bring steadiness and dignity to whatever challenge sits on your plate today.",
+          "strategic_prompt": "What role is today asking you to play with courage?",
+          "micro_action": "Handle your most dreaded email or task first thing with calm composure.",
+          "focus_theme": "acting_our_assigned_role",
+          "halt_triggers": [
+            "STRESSED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "epictetus_disc_017",
+          "day": 17,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 17",
+          "text": "If we train ourselves in this manner, we shall make progress; for we shall never assent to anything of which there is not an appearance capable of being comprehended.",
+          "plain": "Every difficulty has two handles—one by which it crushes you with grievance, and another by which it can be carried with constructive resolve.",
+          "application": "Grasp today's setback by the handle of learning and next-step action.",
+          "strategic_prompt": "What is the constructive handle on the problem you are facing today?",
+          "micro_action": "Write down one actionable lesson from a recent friction point.",
+          "focus_theme": "the_two_handles_of_events",
+          "halt_triggers": [
+            "ANGRY",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "epictetus_disc_018",
+          "day": 18,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 18",
+          "text": "For what is it to be ill? is it that you are near the severance of the soul and the body? what harm is there in this?",
+          "plain": "True transformation shows itself in steady conduct, never in loud declarations about what we plan to do.",
+          "application": "Keep your habit goals private and let your completed check-in ledger speak for itself.",
+          "strategic_prompt": "Are you seeking premature praise for a habit you haven't yet cemented?",
+          "micro_action": "Do today's repetition quietly without announcing it.",
+          "focus_theme": "quiet_progress_over_boasting",
+          "halt_triggers": [
+            "LONELY",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_019",
+          "day": 19,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 19",
+          "text": "You must act according to rules, follow strict diet, abstain from delicacies, exercise yourself by compulsion at fixed times, in heat, in cold; drink no cold water, nor wine, when there is opportunity of drinking it.",
+          "plain": "Before undertaking any serious discipline, count the friction and daily effort required so you are never surprised by the work.",
+          "application": "Anticipate the exact hour today when your habit will feel hardest, and pre-plan your Floor Rep.",
+          "strategic_prompt": "What obstacle is most likely to test your routine anchor today?",
+          "micro_action": "Write your 'When X happens, I will do Y' backup plan now.",
+          "focus_theme": "examining_the_cost_first",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_020",
+          "day": 20,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 20",
+          "text": "But neither was Agamemnon happy, though he was a better man than Sardanapalus and Nero; but while others are snoring, what is he doing?",
+          "plain": "Another person's words or actions reflect their own judgment; they cannot harm your character unless you abandon your own principles.",
+          "application": "Respond to rudeness or impatience today with unshakeable courtesy.",
+          "strategic_prompt": "Why hand the keys to your emotional state over to a stranger's mood?",
+          "micro_action": "Breathe out slowly before replying to any tense message today.",
+          "focus_theme": "invulnerable_integrity",
+          "halt_triggers": [
+            "ANGRY",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_021",
+          "day": 21,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 21",
+          "text": "Then in the place of all other delights substitute this, that of being conscious that you are obeying God, that not in word, but in deed you are performing the acts of a wise and good man.",
+          "plain": "Just as you cleanse the body daily, clear the mind each morning and evening of resentment and scattered distraction.",
+          "application": "Start and end your day with a 60-second reflection on your Primary Focus.",
+          "strategic_prompt": "What mental clutter needs to be swept out before you sleep tonight?",
+          "micro_action": "Write down tomorrow's top priority so your mind can rest cleanly.",
+          "focus_theme": "daily_mental_hygiene",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_022",
+          "day": 22,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 22",
+          "text": "Your body then is another’s, subject to every man who is stronger than yourself.",
+          "plain": "Relaxing your vigilance 'just for today' makes it twice as hard to regain the helm tomorrow.",
+          "application": "Protect the continuity of your chain today, even if it requires dropping to your minimum Floor Rep.",
+          "strategic_prompt": "What excuse is tempting you to skip today's check-in?",
+          "micro_action": "Execute your 60-second Floor Rep right now to keep the chain unbroken.",
+          "focus_theme": "continuity_of_attention",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_023",
+          "day": 23,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 23",
+          "text": "For he (God) does not allow me to claim (seek) them, for if he had chosen, he would have made them good for me; but he has not done so, and for this reason I cannot transgress his commands.",
+          "plain": "Instead of grieving over what is missing, take stock of the strength, reason, and agency you already possess today.",
+          "application": "Use the resources in your hands right now to make one concrete improvement.",
+          "strategic_prompt": "What tool or strength do you already have that you haven't used today?",
+          "micro_action": "Spend 5 minutes advancing a project using only what you already have.",
+          "focus_theme": "gratitude_for_present_faculties",
+          "halt_triggers": [
+            "HOPELESS",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_024",
+          "day": 24,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 24",
+          "text": "What then? would you have me to be despised?—By whom? by those who know you? and how shall those who know you despise a man who is gentle and modest?",
+          "plain": "Neither easy days nor hard days should throw a disciplined mind off its daily rhythm.",
+          "application": "Keep your When-Then Routine Anchor identical whether the day feels effortless or heavy.",
+          "strategic_prompt": "Does a busy or unusual day cause you to abandon your baseline habits?",
+          "micro_action": "Anchor your habit to a fixed daily event like waking or brushing your teeth.",
+          "focus_theme": "steadiness_in_prosperity_and_trial",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_025",
+          "day": 25,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 25",
+          "text": "All these are the words of those who are turning themselves to things which are not within the power of the will.",
+          "plain": "Silence and measured speech protect the mind from vanity, gossip, and reactive anger.",
+          "application": "Listen twice as much as you speak in your meetings and conversations today.",
+          "strategic_prompt": "Where does impulsive speech usually drain your energy?",
+          "micro_action": "Wait three full seconds after someone finishes speaking before you reply.",
+          "focus_theme": "mastery_of_speech",
+          "halt_triggers": [
+            "ANGRY",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_026",
+          "day": 26,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 26",
+          "text": "Indeed, men are often accustomed to say, I have told you all my affairs, will you tell me nothing of your own? where is this done?",
+          "plain": "No fortress is stronger than a mind that has learned to distinguish between passing sensations and enduring values.",
+          "application": "Observe physical fatigue or craving today as neutral data rather than an emergency.",
+          "strategic_prompt": "What physical sensation is your body experiencing right now—hunger, tension, or fatigue?",
+          "micro_action": "Address the physical baseline first: drink water, stretch, or rest for 5 minutes.",
+          "focus_theme": "the_citadel_of_reason",
+          "halt_triggers": [
+            "HUNGRY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_027",
+          "day": 27,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 27",
+          "text": "And add this reflection on the occasion of everything that happens; for you will find it an impediment to something else, but not to yourself.",
+          "plain": "Borrowing trouble from tomorrow robs you of the strength needed to execute today's duty well.",
+          "application": "Bring your focus back inside the boundaries of today's 24-hour cycle.",
+          "strategic_prompt": "What future scenario are you rehearsing that hasn't actually happened?",
+          "micro_action": "Write down one concrete action you can take today, and leave the rest.",
+          "focus_theme": "freedom_from_anxious_foreboding",
+          "halt_triggers": [
+            "STRESSED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "epictetus_disc_028",
+          "day": 28,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 28",
+          "text": "Remember that it is not he who reviles you or strikes you, who insults you, but it is your opinion about these things as being insulting.",
+          "plain": "True abundance is measured by how few external crutches you require to remain steady and purposeful.",
+          "application": "Practice simplicity today by postponing one non-essential purchase or indulgence.",
+          "strategic_prompt": "What craving is promising satisfaction it can never actually deliver?",
+          "micro_action": "Wait 24 hours before acting on any sudden urge to buy or indulge.",
+          "focus_theme": "measuring_wealth_by_contentment",
+          "halt_triggers": [
+            "HUNGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "epictetus_disc_029",
+          "day": 29,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 29",
+          "text": "Do you think that if you do these things, you can eat in the same manner, drink in the same manner, and in the same manner loathe certain things?",
+          "plain": "When you stumble, do not waste a single minute in self-pity; return immediately to your practice.",
+          "application": "Apply 'Data Over Shame': every day banked remains permanently yours—resume your cadence today.",
+          "strategic_prompt": "How quickly can you shorten the gap between a slip and your next healthy rep?",
+          "micro_action": "Log an honest check-in right now and restart your forward momentum.",
+          "focus_theme": "ownership_of_recovery",
+          "halt_triggers": [
+            "HOPELESS",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "epictetus_disc_030",
+          "day": 30,
+          "citation": "Epictetus, Discourses (tr. George Long 1877) · Selection 30",
+          "text": "The measure of possession (property) is to every man the body, as the foot is of the shoe.",
+          "plain": "Wisdom is never proved by reciting maxims; it is proved by how quietly and faithfully you execute today's discipline.",
+          "application": "Translate today's reflection into one visible, completed action before evening.",
+          "strategic_prompt": "What single action today will prove your commitment to your own growth?",
+          "micro_action": "Complete your Primary Focus Habit and mark today done.",
+          "focus_theme": "living_the_philosophy",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "samuel_smiles_self_help_30day",
+      "pack_id": "samuel_smiles_self_help_30day",
+      "volume": 2,
+      "title": "Compounding Industry: Samuel Smiles on Perseverance & Character",
+      "subtitle": "30 Verbatim Pre-1931 Passages from Samuel Smiles's Self-Help (1859) on Patient Daily Effort, Resilience Under Friction & Self-Reliant Growth",
+      "entries": [
+        {
+          "id": "smiles_sh_001",
+          "day": 1,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 1",
+          "text": "Hook—Hope an important element in character—Carey the missionary—Anecdote of Dr.",
+          "plain": "Lasting progress comes from what you initiate and practice yourself; no external system can replace personal execution.",
+          "application": "Take 100% ownership of your Primary Focus Habit today without waiting for ideal external conditions.",
+          "strategic_prompt": "Where have you been waiting for external permission to begin a discipline you already know you need?",
+          "micro_action": "Start the first two minutes of your Primary Focus Habit right now.",
+          "focus_theme": "self_reliant_agency",
+          "halt_triggers": [
+            "HOPELESS",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_002",
+          "day": 2,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 2",
+          "text": "Humbert was a scapegrace when a youth; at sixteen he ran away from home, and was by turns servant to a tradesman at Nancy, a workman at Lyons, and a hawker of rabbit skins.",
+          "plain": "Genius and lasting achievement are built far more on patient, daily industry than on rare flashes of talent.",
+          "application": "Show up for your scheduled daily repetition today even if it feels ordinary and unglamorous.",
+          "strategic_prompt": "What compounding skill are you building through quiet daily repetition?",
+          "micro_action": "Complete one focused 15-minute block on your core craft today.",
+          "focus_theme": "patient_industry",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "smiles_sh_003",
+          "day": 3,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 3",
+          "text": "ONE of the most strongly-marked features of the English people is their spirit of industry, standing out prominent and distinct in their past history, and as strikingly characteristic of them now as at any former period.",
+          "plain": "Just as single pennies accumulate into wealth, small daily acts of discipline compound into unshakeable character.",
+          "application": "Honor your Floor Rep today knowing that every single repetition adds to your permanent ledger.",
+          "strategic_prompt": "How many lifetime repetitions have you already accumulated by not giving up?",
+          "micro_action": "Execute your minimum viable Floor Rep and record it on your ledger.",
+          "focus_theme": "compounding_small_efforts",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "smiles_sh_004",
+          "day": 4,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 4",
+          "text": "His position, at starting in life, was little above that of an ordinary working man; for his father, though laying the foundations of future prosperity, was still struggling with the difficulties arising from insufficient capital.",
+          "plain": "Obstacles and friction are not signs that you should quit; they are the exact resistance that awakens dormant strength.",
+          "application": "Treat today's highest-friction moment as strength training for your willpower.",
+          "strategic_prompt": "What past difficulty forced you to develop a capability you now rely on?",
+          "micro_action": "Lean into the first 60 seconds of a task you have been avoiding today.",
+          "focus_theme": "school_of_difficulty",
+          "halt_triggers": [
+            "STRESSED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "smiles_sh_005",
+          "day": 5,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 5",
+          "text": "He enjoyed his leisure for only two more years, dying in January, 1861, at the age of seventy-seven, and leaving behind him a character for probity, virtue, manliness, and mechanical genius, of which his descendants may well be proud.",
+          "plain": "Real education happens in how faithfully we conduct ourselves in our daily work, home, and ordinary commitments.",
+          "application": "Bring deliberate craftsmanship and calm focus to your routine tasks today.",
+          "strategic_prompt": "How can you elevate the quality of an ordinary task on your desk right now?",
+          "micro_action": "Clear your workspace of clutter before starting your next work block.",
+          "focus_theme": "dignity_of_daily_work",
+          "halt_triggers": [
+            "TIRED",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "smiles_sh_006",
+          "day": 6,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 6",
+          "text": "IT so happens that the history of Pottery furnishes some of the most remarkable instances of patient perseverance to be found in the whole range of biography.",
+          "plain": "Steady perseverance at a modest pace consistently overtakes sporadic bursts of exhausted intensity.",
+          "application": "Keep your daily habit sustainable so you can repeat it tomorrow without burnout.",
+          "strategic_prompt": "Have you been setting your daily target too high to maintain on low-energy days?",
+          "micro_action": "Right-size today's target to a sustainable rep you can finish with energy to spare.",
+          "focus_theme": "perseverance_over_brilliance",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "smiles_sh_007",
+          "day": 7,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 7",
+          "text": "At length some red clay, brought to him for the purpose of making his crucibles, set him on the right track.",
+          "plain": "Great bodies of work are often built inside the odd fifteen-minute intervals that others let slip away.",
+          "application": "Use one transition pocket today—before a meeting or after coffee—to execute your Routine Anchor.",
+          "strategic_prompt": "Which 15-minute pocket in your daily schedule is currently going to waste?",
+          "micro_action": "Pair your habit with a fixed daily transition cue today.",
+          "focus_theme": "seizing_spare_minutes",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_008",
+          "day": 8,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 8",
+          "text": "Little progress was made at first, but by steady perseverance the habit of attention became powerful, and the sermon was at length repeated almost verbatim.",
+          "plain": "Resolute purpose turns an ordinary person into a force of nature by concentrating scattered energy onto a single point.",
+          "application": "Focus on ONE Primary Focus Habit rather than scattering your resolve across ten goals.",
+          "strategic_prompt": "Which single habit, if mastered this month, would uplift every other area of your life?",
+          "micro_action": "Pin that habit as your Primary Focus and give it your first energy today.",
+          "focus_theme": "untiring_energy",
+          "halt_triggers": [
+            "STRESSED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "smiles_sh_009",
+          "day": 9,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 9",
+          "text": "His admirable working qualities were trained in a lawyer’s office, where he pursued for many years a sort of drudgery scarcely above that of a copying clerk.",
+          "plain": "Careful observation and fidelity in small details form the bedrock of every reliable craft and character.",
+          "application": "Execute your habit today with clean form and full attention from start to finish.",
+          "strategic_prompt": "Where has carelessness in small routines been creating preventable stress?",
+          "micro_action": "Spend two minutes organizing your tools or notes for tomorrow morning.",
+          "focus_theme": "attention_to_little_things",
+          "halt_triggers": [
+            "STRESSED",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "smiles_sh_010",
+          "day": 10,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 10",
+          "text": "Divine providence has smiled on my exertions, and crowned my wishes with success.” The late Joseph Hume pursued a very different career, but worked in an equally persevering spirit.",
+          "plain": "Every master builder has faced failed drafts and broken experiments; perseverance simply means calmly beginning the next attempt.",
+          "application": "Practice 'Data Over Shame': if yesterday was imperfect, today is a clean sheet for action.",
+          "strategic_prompt": "What lessons did your last friction moment teach you about your triggers?",
+          "micro_action": "Log today's check-in and focus solely on today's execution.",
+          "focus_theme": "courage_to_begin_again",
+          "halt_triggers": [
+            "HOPELESS",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "smiles_sh_011",
+          "day": 11,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 11",
+          "text": "He would sometimes urge himself and companions to study by the stimulus of a bet, though bred a Quaker; and on one occasion, by his satisfactory solution of a problem, he won as much as enabled him to buy a winter’s store of candles.",
+          "plain": "No amount of money can purchase focus, resilience, or character—every person must forge them through personal practice.",
+          "application": "Take pride in the fact that every day on your streak was earned by your own discipline.",
+          "strategic_prompt": "What personal quality are you forging that money could never buy?",
+          "micro_action": "Put in 10 minutes of focused practice on your primary discipline right now.",
+          "focus_theme": "self_culture_cannot_be_bought",
+          "halt_triggers": [
+            "HUNGRY",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "smiles_sh_012",
+          "day": 12,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 12",
+          "text": "One of his marked characteristics, even as a youth, was the accuracy and keenness of his observation; and what he once clearly saw he never forgot.",
+          "plain": "Order and fixed timing remove the daily friction of deciding when and how to act.",
+          "application": "Lock your habit to a consistent When-Then trigger so execution becomes automatic.",
+          "strategic_prompt": "At what exact daily cue will you execute your habit today?",
+          "micro_action": "Write down your exact When-Then Routine Anchor for today.",
+          "focus_theme": "method_and_punctuality",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_013",
+          "day": 13,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 13",
+          "text": "The drawing was better; but again Banks sent him back, with good advice, to work and study.",
+          "plain": "Carrying out difficult duties with a calm, cheerful spirit lightens the load by half.",
+          "application": "Release tense facial and shoulder muscles while working through your afternoon tasks.",
+          "strategic_prompt": "How does physical tension amplify your sense of mental fatigue?",
+          "micro_action": "Drop your shoulders, unclench your jaw, and take a slow deep breath.",
+          "focus_theme": "cheerful_endurance",
+          "halt_triggers": [
+            "ANGRY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_014",
+          "day": 14,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 14",
+          "text": "He worked diligently in many studios, drawing, copying, and painting pictures.",
+          "plain": "Quiet, consistent conduct speaks louder and influences others far more deeply than any lecture.",
+          "application": "Be the steady anchor in your household or team today through calm action.",
+          "strategic_prompt": "Who in your life benefits when you stay grounded and consistent?",
+          "micro_action": "Complete your daily commitment quietly and let your steadiness set the tone.",
+          "focus_theme": "the_power_of_example",
+          "halt_triggers": [
+            "LONELY",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "smiles_sh_015",
+          "day": 15,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 15",
+          "text": "His new master, besides being a carver in wood, was also a dealer in prints and plaster models; and Chantrey at once set about imitating both, studying with great industry and energy.",
+          "plain": "Scattered effort evaporates like steam; concentrated effort drives the piston forward.",
+          "application": "Eliminate multi-tasking during your Primary Focus window today.",
+          "strategic_prompt": "What single distraction most frequently breaks your concentration?",
+          "micro_action": "Put your phone on airplane mode or in another room for 25 minutes.",
+          "focus_theme": "concentration_of_purpose",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_016",
+          "day": 16,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 16",
+          "text": "Whilst working at Galashiels, Kemp had frequent opportunities of visiting Melrose, Dryburgh, and Jedburgh Abbeys, which he studied carefully.",
+          "plain": "Self-control under provocation is the clearest mark of a disciplined mind and mature character.",
+          "application": "When provoked or rushed today, lower your cadence and respond with measured calm.",
+          "strategic_prompt": "What recurring trigger tends to spark impatience in your week?",
+          "micro_action": "Pause for a slow count of five before answering any frustrating message.",
+          "focus_theme": "mastery_of_temper",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "smiles_sh_017",
+          "day": 17,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 17",
+          "text": "Yates’, engineers, as an engine-smith; and continued to employ my leisure time in drawing, painting, and engraving, as before.",
+          "plain": "Hardship often strips away comfort only to reveal a deeper reserve of resourcefulness and grit.",
+          "application": "Use today's constraint or inconvenience as a prompt to simplify and focus on essentials.",
+          "strategic_prompt": "How can today's limitation actually make your focus sharper?",
+          "micro_action": "Identify the single essential outcome for today and let non-essentials wait.",
+          "focus_theme": "turning_adversity_to_account",
+          "halt_triggers": [
+            "HOPELESS",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "smiles_sh_018",
+          "day": 18,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 18",
+          "text": "He set his seamen to work to drag along the coast, and for weeks they went on fishing up sea-weed, shingle, and bits of rock.",
+          "plain": "Doing a small piece of work thoroughly builds far more self-respect than skimming across a dozen unfinished tasks.",
+          "application": "Finish one clearly defined unit of work or practice completely before switching contexts.",
+          "strategic_prompt": "What half-finished task is quietly draining your background mental energy?",
+          "micro_action": "Take 10 minutes to close out or cleanly archive one open loop today.",
+          "focus_theme": "honest_thoroughness",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "smiles_sh_019",
+          "day": 19,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 19",
+          "text": "Indeed nothing could be more characteristic of the Scandinavian mythology, than that it had a god with a hammer.",
+          "plain": "Repeated daily actions gradually weave themselves into the very fabric of character until steadiness becomes natural.",
+          "application": "Protect your daily repetition so your nervous system continues consolidating the groove.",
+          "strategic_prompt": "Which positive routine in your life already feels natural because you repeated it?",
+          "micro_action": "Stack your current focus habit directly onto that established routine today.",
+          "focus_theme": "habit_as_second_nature",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "smiles_sh_020",
+          "day": 20,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 20",
+          "text": "His standard of duty, zeal, and personal effort, was of the highest; and every man who served under him seemed to be inspired by his spirit.",
+          "plain": "Disciplined restraint in small daily appetites creates the margin required for true independence and peace of mind.",
+          "application": "Practice deliberate restraint today in both your spending and your attention.",
+          "strategic_prompt": "Where does a momentary craving try to trade away your long-term freedom?",
+          "micro_action": "Skip one impulse distraction today and redirect that energy to your goal.",
+          "focus_theme": "financial_and_personal_prudence",
+          "halt_triggers": [
+            "HUNGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "smiles_sh_021",
+          "day": 21,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 21",
+          "text": "The consequence was that many of the workhouses were reformed and improved.",
+          "plain": "Constructive hope is not passive wishing; it is the energetic confidence that steady effort yields results.",
+          "application": "Pair your hope with one concrete physical action in the next ten minutes.",
+          "strategic_prompt": "What small step today makes tomorrow demonstrably better?",
+          "micro_action": "Complete one tangible action toward your goal and log it.",
+          "focus_theme": "hope_as_an_active_force",
+          "halt_triggers": [
+            "HOPELESS",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "smiles_sh_022",
+          "day": 22,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 22",
+          "text": "Patient labour and application are as necessary here as in the acquisition of knowledge or the pursuit of science.",
+          "plain": "A perceptive mind extracts practical wisdom from both successes and setbacks without losing heart.",
+          "application": "Review your week's habit log as neutral engineering data rather than a moral judgment.",
+          "strategic_prompt": "What time of day shows your highest check-in consistency?",
+          "micro_action": "Move your hardest habit into your highest-consistency time slot.",
+          "focus_theme": "learning_from_every_season",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "smiles_sh_023",
+          "day": 23,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 23",
+          "text": "In addition to the ordinary working qualities the business man of the highest class requires quick perception and firmness in the execution of his plans.",
+          "plain": "Sustained mental effort requires honoring the physical foundations of sleep, movement, and nourishment.",
+          "application": "Support your willpower today by addressing hunger, hydration, and rest before they become triggers.",
+          "strategic_prompt": "Are you currently feeling frustrated, or simply physically depleted (HALT)?",
+          "micro_action": "Drink a glass of water and stretch for two minutes right now.",
+          "focus_theme": "physical_vitality_and_rest",
+          "halt_triggers": [
+            "HUNGRY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_024",
+          "day": 24,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 24",
+          "text": "It is evidently conservative—conservative of character, of domestic happiness, and social well-being.",
+          "plain": "A person whose word to themselves can be trusted possesses an internal compass that never wavers in a storm.",
+          "application": "Keep the small promise you made to yourself today—even if it is a 60-second Floor Rep.",
+          "strategic_prompt": "What small promise to yourself can you fulfill in the next five minutes?",
+          "micro_action": "Execute your Floor Rep now so your word to yourself stays unbroken.",
+          "focus_theme": "unwavering_integrity",
+          "halt_triggers": [
+            "LONELY",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "smiles_sh_025",
+          "day": 25,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 25",
+          "text": "Work educates the body, as study educates the mind; and that is the best state of society in which there is some work for every man’s leisure, and some leisure for every man’s work.",
+          "plain": "Wishing and resolving accomplish nothing until they are translated into immediate physical motion.",
+          "application": "Bridge the gap between intention and action within 60 seconds of reading this prompt.",
+          "strategic_prompt": "What have you been 'planning to start' that you can begin in miniature right now?",
+          "micro_action": "Do the very first physical motion of your habit right now.",
+          "focus_theme": "decisive_execution",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "smiles_sh_026",
+          "day": 26,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 26",
+          "text": "Many of our most energetic and useful workers have been but sparing readers.",
+          "plain": "The greatest works require patient gestation; do not uproot your seed just because the harvest is not instant.",
+          "application": "Trust the compounding cadence of your daily reps without demanding overnight transformation.",
+          "strategic_prompt": "Where is impatience tempting you to abandon a habit that is quietly working?",
+          "micro_action": "Honor today's single repetition and leave the long-term curve to time.",
+          "focus_theme": "resilience_under_delay",
+          "halt_triggers": [
+            "HOPELESS",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "smiles_sh_027",
+          "day": 27,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 27",
+          "text": "Many poor students, while labouring daily for their living, have only been able to snatch an atom of knowledge here and there at intervals, as birds do their food in winter time when the fields are covered with snow.",
+          "plain": "Writing down observations and tracking daily conduct brings clarity where vague memory always flatters or deceives.",
+          "application": "Keep an accurate, honest daily check-in log so your progress is visible in black and white.",
+          "strategic_prompt": "What pattern becomes obvious when you look at your last seven days of check-ins?",
+          "micro_action": "Open your habit tracker and log today's status with complete honesty.",
+          "focus_theme": "ordering_the_daily_ledger",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_028",
+          "day": 28,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 28",
+          "text": "Arnold said of boys is equally true of men—that the difference between one boy and another consists not so much in talent as in energy.",
+          "plain": "True self-help means standing firmly on your own daily discipline rather than leaning on excuses or circumstances.",
+          "application": "Drop one excuse about timing or mood and execute a clean baseline rep today.",
+          "strategic_prompt": "What story about being 'too busy' can you retire today?",
+          "micro_action": "Carve out 120 seconds right now to complete your Floor Rep.",
+          "focus_theme": "independence_of_spirit",
+          "halt_triggers": [
+            "ANGRY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "smiles_sh_029",
+          "day": 29,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 29",
+          "text": "By his personal exertions he established the British Wool Society for the purpose, and himself led the way to practical improvement by importing 800 sheep from all countries, at his own expense.",
+          "plain": "As you build personal steadiness, your surplus calm naturally strengthens and encourages everyone around you.",
+          "application": "Share a word of genuine encouragement with someone in your circle today.",
+          "strategic_prompt": "Who around you could use a calm, steady presence today?",
+          "micro_action": "Send one brief, supportive message or offer a patient listening ear today.",
+          "focus_theme": "generosity_of_strength",
+          "halt_triggers": [
+            "LONELY",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "smiles_sh_030",
+          "day": 30,
+          "citation": "Samuel Smiles, Self-Help (1859) · Selection 30",
+          "text": "It thus happens that as we grow older, a portion of our free activity and individuality becomes suspended in habit; our actions become of the nature of fate; and we are bound by the chains which we have woven around ourselves.",
+          "plain": "At the end of any journey, the highest reward is not external applause but the quiet strength of the character you forged.",
+          "application": "Close today knowing that every honest repetition builds permanent Character Proof.",
+          "strategic_prompt": "How has your daily practice shaped the person you are becoming?",
+          "micro_action": "Complete today's Primary Focus check-in with quiet gratitude.",
+          "focus_theme": "the_crown_of_character",
+          "halt_triggers": [
+            "HOPELESS",
+            "LONELY"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arnold_bennett_24_hours_30day",
+      "pack_id": "arnold_bennett_24_hours_30day",
+      "volume": 2,
+      "title": "The Day Within a Day: Arnold Bennett on Deliberate Time-Pockets",
+      "subtitle": "30 Verbatim Pre-1931 Passages from Arnold Bennett's How to Live on 24 Hours a Day (1910) on Protected Time-Pockets & Anti-Burnout Habit Scaling",
+      "entries": [
+        {
+          "id": "bennett_24h_001",
+          "day": 1,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 1",
+          "text": "I remain convinced that they put not as much but as little of themselves as they conscientiously can into the earning of a livelihood, and that their vocation bores rather than interests them.",
+          "plain": "Every morning delivers a fresh, unblemished purse of twenty-four hours—no one receives a single minute more or less.",
+          "application": "Receive today's 24 hours as a clean slate regardless of how yesterday went.",
+          "strategic_prompt": "How would you spend the next hour if you treated time as a fresh daily miracle?",
+          "micro_action": "Choose one deliberate 20-minute pocket today and assign its exact purpose now.",
+          "focus_theme": "the_daily_miracle",
+          "halt_triggers": [
+            "HOPELESS",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "bennett_24h_002",
+          "day": 2,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 2",
+          "text": "But I really can't do another day's work on the top of my official day.\" The fact is, I, the author, ought to have foreseen that I should appeal most strongly to those who already had an interest in existence.",
+          "plain": "In the realm of time, wealth and status confer zero advantage; everyone stewards the exact same daily allotment.",
+          "application": "Stop comparing your resources to others and invest the hour directly in front of you.",
+          "strategic_prompt": "Where has comparison been distracting you from using your own twenty-four hours?",
+          "micro_action": "Focus exclusively on your own Primary Focus Habit for the next 15 minutes.",
+          "focus_theme": "democracy_of_time",
+          "halt_triggers": [
+            "LONELY",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "bennett_24h_003",
+          "day": 3,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 3",
+          "text": "In reply to which I tell you flatly that if your ordinary day's work is thus exhausting, then the balance of your life is wrong and must be adjusted.",
+          "plain": "Even if you squandered yesterday, today's full supply of twenty-four hours arrives undiminished at dawn.",
+          "application": "Apply 'Data Over Shame': never let yesterday's wasted hour poison today's fresh allotment.",
+          "strategic_prompt": "What guilt about yesterday can you release so today stays clear?",
+          "micro_action": "Take a deep breath, forgive yesterday's friction, and log today's Floor Rep.",
+          "focus_theme": "unstoppable_supply",
+          "halt_triggers": [
+            "HOPELESS",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_004",
+          "day": 4,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 4",
+          "text": "These details may seem trivial to the foolish, but to the thoughtful they will not seem trivial.",
+          "plain": "Merely muddling through a reactive schedule leaves a constant background uneasiness; deliberate living requires a plan.",
+          "application": "Replace reactive drifting this evening with one intentionally chosen activity.",
+          "strategic_prompt": "Which part of your daily routine currently feels like 'muddling through'?",
+          "micro_action": "Define a clear When-Then anchor for your evening transition today.",
+          "focus_theme": "living_vs_muddling_through",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_005",
+          "day": 5,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 5",
+          "text": "The supply of time is truly a daily miracle, an affair genuinely astonishing when one examines it.",
+          "plain": "Just as a household budget collapses without intention, a 24-hour day feels frantic until its prime compartments are defined.",
+          "application": "Allocate your Primary Focus Habit into a fixed slot before filling the day with minor errands.",
+          "strategic_prompt": "What is the single non-negotiable line item in your time budget today?",
+          "micro_action": "Block out 15–30 minutes on your calendar today for your primary discipline.",
+          "focus_theme": "balancing_the_time_budget",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "bennett_24h_006",
+          "day": 6,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 6",
+          "text": "But if one cannot arrange that an income of twenty-four hours a day shall exactly cover all proper items of expenditure, one does muddle one's life definitely.",
+          "plain": "Inside your official workday sits a second, sovereign day—the morning and evening hours that belong entirely to your own growth.",
+          "application": "Treat your pre-work morning or post-work evening hour as a sacred 'day within a day.'",
+          "strategic_prompt": "Which 30-minute window outside your job belongs 100% to your own development?",
+          "micro_action": "Claim 15 minutes of that window today for reading, reflection, or training.",
+          "focus_theme": "the_day_within_a_day",
+          "halt_triggers": [
+            "TIRED",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "bennett_24h_007",
+          "day": 7,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 7",
+          "text": "I do all that I want to do, and still find time to go in for newspaper competitions.",
+          "plain": "The quiet restlessness to grow beyond mere routine is a healthy signal; only deliberate action puts that restlessness at peace.",
+          "application": "Channel restless energy into a concrete 10-minute creative or physical rep today.",
+          "strategic_prompt": "What worthwhile pursuit has been knocking at the back of your mind this month?",
+          "micro_action": "Take one concrete 5-minute step toward that pursuit today.",
+          "focus_theme": "answering_inner_aspiration",
+          "halt_triggers": [
+            "HUNGRY",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "bennett_24h_008",
+          "day": 8,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 8",
+          "text": "Until an effort is made to satisfy that wish, the sense of uneasy waiting for something to start which has not started will remain to disturb the peace of the soul.",
+          "plain": "Wishing to reach a distant goal while never taking the first local step creates far more fatigue than the work itself.",
+          "application": "Stop over-researching and execute the simplest first step of your habit today.",
+          "strategic_prompt": "Where have you been substituting planning for actual execution?",
+          "micro_action": "Close the planning doc and perform one real repetition right now.",
+          "focus_theme": "leaving_the_station",
+          "halt_triggers": [
+            "STRESSED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "bennett_24h_009",
+          "day": 9,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 9",
+          "text": "Take hold of your nerves, and jump.\" As I have previously said, the chief beauty about the constant supply of time is that you cannot waste it in advance.",
+          "plain": "Your life's best energy should never be 100% monopolized by routine obligations; keep a reserve for your own soul and mind.",
+          "application": "Guard a small daily pocket of fresh mental energy before exhaustion sets in.",
+          "strategic_prompt": "Why give 100% of your sharpest energy to obligations and 0% to your own growth?",
+          "micro_action": "Execute your Primary Focus Habit earlier in the day before fatigue builds.",
+          "focus_theme": "protecting_vital_powers",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_010",
+          "day": 10,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 10",
+          "text": "There are men who have to work longer for a living, but there are others who do not have to work so long.",
+          "plain": "Engaging your mind in something meaningful before the official workday begins changes the posture of the entire day.",
+          "application": "Attach your When-Then Routine Anchor to your morning coffee or commute.",
+          "strategic_prompt": "What happens to your mood when you win the first 15 minutes of the morning?",
+          "micro_action": "Complete your morning Floor Rep before checking work messages.",
+          "focus_theme": "morning_first_fruits",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "bennett_24h_011",
+          "day": 11,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 11",
+          "text": "And this inner day, a Chinese box in a larger Chinese box, must begin at 6 p.m. and end at 10 a.m.",
+          "plain": "The #1 cause of abandoned resolutions is undertaking an over-ambitious schedule on Day 1; begin with a modest, winnable rep.",
+          "application": "Keep your Floor Rep small enough that you can execute it even on your hardest day.",
+          "strategic_prompt": "Is your current daily habit target realistic for a tired Tuesday night?",
+          "micro_action": "Scale today's target down to a high-certainty 5-to-15 minute win.",
+          "focus_theme": "Modest_beginnings_prevent_burnout",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
+        },
+        {
+          "id": "bennett_24h_012",
+          "day": 12,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 12",
+          "text": "I shall now examine the typical man's current method of employing the sixteen hours that are entirely his, beginning with his uprising.",
+          "plain": "Transition times—walking, commuting, or waiting—are hidden goldmines for calm mental reflection instead of frantic scrolling.",
+          "application": "Use your next 10-minute transit or waiting window for quiet thought or a Focus Pack reading.",
+          "strategic_prompt": "How do you usually spend the first 15 minutes after leaving work?",
+          "micro_action": "Keep your phone pocketed during your next walk or transit transition.",
+          "focus_theme": "reclaiming_the_commute_pocket",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "bennett_24h_013",
+          "day": 13,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 13",
+          "text": "V TENNIS AND THE IMMORTAL SOUL You get into the morning train with your newspaper, and you calmly and majestically give yourself up to your newspaper.",
+          "plain": "Often what feels like total evening exhaustion is actually boredom or decision fatigue from an unvaried routine.",
+          "application": "Test gentle mental or physical engagement tonight instead of collapsing into passive screen numbing.",
+          "strategic_prompt": "Does passive scrolling actually restore your energy, or leave you more drained?",
+          "micro_action": "Try 10 minutes of your restorative habit tonight before turning on any screen.",
+          "focus_theme": "debunking_total_exhaustion",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "bennett_24h_014",
+          "day": 14,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 14",
+          "text": "But in about an hour or so you feel as if you could sit up and take a little nourishment.",
+          "plain": "You do not need to overhaul every night of the week at once; reclaiming even three focused evenings transforms a year.",
+          "application": "Designate tonight as one of your focused evenings and protect a 30-minute window.",
+          "strategic_prompt": "Which three evenings this week are best suited for a calm focus session?",
+          "micro_action": "Mark those three evenings now and set a gentle reminder cue.",
+          "focus_theme": "the_three_evenings_rule",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_015",
+          "day": 15,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 15",
+          "text": "What I suggest is that at six o'clock you look facts in the face and admit that you are not tired (because you are not, you know), and that you arrange your evening so that it is not cut in the middle by a meal.",
+          "plain": "Small practical details—like having your book, journal, or gear laid out—determine whether an early habit succeeds or fails.",
+          "application": "Prepare your physical environment tonight so tomorrow morning's habit requires zero setup.",
+          "strategic_prompt": "What tiny physical friction slows you down when it is time to start?",
+          "micro_action": "Set out your journal, pen, or equipment in plain sight right now.",
+          "focus_theme": "eliminating_preparatory_friction",
+          "halt_triggers": [
+            "TIRED",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_016",
+          "day": 16,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 16",
+          "text": "If you persevere you will soon want to pass four evenings, and perhaps five, in some sustained endeavour to be genuinely alive.",
+          "plain": "A wise system allows for accidents and interruptions without collapsing in shame when a day goes off-script.",
+          "application": "When an unexpected disruption hits today, pivot smoothly to your 60-second Floor Rep.",
+          "strategic_prompt": "How do you talk to yourself when your ideal schedule gets interrupted?",
+          "micro_action": "Replace all-or-nothing frustration with a calm 60-second minimum rep today.",
+          "focus_theme": "honoring_human_nature",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_017",
+          "day": 17,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 17",
+          "text": "I was constantly being informed by older and wiser people that more work, more genuine living, could be got out of six days than out of seven.",
+          "plain": "The mind is like a spirited horse that wanders unless gently and repeatedly brought back to the chosen path.",
+          "application": "Whenever your attention drifts during today's focus block, bring it back with zero irritation.",
+          "strategic_prompt": "How many minutes can you currently sustain single-pointed focus on one idea?",
+          "micro_action": "Practice 10 minutes of uninterrupted reading or reflection today.",
+          "focus_theme": "training_the_faculty_of_attention",
+          "halt_triggers": [
+            "STRESSED",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "bennett_24h_018",
+          "day": 18,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 18",
+          "text": "So far we have marked for saving out of the waste of days, half an hour at least on six mornings a week, and one hour and a half on three evenings a week.",
+          "plain": "Spending ten minutes reviewing a single noble idea in the evening gives the mind something worthy to digest overnight.",
+          "application": "Read one passage from your active Focus Pack tonight and reflect on how it applies to your day.",
+          "strategic_prompt": "What is the last thought you usually feed your mind before sleep?",
+          "micro_action": "Read today's quote one final time before turning off the light tonight.",
+          "focus_theme": "evening_reflection_anchor",
+          "halt_triggers": [
+            "LONELY",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "bennett_24h_019",
+          "day": 19,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 19",
+          "text": "It is not really a trifling effort, as those will discover who have yet to essay it.",
+          "plain": "Observing how daily triggers affect your mood and behavior turns everyday life into an engaging study rather than a grind.",
+          "application": "Notice the exact cause-and-effect link between your sleep, nutrition, and cravings today.",
+          "strategic_prompt": "What specific antecedent preceded your highest-energy hour this week?",
+          "micro_action": "Note one cause-and-effect observation in your check-in log today.",
+          "focus_theme": "curiosity_for_cause_and_effect",
+          "halt_triggers": [
+            "HUNGRY",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "bennett_24h_020",
+          "day": 20,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 20",
+          "text": "That is, as regards the evenings, to allow much more than an hour and a half in which to do the work of an hour and a half.",
+          "plain": "Mental inertia masquerades as a need for endless passive entertainment, when what the mind truly craves is purposeful absorption.",
+          "application": "Trade 20 minutes of passive consumption today for an active craft, walk, or reflection.",
+          "strategic_prompt": "Which activity in your week leaves you feeling genuinely refreshed afterward?",
+          "micro_action": "Schedule 15 minutes of that restorative activity into today's plan.",
+          "focus_theme": "guarding_against_mental_sloth",
+          "halt_triggers": [
+            "TIRED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "bennett_24h_021",
+          "day": 21,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 21",
+          "text": "It is for this portion of the art and craft of living that I have reserved the time from the moment of quitting your door to the moment of arriving at your office. \"What?",
+          "plain": "Your habit architecture exists to serve and enrich your life, never to turn you into a rigid or joyless taskmaster.",
+          "application": "Carry your daily discipline lightly, with warmth and humility toward yourself and others.",
+          "strategic_prompt": "Are you approaching your habits with calm joy or grim tension?",
+          "micro_action": "Smile, relax your shoulders, and enjoy the process of today's repetition.",
+          "focus_theme": "avoiding_priggish_rigidity",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_022",
+          "day": 22,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 22",
+          "text": "Ere you have reached the station you will have brought it back about forty times.",
+          "plain": "The forty-hour span across the weekend is a vast sovereign estate inside every single week when met with gentle intention.",
+          "application": "Choose one restorative anchor for your upcoming weekend before Friday evening arrives.",
+          "strategic_prompt": "How can you make this weekend genuinely restorative instead of a blur?",
+          "micro_action": "Write down one meaningful personal priority for your next day off.",
+          "focus_theme": "the_weekend_treasure",
+          "halt_triggers": [
+            "TIRED",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "bennett_24h_023",
+          "day": 23,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 23",
+          "text": "Useless to possess an obedient mind unless one profits to the furthest possible degree by its obedience.",
+          "plain": "Hurrying through a reflection or habit to 'get it over with' destroys its restorative power; work without haste.",
+          "application": "Perform your daily habit today with unhurried, deliberate presence.",
+          "strategic_prompt": "Where are you rushing through something that is meant to ground you?",
+          "micro_action": "Slow your reading and writing pace by half during today's check-in.",
+          "focus_theme": "deliberate_pace",
+          "halt_triggers": [
+            "STRESSED",
+            "ANGRY"
+          ]
+        },
+        {
+          "id": "bennett_24h_024",
+          "day": 24,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 24",
+          "text": "The solitude of the evening journey home appears to me to be suitable for it.",
+          "plain": "How you govern your mind in the first thirty minutes of the morning sets the thermostat for the next fifteen hours.",
+          "application": "Keep reactive news and social feeds out of the first 30 minutes of your morning.",
+          "strategic_prompt": "What is the very first input your brain receives after waking?",
+          "micro_action": "Complete your morning Routine Anchor before opening any feed or inbox.",
+          "focus_theme": "the_vital_first_half_hour",
+          "halt_triggers": [
+            "STRESSED",
+            "HUNGRY"
+          ]
+        },
+        {
+          "id": "bennett_24h_025",
+          "day": 25,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 25",
+          "text": "When one has thoroughly got imbued into one's head the leading truth that nothing happens without a cause, one grows not only large-minded, but large-hearted.",
+          "plain": "Any discipline becomes effortless once you cultivate a genuine curiosity in its principles and subtle details.",
+          "application": "Look for one new nuance or insight inside your daily practice today.",
+          "strategic_prompt": "What aspect of your primary habit can you explore more deeply this week?",
+          "micro_action": "Write down one question or observation about your practice today.",
+          "focus_theme": "cultivating_serious_interest",
+          "halt_triggers": [
+            "TIRED",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "bennett_24h_026",
+          "day": 26,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 26",
+          "text": "You need not be devoted to the arts, not to literature, in order to live fully.",
+          "plain": "Thirty minutes of focused practice completed with certainty beats a three-hour fantasy schedule that collapses by Wednesday.",
+          "application": "Commit only to the exact duration you know you can honor today.",
+          "strategic_prompt": "What duration of practice can you guarantee with 99% certainty today?",
+          "micro_action": "Set a timer for that exact winnable duration and complete it cleanly.",
+          "focus_theme": "small_certainty_over_grand_failure",
+          "halt_triggers": [
+            "HOPELESS",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "bennett_24h_027",
+          "day": 27,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 27",
+          "text": "Say to yourself: \"I will know something about the French Revolution, or the rise of railways, or the works of John Keats.\" And during a given period, to be settled beforehand, confine yourself to your choice.",
+          "plain": "Waiting rooms, queues, and brief pauses stop being irritating the moment you use them for calm mental review.",
+          "application": "When forced to wait today, use the interval for breath grounding rather than annoyance.",
+          "strategic_prompt": "How can a five-minute delay become a welcome pocket of stillness?",
+          "micro_action": "Use your next waiting moment today for three slow breaths and posture reset.",
+          "focus_theme": "reclaiming_wasted_intervals",
+          "halt_triggers": [
+            "ANGRY",
+            "STRESSED"
+          ]
+        },
+        {
+          "id": "bennett_24h_028",
+          "day": 28,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 28",
+          "text": "And the occasional deliberate breaking of one's programme will not help to mend matters.",
+          "plain": "Ninety minutes a week of deliberate focus adds up to nearly eighty hours of transformative mastery over a year.",
+          "application": "Respect the compounding power of your small daily check-in today.",
+          "strategic_prompt": "Where will you be in twelve months if you simply protect this daily Floor Rep?",
+          "micro_action": "Log today's rep and watch your cumulative days grow.",
+          "focus_theme": "the_compound_interest_of_hours",
+          "halt_triggers": [
+            "HOPELESS",
+            "TIRED"
+          ]
+        },
+        {
+          "id": "bennett_24h_029",
+          "day": 29,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 29",
+          "text": "Nearly all the individual works in the collection are in the public domain in the United States.",
+          "plain": "When your daily thoughts and your daily schedule are aligned, the inner friction of 'living two lives' disappears.",
+          "application": "Ensure your Primary Focus Habit receives a real, visible place in today's hours.",
+          "strategic_prompt": "Does today's schedule reflect what you say matters most to you?",
+          "micro_action": "Move your Primary Focus Habit ahead of one secondary chore today.",
+          "focus_theme": "unified_mind_and_action",
+          "halt_triggers": [
+            "STRESSED",
+            "LONELY"
+          ]
+        },
+        {
+          "id": "bennett_24h_030",
+          "day": 30,
+          "citation": "Arnold Bennett, How to Live on 24 Hours a Day (1910) · Selection 30",
+          "text": "If you received the work on a physical medium, you must return the medium with your written explanation.",
+          "plain": "You cannot control the length of your years, but you are the sovereign architect of how you inhabit today's twenty-four hours.",
+          "application": "Finish today with the quiet satisfaction of having lived at least one pocket with total intention.",
+          "strategic_prompt": "Which hour today was truly yours?",
+          "micro_action": "Complete your evening reflection and bank today's victory.",
+          "focus_theme": "master_of_the_twenty_four",
+          "halt_triggers": [
+            "TIRED",
+            "HOPELESS"
+          ]
         }
       ]
     }

@@ -1,5 +1,7 @@
 package com.eight64zeros.clearstreak.ui.screens
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -41,12 +43,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eight64zeros.clearstreak.data.AffirmationStore
 import com.eight64zeros.clearstreak.data.FocusPackRepository
+import com.eight64zeros.clearstreak.data.FocusPackValidationResult
 import com.eight64zeros.clearstreak.data.HeritageStore
 import com.eight64zeros.clearstreak.data.PassageStore
 import com.eight64zeros.clearstreak.model.Affirmation
 import com.eight64zeros.clearstreak.model.BookPassage
 import com.eight64zeros.clearstreak.model.DailyVerse
 import com.eight64zeros.clearstreak.model.FocusPackEntry
+import com.eight64zeros.clearstreak.model.FocusPackMeta
 import com.eight64zeros.clearstreak.model.FocusPacks
 import com.eight64zeros.clearstreak.navigation.Screen
 import com.eight64zeros.clearstreak.ui.components.ClearStreakBottomBar
@@ -60,6 +64,7 @@ import com.eight64zeros.clearstreak.ui.theme.OIASage
 import com.eight64zeros.clearstreak.ui.theme.OIAStone
 import com.eight64zeros.clearstreak.ui.theme.OIATaupe
 import com.eight64zeros.clearstreak.ui.theme.OIAWarmWhite
+import java.io.ByteArrayOutputStream
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -73,24 +78,84 @@ fun HeritageScreen(
     onNavigate: (String) -> Unit,
     onBack: () -> Unit,
     activeFocusPackId: String = FocusPacks.STOIC_MEDITATIONS,
-    onSelectFocusPack: (String) -> Unit = {}
+    onSelectFocusPack: (String) -> Unit = {},
+    focusPackRepository: FocusPackRepository? = null
 ) {
     val context = LocalContext.current
     val heritageStore = remember { HeritageStore(context) }
     val passageStore = remember { PassageStore(context) }
     val affirmationStore = remember { AffirmationStore(context) }
-    val focusPackRepo = remember { FocusPackRepository(context, heritageStore, passageStore, affirmationStore) }
+    val focusPackRepo = remember(focusPackRepository) {
+        focusPackRepository ?: FocusPackRepository(context, heritageStore, passageStore, affirmationStore)
+    }
     val today = remember { LocalDate.now() }
     val dateFmt = remember { DateTimeFormatter.ofPattern("MMMM d") }
 
     var segment by remember { mutableStateOf(Segment.FOCUS_PACKS) }
 
     // Focus Pack state
+    var packListVersion by remember { mutableStateOf(0) }
+    var importStatusMessage by remember { mutableStateOf<String?>(null) }
+    var importStatusIsError by remember { mutableStateOf(false) }
+
+    val availablePacks = remember(packListVersion, focusPackRepo) {
+        focusPackRepo.availablePacks()
+    }
+
     var focusDate by remember { mutableStateOf(today) }
-    val dateFocusEntry = remember(activeFocusPackId, focusDate, showFaith, focusPackRepo) {
+    val dateFocusEntry = remember(activeFocusPackId, focusDate, showFaith, focusPackRepo, packListVersion) {
         focusPackRepo.entryForDate(activeFocusPackId, focusDate, showFaith)
     }
-    var randomFocusEntry by remember(activeFocusPackId) { mutableStateOf<FocusPackEntry?>(null) }
+    var randomFocusEntry by remember(activeFocusPackId, packListVersion) { mutableStateOf<FocusPackEntry?>(null) }
+
+    val importPackLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        try {
+            val maxRead = FocusPackRepository.MAX_CUSTOM_PACK_BYTES + 1
+            val bytes = context.contentResolver.openInputStream(uri)?.use { input ->
+                val buffer = ByteArrayOutputStream()
+                val chunk = ByteArray(8192)
+                var total = 0
+                while (true) {
+                    val read = input.read(chunk)
+                    if (read <= 0) break
+                    total += read
+                    if (total <= maxRead) {
+                        buffer.write(chunk, 0, read)
+                    } else {
+                        buffer.write(chunk, 0, read)
+                        break
+                    }
+                }
+                buffer.toByteArray()
+            }
+
+            if (bytes == null) {
+                importStatusIsError = true
+                importStatusMessage = "Could not read selected file."
+                return@rememberLauncherForActivityResult
+            }
+
+            when (val result = focusPackRepo.importCustomPack(bytes)) {
+                is FocusPackValidationResult.Valid -> {
+                    packListVersion++
+                    onSelectFocusPack(result.packId)
+                    importStatusIsError = false
+                    importStatusMessage =
+                        "Imported \"${result.title}\" (${result.entries.size} entries) — now active."
+                }
+                is FocusPackValidationResult.Invalid -> {
+                    importStatusIsError = true
+                    importStatusMessage = result.reason
+                }
+            }
+        } catch (e: Exception) {
+            importStatusIsError = true
+            importStatusMessage = "Import failed: ${e.message ?: "unable to read JSON file"}"
+        }
+    }
 
     // Scripture state
     var verseDate by remember { mutableStateOf(today) }
@@ -147,8 +212,23 @@ fun HeritageScreen(
 
             when (segment) {
                 Segment.FOCUS_PACKS -> FocusPacksSection(
+                    availablePacks = availablePacks,
                     activeFocusPackId = activeFocusPackId,
                     onSelectFocusPack = onSelectFocusPack,
+                    onImportCustomPack = {
+                        importPackLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))
+                    },
+                    onRemoveCustomPack = { packId ->
+                        val removedTitle = FocusPacks.metaFor(packId).title
+                        if (focusPackRepo.removeCustomPack(packId)) {
+                            packListVersion++
+                            onSelectFocusPack(FocusPacks.STOIC_MEDITATIONS)
+                            importStatusIsError = false
+                            importStatusMessage = "Removed custom pack \"$removedTitle\"."
+                        }
+                    },
+                    importStatusMessage = importStatusMessage,
+                    importStatusIsError = importStatusIsError,
                     today = today,
                     selectedDate = focusDate,
                     dateFmt = dateFmt,
@@ -192,8 +272,13 @@ fun HeritageScreen(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun FocusPacksSection(
+    availablePacks: List<FocusPackMeta>,
     activeFocusPackId: String,
     onSelectFocusPack: (String) -> Unit,
+    onImportCustomPack: () -> Unit,
+    onRemoveCustomPack: (String) -> Unit,
+    importStatusMessage: String?,
+    importStatusIsError: Boolean,
     today: LocalDate,
     selectedDate: LocalDate,
     dateFmt: DateTimeFormatter,
@@ -202,7 +287,9 @@ private fun FocusPacksSection(
     randomEntry: FocusPackEntry?,
     onRandomEntry: () -> Unit
 ) {
-    val activeMeta = FocusPacks.metaFor(activeFocusPackId)
+    val activeMeta = remember(activeFocusPackId, availablePacks) {
+        FocusPacks.metaFor(activeFocusPackId)
+    }
 
     ContentCard(
         title = "Compartmentalized Focus Packs",
@@ -213,7 +300,7 @@ private fun FocusPacksSection(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            FocusPacks.ALL.forEach { pack ->
+            availablePacks.forEach { pack ->
                 val isSelected = pack.id == activeFocusPackId
                 Surface(
                     modifier = Modifier.clickable { onSelectFocusPack(pack.id) },
@@ -241,6 +328,38 @@ private fun FocusPacksSection(
             fontWeight = FontWeight.SemiBold,
             color = OIASage
         )
+        Spacer(modifier = Modifier.height(12.dp))
+        OIAPrimaryButton(
+            text = "📥 Import Custom Focus Pack (.json)",
+            onClick = onImportCustomPack
+        )
+        if (activeMeta.isCustom) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "🗑️ Remove active custom pack (${activeMeta.title})",
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = OIACoral,
+                modifier = Modifier
+                    .clickable { onRemoveCustomPack(activeMeta.id) }
+                    .padding(vertical = 4.dp)
+            )
+        }
+        if (!importStatusMessage.isNullOrBlank()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = if (importStatusIsError) OIACoral.copy(alpha = 0.14f) else OIASage.copy(alpha = 0.14f)
+            ) {
+                Text(
+                    text = importStatusMessage,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = if (importStatusIsError) OIACoral else OIACharcoal,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                )
+            }
+        }
     }
 
     Spacer(modifier = Modifier.height(16.dp))

@@ -4,7 +4,8 @@ data class FocusPackMeta(
     val id: String,
     val title: String,
     val subtitle: String,
-    val emoji: String
+    val emoji: String,
+    val isCustom: Boolean = false
 )
 
 data class FocusPackEntry(
@@ -23,11 +24,15 @@ object FocusPacks {
     const val FRANKLIN_VIRTUES = "franklin_virtues"
     const val ARISTOTLE_ETHICS = "aristotle_ethics"
     const val JAMES_HABIT = "james_habit"
+    const val SENECA_SHORTNESS_OF_LIFE = "seneca_shortness_of_life_30day"
+    const val EPICTETUS_DISCOURSES = "epictetus_discourses_30day"
+    const val SAMUEL_SMILES_SELF_HELP = "samuel_smiles_self_help_30day"
+    const val ARNOLD_BENNETT_24_HOURS = "arnold_bennett_24_hours_30day"
     const val KJV_SCRIPTURE = "kjv_scripture"
     const val RECOVERY_REFLECTIONS = "recovery_reflections"
     const val DAILY_AFFIRMATIONS = "daily_affirmations"
 
-    val ALL: List<FocusPackMeta> = listOf(
+    val BUILT_IN: List<FocusPackMeta> = listOf(
         FocusPackMeta(
             id = STOIC_MEDITATIONS,
             title = "Marcus Aurelius — Meditations",
@@ -59,6 +64,30 @@ object FocusPacks {
             emoji = "🧠"
         ),
         FocusPackMeta(
+            id = SENECA_SHORTNESS_OF_LIFE,
+            title = "Seneca — On the Shortness of Life",
+            subtitle = "Time Sovereignty & Reclaiming Your Hours (1889 PD · Vol. 2)",
+            emoji = "⏳"
+        ),
+        FocusPackMeta(
+            id = EPICTETUS_DISCOURSES,
+            title = "Epictetus — The Discourses",
+            subtitle = "Dichotomy of Control & Inner Assent (1877 PD · Vol. 2)",
+            emoji = "🛡️"
+        ),
+        FocusPackMeta(
+            id = SAMUEL_SMILES_SELF_HELP,
+            title = "Samuel Smiles — Self-Help",
+            subtitle = "Compounding Industry & Perseverance (1859 PD · Vol. 2)",
+            emoji = "🔨"
+        ),
+        FocusPackMeta(
+            id = ARNOLD_BENNETT_24_HOURS,
+            title = "Arnold Bennett — 24 Hours a Day",
+            subtitle = "Protected Time-Pockets & Anti-Burnout (1910 PD · Vol. 2)",
+            emoji = "🕰️"
+        ),
+        FocusPackMeta(
             id = KJV_SCRIPTURE,
             title = "King James Scripture — 365 Daily Verses",
             subtitle = "Timeless 1611 KJV Wisdom & Strength",
@@ -78,6 +107,43 @@ object FocusPacks {
         )
     )
 
-    fun metaFor(packId: String): FocusPackMeta =
-        ALL.firstOrNull { it.id == packId } ?: ALL.first()
+    private val customPackRegistry = LinkedHashMap<String, FocusPackMeta>()
+
+    val ALL: List<FocusPackMeta>
+        get() = synchronized(customPackRegistry) {
+            BUILT_IN + customPackRegistry.values.filter { custom ->
+                BUILT_IN.none { it.id == custom.id }
+            }
+        }
+
+    fun availablePacks(): List<FocusPackMeta> = ALL
+
+    fun customPacks(): List<FocusPackMeta> = synchronized(customPackRegistry) {
+        customPackRegistry.values.toList()
+    }
+
+    fun registerCustomPack(meta: FocusPackMeta) {
+        synchronized(customPackRegistry) {
+            customPackRegistry[meta.id] = meta.copy(isCustom = true)
+        }
+    }
+
+    fun unregisterCustomPack(packId: String) {
+        synchronized(customPackRegistry) {
+            customPackRegistry.remove(packId)
+        }
+    }
+
+    fun clearCustomPacks() {
+        synchronized(customPackRegistry) {
+            customPackRegistry.clear()
+        }
+    }
+
+    fun metaFor(packId: String): FocusPackMeta = synchronized(customPackRegistry) {
+        customPackRegistry[packId]
+            ?: BUILT_IN.firstOrNull { it.id == packId }
+            ?: BUILT_IN.first()
+    }
 }
+
