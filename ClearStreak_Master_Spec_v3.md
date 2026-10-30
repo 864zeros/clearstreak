@@ -5,7 +5,7 @@
 - **Tagline:** *The Private Habit, Streak & Journey Companion — Data Over Shame.*
 - **Core Doctrine:** *Any Journey. Days Doing or Days Not Doing. 100% On-Device. Zero Cloud. Zero Shame.*
 - **Authority Order:** `ClearStreak_Master_Spec_v3.md` (this document) supersedes and unifies `ClearStreak_Blueprint_v1.md`, `PROGRESS.md`, and `ClearStreak_Spec_v2.md`.
-- **Last Updated:** 2026-10-16
+- **Last Updated:** 2026-10-30
 
 ---
 
@@ -80,11 +80,15 @@ When authoring voiceovers (Edge-TTS `en-US-AvaNeural`, NotebookLM audio overview
   3. **Pattern Echo:** 4-quadrant sequence memory recall.
   - *Guardrails:* Zero gambling mechanics, instant exit/auto-save, gentle 3-minute check-in prompt.
 
-### 3.5 Offline "Reflect" Vault (`Brick 6`)
-- **100% In-Memory JSON (Zero DB/Network Latency):**
-  - **365 KJV Scripture Verses** (`daily_verses.json`), emotion-tagged by HALT state, with Verse-of-the-Day and full calendar picker.
-  - **130 Original Reflection Passages** (`passages.json`), browsable by theme or random draw.
-  - **100 Original Daily Affirmations** (`affirmations_recovery.json` + `affirmations_spiritual.json`), opt-in via Settings.
+### 3.5 Offline "Reflect" Vault & Compartmentalized Focus Packs (`Brick 6`)
+- **100% In-Memory & Local JSON (Zero DB/Network Latency):**
+  - **12 Built-In Compartmentalized Focus Packs** (`focus_packs.json` + `assets/focus_packs/*.json`, loaded by `FocusPackRepository.kt`):
+    - *Volume 1 Classical & Core Packs:* Marcus Aurelius (*Meditations*), Epictetus & Seneca (*Sovereign Will*), Benjamin Franklin (*The 13 Virtues*), Aristotle (*Excellence by Repetition*), William James (*The Science of Habit*).
+    - *Volume 2 30-Day Deep-Dive Packs:* Seneca (*On the Shortness of Life*, 30 days), Epictetus (*The Discourses*, 30 days), Samuel Smiles (*Self-Help*, 30 days), Arnold Bennett (*24 Hours a Day*, 30 days).
+    - *Dedicated Libraries:* **365 KJV Scripture Verses** (`daily_verses.json`), **130 Original Reflection Passages** (`passages.json`), and **100 Original Daily Affirmations** (`affirmations_recovery.json` + `affirmations_spiritual.json`).
+  - **Zero-Permission Custom `.json` Focus Pack Importer (`ACTION_OPEN_DOCUMENT`):**
+    - Users can import external `.json` Focus Packs via Android's system document picker (`ActivityResultContracts.OpenDocument` in `HeritageScreen.kt`) with zero storage permissions required.
+    - `FocusPackRepository.validateFocusPackJson()` enforces a 512 KB file size limit, 1–366 entry bounds, built-in ID collision rejection, and XSS/HTML/script tag sanitization before persisting to `filesDir/custom_focus_packs/`.
 
 ### 3.6 Always-Free Crisis & Support Rescue Hub (`Brick 7`)
 - One-tap offline `tel://` dialers for **Trusted Ally / Sponsor**, **Support Person**, **988 Lifeline**, **SAMHSA**, **Crisis Text Line**, and specialized helplines, plus `geo:` local support meeting finder and 2-second safe-exit confirmation.
